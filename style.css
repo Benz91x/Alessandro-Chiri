@@ -1,0 +1,20 @@
+:root {
+    --primary-color: #1d1d1f;
+    --secondary-color: #86868b;
+    --accent-color: #0071e3;
+}
+
+/* ... (incolla qui tutto il CSS della risposta precedente) ... */
+
+/* Aggiungi questi stili per migliorare l'accessibilità */
+:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-title, .content-section {
+        animation: none !important;
+        transition: none !important;
+    }
+}
