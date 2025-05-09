@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alessandro Chiri - CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f7; /* Apple's light grey background */
+            color: #1d1d1f; /* Apple's primary text color */
+            overscroll-behavior-y: none; /* Prevents pull-to-refresh issues with animations */
+        }
+
+        .apple-header {
+            background-color: rgba(255, 255, 255, 0.7); /* Translucent white */
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .apple-card {
+            background-color: #ffffff;
+            border-radius: 18px; /* Apple's card radius */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .apple-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07), 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem; /* Larger section titles */
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .job-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0071e3; /* Apple blue for emphasis */
+        }
+
+        .company-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .date-location {
+            font-size: 0.9rem;
+            color: #6e6e73; /* Apple's secondary text color */
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: #e9ecef; /* Light grey for tags */
+            color: #333;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px; /* More rounded tags */
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .skill-tag:hover {
+            background-color: #0071e3;
+            color: white;
+        }
+
+        .apple-button {
+            background-color: #0071e3; /* Apple blue */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 980px; /* Pill shape */
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .apple-button:hover {
+            background-color: #0077ed;
+            transform: scale(1.05);
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+       
+
+        /* For finer control over list items in experience */
+        .experience-list li {
+             padding-left: 25px; /* More padding for experience details */
+             margin-bottom: 0.75rem;
+        }
+
+        
+        .profile-image {
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%; /* Circular image */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            object-position: center; /* Explicitly centers the image content (face) */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5rem; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            .subsection-title {
+                font-size: 1.25rem;
+            }
+            .apple-card {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="apple-header sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-800">Curriculum Vitae</div>
+            </nav>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-6 py-12">
+
+        <section id="hero" class="text-center py-16 md:py-24 scroll-animate">
+            <img src="Chiri_Alessandro.jpeg" alt="Foto di Alessandro Chiri" class="profile-image">
+            
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">Alessandro Chiri</h1>
+            <p class="text-2xl md:text-3xl text-gray-700 mb-2">Consultant presso Deloitte</p>
+            <p class="text-lg text-gray-600">Bari, Italia</p>
+            <div class="mt-8">
+                <a href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" class="apple-button mr-2">LinkedIn</a>
+                <a href="mailto:alexch@hotmail.it" class="apple-button bg-gray-600 hover:bg-gray-700">Email</a>
+            </div>
+        </section>
+
+        <section id="experience" class="py-12 md:py-16">
+            <h2 class="section-title scroll-animate">Esperienze Professionali</h2>
+            <div class="space-y-10">
+                <div class="apple-card p-6 md:p-8 scroll-animate">
+                    <h3 class="job-title">Consultant</h3>
+                    <p class="company-name">Deloitte</p>
+                    <p class="date-location">Ottobre 2024 – Presente | Bari, Italia</p>
+                    <p class="text-gray-700 mt-2">
+                        Attualmente lavoro come Consultant nel progetto xTech NextHub, un'iniziativa strategica per potenziare il trasferimento tecnologico e l'open innovation. Il mio ruolo si concentra sulla gestione e l'evoluzione di una piattaforma avanzata che utilizza algoritmi di intelligenza artificiale e un database in costante aggiornamento per lo scouting e il matchmaking di soluzioni innovative. Sono attivamente coinvolto in diverse fasi del progetto, contribuendo alla gestione operativa e allo sviluppo continuo della piattaforma. Partecipo alle attività di scouting per identificare soluzioni innovative e facilito il processo di matchmaking tra le esigenze di business dei clienti e le soluzioni presenti nel database, utilizzando e perfezionando il Recommendation Engine basato su IA. Supporto la gestione delle Iniziative all'interno della piattaforma, collaboro alla produzione di deliverables come gli One-Pagers in vari formati, ed estraggo dati per la Business Intelligence. La mia attività include l'interazione costante con team interni e clienti esterni per comprendere i loro bisogni di innovazione e presentare i risultati del progetto, nonché l'analisi e la validazione delle soluzioni raccomandate dalla piattaforma e il monitoraggio continuo per identificare aree di ottimizzazione dei processi e della piattaforma stessa.
+                    </p>
+                </div>
+
+                <div class="apple-card p-6 md:p-8 scroll-animate">
+                    <h3 class="job-title">Application Specialist Support</h3>
+                    <p class="company-name">Experis Srl</p>
+                    <p class="date-location">Ottobre 2019 – Settembre 2024 (4 anni e 6 mesi)</p>
+                    <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2 experience-list">
+                       <li>Configurazione e personalizzazione dei software della piattaforma custom ("Spring Q-Cent" in ENEL per azienda utilizzatrice Micro Focus).</li>
+                        <li>Assistenza diretta agli utenti finali, risposta alle domande e risoluzione dei problemi tecnici legati alle applicazioni aziendali.</li>
+                        <li>Monitoraggio e mantenimento dei software ADM Micro Focus (funzionamento, sicurezza, supporto tecnico e formazione agli utenti).</li>
+                        <li>Analisi e raccomandazione di aggiornamenti, test e validazione dei software prima della distribuzione.</li>
+                        <li>Creazione e aggiornamento della documentazione tecnica, inclusa la stesura di guide utente, la documentazione dei problemi risolti e la condivisione di best practice.</li>
+                    </ul>
+                </div>
+
+                <div class="apple-card p-6 md:p-8 scroll-animate">
+                    <h3 class="job-title">Business Analyst & Analista Funzionale</h3>
+                    <p class="company-name">Accenture S.p.A.</p>
+                    <p class="date-location">Marzo 2018 – Agosto 2019 (1 anno e 6 mesi)</p>
+                    <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2 experience-list">
+                        <li>Redazione di requisiti funzionali in MS Word.</li>
+                        <li>Supporto Ongoing degli applicativi rilasciati.</li>
+                        <li>Lavoro in metodologia Agile.</li>
+                        <li>Analisi delle esigenze degli utenti e raccolta dati per produzione di requisiti funzionali per i sistemi informativi.</li>
+                        <li>Coordinamento con sviluppatori, project manager e subject matter expert per risolvere problemi complessi e supportare l'implementazione di nuove soluzioni.</li>
+                        <li>Analisi KPI temporali e di qualità.</li>
+                        <li>Analisi e progettazione dei sistemi informativi.</li>
+                        <li>Gestione delle relazioni con stakeholders.</li>
+                        <li>Rappresentazione grafica e funzionale dei processi aziendali (flowchart, Gantt).</li>
+                        <li>Utilizzo di tecnologie IT (MS Office, VBA, Excel).</li>
+                        <li>Analisi dei ticket e degli stati di avanzamento degli ordini su DB Oracle.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="technical-skills" class="py-12 md:py-16">
+            <h2 class="section-title scroll-animate">Competenze Tecniche</h2>
+            <div class="apple-card p-6 md:p-8 scroll-animate">
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <span class="skill-tag">UFT One Unified Functional Testing</span>
+                    <span class="skill-tag">Mobile Center</span>
+                    <span class="skill-tag">LoadRunner Professional</span>
+                    <span class="skill-tag">VBA (Excel Macros)</span>
+                    <span class="skill-tag">Tabelle Pivot (Excel)</span>
+                    <span class="skill-tag">MS PowerPoint</span>
+                    <span class="skill-tag">Jira</span>
+                    <span class="skill-tag">Confluence</span>
+                    <span class="skill-tag">Python 3.0</span>
+                    <span class="skill-tag">SQL (Base)</span>
+                    <span class="skill-tag">HTML (Base)</span>
+                    <span class="skill-tag">Autocad 2D</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-12 md:py-16">
+            <h2 class="section-title scroll-animate">Istruzione</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="apple-card p-6 md:p-8 scroll-animate">
+                    <h3 class="subsection-title">Laurea in Ingegneria Industriale (L-09)</h3>
+                    <p class="company-name">Università del Salento, Facoltà di Ingegneria</p>
+                </div>
+                <div class="apple-card p-6 md:p-8 scroll-animate">
+                    <h3 class="subsection-title">Diploma di Perito Industriale Capotecnico</h3>
+                    <p class="company-name">Specializzazione Meccanica, I.T.I.S. "G.Giorgi"</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="py-12 md:py-16">
+            <h2 class="section-title scroll-animate">Corsi e Certificazioni</h2>
+            <div class="apple-card p-6 md:p-8 scroll-animate">
+                <ul class="custom-list space-y-2 text-gray-700">
+                    <li>MC2-Mobile Center Essentials v2.x Certified Professional Exam</li>
+                    <li>ALM120-ALM/QC Certified Professional Exam 15</li>
+                    <li>LoadRunner Professional 2020 Certified Professional Exam</li>
+                    <li>UFT One v15.x Certified Professional Exam</li>
+                    <li>Alfabetizzazione digitale per pc</li>
+                    <li>Controllo di gestione con Excel</li>
+                    <li>Project management con Excel</li>
+                    <li>Ms Office Word - Excel - Base</li>
+                    <li>Data entry e Data analyst</li>
+                    <li>Metodologia di lavoro agile e strumenti di collaborazione in rete</li>
+                    <li>Sistemista informatico junior</li>
+                    <li>Disegnatore e programmatore industriale</li>
+                    <li>Elementi di Power BI</li>
+                    <li>Elementi di Cyber Security</li>
+                    <li>Metodologia Agile</li>
+                    <li>Public speaking e digital writing</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="soft-skills" class="py-12 md:py-16">
+            <h2 class="section-title scroll-animate">Competenze Trasversali</h2>
+            <div class="apple-card p-6 md:p-8 scroll-animate">
+                 <div class="flex flex-wrap gap-3 justify-center">
+                    <span class="skill-tag">Lavoro in autonomia e in squadra</span>
+                    <span class="skill-tag">Etica del lavoro</span>
+                    <span class="skill-tag">Precisione</span>
+                    <span class="skill-tag">Adattabilità</span>
+                    <span class="skill-tag">Gestione dello stress</span>
+                    <span class="skill-tag">Empatia</span>
+                    <span class="skill-tag">Pianificazione</span>
+                    <span class="skill-tag">Problem solving</span>
+                    <span class="skill-tag">Decision making logico</span>
+                    <span class="skill-tag">Gestione responsabile delle informazioni</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="languages" class="py-12 md:py-16">
+            <h2 class="section-title scroll-animate">Competenze Linguistiche</h2>
+            <div class="apple-card p-6 md:p-8 text-center scroll-animate">
+                <p class="text-xl font-medium text-gray-800">Inglese: <span class="text-blue-600 font-semibold">B2</span> (EF-S.E.T.)</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-gray-200 bg-gray-50">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+            <p class="mb-2">Alessandro Chiri</p>
+            <p class="mb-2">
+                <a href="mailto:alexch@hotmail.it" class="hover:text-blue-600">alexch@hotmail.it</a> | 
+                <a href="tel:+393479289149" class="hover:text-blue-600">347 9289149</a>
+            </p>
+            <p class="text-sm">&copy; <span id="currentYear"></span> Alessandro Chiri. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for scroll animations
+        const scrollElements = document.querySelectorAll('.scroll-animate');
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('is-visible');
+        };
+
+        const hideScrollElement = (element) => {
+            element.classList.remove('is-visible');
+        }
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) { // Element is 1.25% from bottom of viewport
+                    displayScrollElement(el);
+                }
+                // Optional: To re-trigger animation if element scrolls out of view and back
+                // else {
+                //     hideScrollElement(el);
+                // }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+        // Trigger on load for elements already in view
+        handleScrollAnimation();
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
