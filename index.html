@@ -9,13 +9,13 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f5f7; /* Apple's light grey background */
-            color: #1d1d1f; /* Apple's primary text color */
-            overscroll-behavior-y: none; /* Prevents pull-to-refresh issues with animations */
+            background-color: #f5f5f7; /* Sfondo grigio chiaro Apple */
+            color: #1d1d1f; /* Colore testo primario Apple */
+            overscroll-behavior-y: none; /* Previene problemi di pull-to-refresh con animazioni */
         }
 
         .apple-header {
-            background-color: rgba(255, 255, 255, 0.7); /* Translucent white */
+            background-color: rgba(255, 255, 255, 0.7); /* Bianco traslucido */
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
 
         .apple-card {
             background-color: #ffffff;
-            border-radius: 18px; /* Apple's card radius */
+            border-radius: 18px; /* Raggio card Apple */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0,0,0,0.08);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
@@ -34,7 +34,7 @@
         }
 
         .section-title {
-            font-size: 2.5rem; /* Larger section titles */
+            font-size: 2.5rem; /* Titoli sezione più grandi */
             font-weight: 700;
             color: #1d1d1f;
             margin-bottom: 1.5rem;
@@ -52,7 +52,7 @@
         .job-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #0071e3; /* Apple blue for emphasis */
+            color: #0071e3; /* Blu Apple per enfasi */
         }
 
         .company-name {
@@ -63,15 +63,15 @@
         
         .date-location {
             font-size: 0.9rem;
-            color: #6e6e73; /* Apple's secondary text color */
+            color: #6e6e73; /* Colore testo secondario Apple */
             margin-bottom: 0.5rem;
         }
 
         .skill-tag {
-            background-color: #e9ecef; /* Light grey for tags */
+            background-color: #e9ecef; /* Grigio chiaro per i tag */
             color: #333;
             padding: 0.3rem 0.8rem;
-            border-radius: 12px; /* More rounded tags */
+            border-radius: 12px; /* Tag più arrotondati */
             font-size: 0.85rem;
             font-weight: 500;
             transition: background-color 0.2s ease, color 0.2s ease;
@@ -82,10 +82,10 @@
         }
 
         .apple-button {
-            background-color: #0071e3; /* Apple blue */
+            background-color: #0071e3; /* Blu Apple */
             color: white;
             padding: 0.75rem 1.5rem;
-            border-radius: 980px; /* Pill shape */
+            border-radius: 980px; /* Forma a pillola */
             font-weight: 500;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -96,7 +96,7 @@
             transform: scale(1.05);
         }
 
-        /* Scroll animations */
+        /* Animazioni scroll */
         .scroll-animate {
             opacity: 0;
             transform: translateY(30px);
@@ -108,29 +108,79 @@
             transform: translateY(0);
         }
 
-
-       
-
-        /* For finer control over list items in experience */
         .experience-list li {
-             padding-left: 25px; /* More padding for experience details */
+             padding-left: 25px; 
              margin-bottom: 0.75rem;
         }
-
         
         .profile-image {
             width: 150px; 
             height: 150px; 
-            border-radius: 50%; /* Circular image */
-            object-fit: cover; /* Ensures the image covers the area without distortion */
-            object-position: center; /* Explicitly centers the image content (face) */
+            border-radius: 50%; 
+            object-fit: cover; 
+            object-position: center; 
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 1.5rem; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
         }
 
-        /* Responsive adjustments */
+        /* Stili Selettore Lingua */
+        .language-switch-track {
+            width: 64px; 
+            height: 32px; 
+            background-color: #e9e9eb; 
+            border-radius: 9999px;
+            padding: 4px; 
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            user-select: none; 
+        }
+
+        .language-switch-track.active { 
+            background-color: #34c759; /* Verde Apple per stato "on" */
+        }
+
+        .language-switch-indicator { /* Questo è il cerchio bianco 24x24px */
+            width: 24px;  
+            height: 24px; 
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.1);
+            transform: translateX(0px);
+            transition: transform 0.3s ease-in-out;
+            display: flex; /* Centra .flag-icon al suo interno */
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Assicura che nulla sporga dal cerchio */
+        }
+
+        .language-switch-indicator.active { 
+            transform: translateX(32px); 
+        }
+
+        .language-switch-indicator .flag-icon { /* Contenitore 20x20px per SVG bandiera */
+            width: 20px; 
+            height: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        
+        /* NUOVA REGOLA CSS per assicurare che .hidden funzioni sulle icone bandiera */
+        .language-switch-indicator .flag-icon.hidden {
+            display: none !important;
+        }
+        
+        .language-switch-indicator .flag-icon svg {
+            display: block; /* Rimuove eventuale spazio extra sotto l'SVG */
+            max-width: 100%; /* Limita la larghezza al contenitore (20px) */
+            max-height: 100%; /* Limita l'altezza al contenitore (20px) */
+        }
+        
+        /* Adattamenti responsive */
         @media (max-width: 768px) {
             .section-title {
                 font-size: 2rem;
@@ -146,6 +196,18 @@
                 width: 120px;
                 height: 120px;
             }
+            .apple-header nav { 
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .header-title { 
+                flex-shrink: 1;
+                margin-right: 1rem; 
+            }
+            #language-switcher-container {
+                margin-top: 0.5rem; 
+                margin-left: auto; 
+            }
         }
     </style>
 </head>
@@ -153,167 +215,185 @@
 
     <header class="apple-header sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-gray-800">Curriculum Vitae</div>
-            </nav>
+            <div data-lang-it="Curriculum Vitae" data-lang-en="Resume" class="text-2xl font-bold text-gray-800 header-title">Curriculum Vitae</div>
+            <div id="language-switcher-container" class="flex items-center">
+                <div id="language-switcher" class="language-switch-track" role="switch" aria-checked="false" tabindex="0" aria-labelledby="language-switcher-label">
+                    <div id="language-toggle-indicator" class="language-switch-indicator">
+                        <span id="flag-it-indicator" class="flag-icon"> <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="200" fill="#009246"/><rect x="100" width="100" height="200" fill="#fff"/><rect x="200" width="100" height="200" fill="#ce2b37"/></svg>
+                        </span>
+                        <span id="flag-gb-indicator" class="flag-icon hidden"> <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
+                        </span>
+                    </div>
+                </div>
+                <span id="language-switcher-label" class="sr-only" data-lang-it="Seleziona lingua: Italiano" data-lang-en="Select language: English">Seleziona lingua: Italiano</span>
+            </div>
+        </nav>
     </header>
 
     <main class="container mx-auto px-4 md:px-6 py-12">
 
         <section id="hero" class="text-center py-16 md:py-24 scroll-animate">
-            <img src="Chiri_Alessandro.jpeg" alt="Foto di Alessandro Chiri" class="profile-image">
+            <img src="Chiri_Alessandro.jpeg" alt="Foto di Alessandro Chiri" class="profile-image" data-lang-alt-it="Foto di Alessandro Chiri" data-lang-alt-en="Photo of Alessandro Chiri">
             
-            <h1 class="text-5xl md:text-6xl font-bold mb-4">Alessandro Chiri</h1>
-            <p class="text-2xl md:text-3xl text-gray-700 mb-2">Consultant presso Deloitte</p>
-            <p class="text-lg text-gray-600">Bari, Italia</p>
+            <h1 class="text-5xl md:text-6xl font-bold mb-4" data-lang-it="Alessandro Chiri" data-lang-en="Alessandro Chiri">Alessandro Chiri</h1>
+            <p class="text-2xl md:text-3xl text-gray-700 mb-2" data-lang-it="Consultant presso Deloitte" data-lang-en="Consultant at Deloitte">Consultant presso Deloitte</p>
+            <p class="text-lg text-gray-600" data-lang-it="Bari, Italia" data-lang-en="Bari, Italy">Bari, Italia</p>
             <div class="mt-8">
-                <a href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" class="apple-button mr-2">LinkedIn</a>
-                <a href="mailto:alexch@hotmail.it" class="apple-button bg-gray-600 hover:bg-gray-700">Email</a>
+                <a href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" class="apple-button mr-2" data-lang-it="LinkedIn" data-lang-en="LinkedIn">LinkedIn</a>
+                <a href="mailto:alexch@hotmail.it" class="apple-button bg-gray-600 hover:bg-gray-700" data-lang-it="Email" data-lang-en="Email">Email</a>
             </div>
         </section>
 
         <section id="experience" class="py-12 md:py-16">
-            <h2 class="section-title scroll-animate">Esperienze Professionali</h2>
+            <h2 class="section-title scroll-animate" data-lang-it="Esperienze Professionali" data-lang-en="Work Experience">Esperienze Professionali</h2>
             <div class="space-y-10">
                 <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="job-title">Consultant</h3>
-                    <p class="company-name">Deloitte</p>
-                    <p class="date-location">Ottobre 2024 – Presente | Bari, Italia</p>
-                    <p class="text-gray-700 mt-2">
+                    <h3 class="job-title" data-lang-it="Consultant" data-lang-en="Consultant">Consultant</h3>
+                    <p class="company-name" data-lang-it="Deloitte" data-lang-en="Deloitte">Deloitte</p>
+                    <p class="date-location" data-lang-it="Ottobre 2024 – Presente | Bari, Italia" data-lang-en="October 2024 – Present | Bari, Italy">Ottobre 2024 – Presente | Bari, Italia</p>
+                    <p class="text-gray-700 mt-2" 
+                       data-lang-it="Attualmente lavoro come Consultant nel progetto xTech NextHub, un'iniziativa strategica per potenziare il trasferimento tecnologico e l'open innovation. Il mio ruolo si concentra sulla gestione e l'evoluzione di una piattaforma avanzata che utilizza algoritmi di intelligenza artificiale e un database in costante aggiornamento per lo scouting e il matchmaking di soluzioni innovative. Sono attivamente coinvolto in diverse fasi del progetto, contribuendo alla gestione operativa e allo sviluppo continuo della piattaforma. Partecipo alle attività di scouting per identificare soluzioni innovative e facilito il processo di matchmaking tra le esigenze di business dei clienti e le soluzioni presenti nel database, utilizzando e perfezionando il Recommendation Engine basato su IA. Supporto la gestione delle Iniziative all'interno della piattaforma, collaboro alla produzione di deliverables come gli One-Pagers in vari formati, ed estraggo dati per la Business Intelligence. La mia attività include l'interazione costante con team interni e clienti esterni per comprendere i loro bisogni di innovazione e presentare i risultati del progetto, nonché l'analisi e la validazione delle soluzioni raccomandate dalla piattaforma e il monitoraggio continuo per identificare aree di ottimizzazione dei processi e della piattaforma stessa."
+                       data-lang-en="I currently work as a Consultant on the xTech NextHub project, a strategic initiative to enhance technology transfer and open innovation. My role focuses on the management and evolution of an advanced platform that uses artificial intelligence algorithms and a constantly updated database for scouting and matchmaking innovative solutions. I am actively involved in various phases of the project, contributing to operational management and continuous platform development. I participate in scouting activities to identify innovative solutions and facilitate the matchmaking process between clients' business needs and the solutions in the database, using and refining the AI-based Recommendation Engine. I support the management of Initiatives within the platform, collaborate on the production of deliverables such as One-Pagers in various formats, and extract data for Business Intelligence. My activity includes constant interaction with internal teams and external clients to understand their innovation needs and present project results, as well as the analysis and validation of solutions recommended by the platform and continuous monitoring to identify areas for process and platform optimization.">
                         Attualmente lavoro come Consultant nel progetto xTech NextHub, un'iniziativa strategica per potenziare il trasferimento tecnologico e l'open innovation. Il mio ruolo si concentra sulla gestione e l'evoluzione di una piattaforma avanzata che utilizza algoritmi di intelligenza artificiale e un database in costante aggiornamento per lo scouting e il matchmaking di soluzioni innovative. Sono attivamente coinvolto in diverse fasi del progetto, contribuendo alla gestione operativa e allo sviluppo continuo della piattaforma. Partecipo alle attività di scouting per identificare soluzioni innovative e facilito il processo di matchmaking tra le esigenze di business dei clienti e le soluzioni presenti nel database, utilizzando e perfezionando il Recommendation Engine basato su IA. Supporto la gestione delle Iniziative all'interno della piattaforma, collaboro alla produzione di deliverables come gli One-Pagers in vari formati, ed estraggo dati per la Business Intelligence. La mia attività include l'interazione costante con team interni e clienti esterni per comprendere i loro bisogni di innovazione e presentare i risultati del progetto, nonché l'analisi e la validazione delle soluzioni raccomandate dalla piattaforma e il monitoraggio continuo per identificare aree di ottimizzazione dei processi e della piattaforma stessa.
                     </p>
                 </div>
 
                 <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="job-title">Application Specialist Support</h3>
-                    <p class="company-name">Experis Srl</p>
-                    <p class="date-location">Ottobre 2019 – Settembre 2024 (4 anni e 6 mesi)</p>
+                    <h3 class="job-title" data-lang-it="Application Specialist Support" data-lang-en="Application Specialist Support">Application Specialist Support</h3>
+                    <p class="company-name" data-lang-it="Experis Srl" data-lang-en="Experis Srl">Experis Srl</p>
+                    <p class="date-location" data-lang-it="Ottobre 2019 – Settembre 2024 (4 anni e 6 mesi)" data-lang-en="October 2019 – September 2024 (4 years and 6 months)">Ottobre 2019 – Settembre 2024 (4 anni e 6 mesi)</p>
                     <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2 experience-list">
-                       <li>Configurazione e personalizzazione dei software della piattaforma custom ("Spring Q-Cent" in ENEL per azienda utilizzatrice Micro Focus).</li>
-                        <li>Assistenza diretta agli utenti finali, risposta alle domande e risoluzione dei problemi tecnici legati alle applicazioni aziendali.</li>
-                        <li>Monitoraggio e mantenimento dei software ADM Micro Focus (funzionamento, sicurezza, supporto tecnico e formazione agli utenti).</li>
-                        <li>Analisi e raccomandazione di aggiornamenti, test e validazione dei software prima della distribuzione.</li>
-                        <li>Creazione e aggiornamento della documentazione tecnica, inclusa la stesura di guide utente, la documentazione dei problemi risolti e la condivisione di best practice.</li>
+                       <li data-lang-it="Configurazione e personalizzazione dei software della piattaforma custom (&quot;Spring Q-Cent&quot; in ENEL per azienda utilizzatrice Micro Focus)." data-lang-en="Configuration and customization of custom platform software (&quot;Spring Q-Cent&quot; in ENEL for Micro Focus user company).">Configurazione e personalizzazione dei software della piattaforma custom ("Spring Q-Cent" in ENEL per azienda utilizzatrice Micro Focus).</li>
+                        <li data-lang-it="Assistenza diretta agli utenti finali, risposta alle domande e risoluzione dei problemi tecnici legati alle applicazioni aziendali." data-lang-en="Direct assistance to end-users, answering questions and resolving technical problems related to business applications.">Assistenza diretta agli utenti finali, risposta alle domande e risoluzione dei problemi tecnici legati alle applicazioni aziendali.</li>
+                        <li data-lang-it="Monitoraggio e mantenimento dei software ADM Micro Focus (funzionamento, sicurezza, supporto tecnico e formazione agli utenti)." data-lang-en="Monitoring and maintenance of ADM Micro Focus software (operation, security, technical support, and user training).">Monitoraggio e mantenimento dei software ADM Micro Focus (funzionamento, sicurezza, supporto tecnico e formazione agli utenti).</li>
+                        <li data-lang-it="Analisi e raccomandazione di aggiornamenti, test e validazione dei software prima della distribuzione." data-lang-en="Analysis and recommendation of updates, testing, and validation of software before distribution.">Analisi e raccomandazione di aggiornamenti, test e validazione dei software prima della distribuzione.</li>
+                        <li data-lang-it="Creazione e aggiornamento della documentazione tecnica, inclusa la stesura di guide utente, la documentazione dei problemi risolti e la condivisione di best practice." data-lang-en="Creation and updating of technical documentation, including writing user guides, documenting resolved issues, and sharing best practices.">Creazione e aggiornamento della documentazione tecnica, inclusa la stesura di guide utente, la documentazione dei problemi risolti e la condivisione di best practice.</li>
                     </ul>
                 </div>
 
                 <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="job-title">Business Analyst & Analista Funzionale</h3>
-                    <p class="company-name">Accenture S.p.A.</p>
-                    <p class="date-location">Marzo 2018 – Agosto 2019 (1 anno e 6 mesi)</p>
+                    <h3 class="job-title" data-lang-it="Business Analyst & Analista Funzionale" data-lang-en="Business Analyst & Functional Analyst">Business Analyst & Analista Funzionale</h3>
+                    <p class="company-name" data-lang-it="Accenture S.p.A." data-lang-en="Accenture S.p.A.">Accenture S.p.A.</p>
+                    <p class="date-location" data-lang-it="Marzo 2018 – Agosto 2019 (1 anno e 6 mesi)" data-lang-en="March 2018 – August 2019 (1 year and 6 months)">Marzo 2018 – Agosto 2019 (1 anno e 6 mesi)</p>
                     <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2 experience-list">
-                        <li>Redazione di requisiti funzionali in MS Word.</li>
-                        <li>Supporto Ongoing degli applicativi rilasciati.</li>
-                        <li>Lavoro in metodologia Agile.</li>
-                        <li>Analisi delle esigenze degli utenti e raccolta dati per produzione di requisiti funzionali per i sistemi informativi.</li>
-                        <li>Coordinamento con sviluppatori, project manager e subject matter expert per risolvere problemi complessi e supportare l'implementazione di nuove soluzioni.</li>
-                        <li>Analisi KPI temporali e di qualità.</li>
-                        <li>Analisi e progettazione dei sistemi informativi.</li>
-                        <li>Gestione delle relazioni con stakeholders.</li>
-                        <li>Rappresentazione grafica e funzionale dei processi aziendali (flowchart, Gantt).</li>
-                        <li>Utilizzo di tecnologie IT (MS Office, VBA, Excel).</li>
-                        <li>Analisi dei ticket e degli stati di avanzamento degli ordini su DB Oracle.</li>
+                        <li data-lang-it="Redazione di requisiti funzionali in MS Word." data-lang-en="Drafting functional requirements in MS Word.">Redazione di requisiti funzionali in MS Word.</li>
+                        <li data-lang-it="Supporto Ongoing degli applicativi rilasciati." data-lang-en="Ongoing support for released applications.">Supporto Ongoing degli applicativi rilasciati.</li>
+                        <li data-lang-it="Lavoro in metodologia Agile." data-lang-en="Working in Agile methodology.">Lavoro in metodologia Agile.</li>
+                        <li data-lang-it="Analisi delle esigenze degli utenti e raccolta dati per produzione di requisiti funzionali per i sistemi informativi." data-lang-en="Analysis of user needs and data collection for producing functional requirements for information systems.">Analisi delle esigenze degli utenti e raccolta dati per produzione di requisiti funzionali per i sistemi informativi.</li>
+                        <li data-lang-it="Coordinamento con sviluppatori, project manager e subject matter expert per risolvere problemi complessi e supportare l'implementazione di nuove soluzioni." data-lang-en="Coordination with developers, project managers, and subject matter experts to solve complex problems and support the implementation of new solutions.">Coordinamento con sviluppatori, project manager e subject matter expert per risolvere problemi complessi e supportare l'implementazione di nuove soluzioni.</li>
+                        <li data-lang-it="Analisi KPI temporali e di qualità." data-lang-en="Analysis of time and quality KPIs.">Analisi KPI temporali e di qualità.</li>
+                        <li data-lang-it="Analisi e progettazione dei sistemi informativi." data-lang-en="Analysis and design of information systems.">Analisi e progettazione dei sistemi informativi.</li>
+                        <li data-lang-it="Gestione delle relazioni con stakeholders." data-lang-en="Stakeholder relationship management.">Gestione delle relazioni con stakeholders.</li>
+                        <li data-lang-it="Rappresentazione grafica e funzionale dei processi aziendali (flowchart, Gantt)." data-lang-en="Graphical and functional representation of business processes (flowchart, Gantt).">Rappresentazione grafica e funzionale dei processi aziendali (flowchart, Gantt).</li>
+                        <li data-lang-it="Utilizzo di tecnologie IT (MS Office, VBA, Excel)." data-lang-en="Use of IT technologies (MS Office, VBA, Excel).">Utilizzo di tecnologie IT (MS Office, VBA, Excel).</li>
+                        <li data-lang-it="Analisi dei ticket e degli stati di avanzamento degli ordini su DB Oracle." data-lang-en="Analysis of tickets and order progress statuses on Oracle DB.">Analisi dei ticket e degli stati di avanzamento degli ordini su DB Oracle.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="technical-skills" class="py-12 md:py-16">
-            <h2 class="section-title scroll-animate">Competenze Tecniche</h2>
+            <h2 class="section-title scroll-animate" data-lang-it="Competenze Tecniche" data-lang-en="Technical Skills">Competenze Tecniche</h2>
             <div class="apple-card p-6 md:p-8 scroll-animate">
                 <div class="flex flex-wrap gap-3 justify-center">
-                    <span class="skill-tag">UFT One Unified Functional Testing</span>
-                    <span class="skill-tag">Mobile Center</span>
-                    <span class="skill-tag">LoadRunner Professional</span>
-                    <span class="skill-tag">VBA (Excel Macros)</span>
-                    <span class="skill-tag">Tabelle Pivot (Excel)</span>
-                    <span class="skill-tag">MS PowerPoint</span>
-                    <span class="skill-tag">Jira</span>
-                    <span class="skill-tag">Confluence</span>
-                    <span class="skill-tag">Python 3.0</span>
-                    <span class="skill-tag">SQL (Base)</span>
-                    <span class="skill-tag">HTML (Base)</span>
-                    <span class="skill-tag">Autocad 2D</span>
+                    <span class="skill-tag" data-lang-it="UFT One Unified Functional Testing" data-lang-en="UFT One Unified Functional Testing">UFT One Unified Functional Testing</span>
+                    <span class="skill-tag" data-lang-it="Mobile Center" data-lang-en="Mobile Center">Mobile Center</span>
+                    <span class="skill-tag" data-lang-it="LoadRunner Professional" data-lang-en="LoadRunner Professional">LoadRunner Professional</span>
+                    <span class="skill-tag" data-lang-it="VBA (Excel Macros)" data-lang-en="VBA (Excel Macros)">VBA (Excel Macros)</span>
+                    <span class="skill-tag" data-lang-it="Tabelle Pivot (Excel)" data-lang-en="Pivot Tables (Excel)">Tabelle Pivot (Excel)</span>
+                    <span class="skill-tag" data-lang-it="MS PowerPoint" data-lang-en="MS PowerPoint">MS PowerPoint</span>
+                    <span class="skill-tag" data-lang-it="Jira" data-lang-en="Jira">Jira</span>
+                    <span class="skill-tag" data-lang-it="Confluence" data-lang-en="Confluence">Confluence</span>
+                    <span class="skill-tag" data-lang-it="Python 3.0" data-lang-en="Python 3.0">Python 3.0</span>
+                    <span class="skill-tag" data-lang-it="SQL (Base)" data-lang-en="SQL (Basic)">SQL (Base)</span>
+                    <span class="skill-tag" data-lang-it="HTML (Base)" data-lang-en="HTML (Basic)">HTML (Base)</span>
+                    <span class="skill-tag" data-lang-it="Autocad 2D" data-lang-en="Autocad 2D">Autocad 2D</span>
                 </div>
             </div>
         </section>
 
         <section id="education" class="py-12 md:py-16">
-            <h2 class="section-title scroll-animate">Istruzione</h2>
+            <h2 class="section-title scroll-animate" data-lang-it="Istruzione" data-lang-en="Education">Istruzione</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="subsection-title">Laurea in Ingegneria Industriale (L-09)</h3>
-                    <p class="company-name">Università del Salento, Facoltà di Ingegneria</p>
+                    <h3 class="subsection-title" data-lang-it="Laurea in Ingegneria Industriale (L-09)" data-lang-en="Bachelor's Degree in Industrial Engineering (L-09)">Laurea in Ingegneria Industriale (L-09)</h3>
+                    <p class="company-name" data-lang-it="Università del Salento, Facoltà di Ingegneria" data-lang-en="University of Salento, Faculty of Engineering">Università del Salento, Facoltà di Ingegneria</p>
                 </div>
                 <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="subsection-title">Diploma di Perito Industriale Capotecnico</h3>
-                    <p class="company-name">Specializzazione Meccanica, I.T.I.S. "G.Giorgi"</p>
+                    <h3 class="subsection-title" data-lang-it="Diploma di Perito Industriale Capotecnico" data-lang-en="Industrial Expert Technical Diploma">Diploma di Perito Industriale Capotecnico</h3>
+                    <p class="company-name" data-lang-it="Specializzazione Meccanica, I.T.I.S. &quot;G.Giorgi&quot;" data-lang-en="Mechanical Specialization, I.T.I.S. &quot;G.Giorgi&quot;">Specializzazione Meccanica, I.T.I.S. "G.Giorgi"</p>
                 </div>
             </div>
         </section>
 
         <section id="courses" class="py-12 md:py-16">
-            <h2 class="section-title scroll-animate">Corsi e Certificazioni</h2>
+            <h2 class="section-title scroll-animate" data-lang-it="Corsi e Certificazioni" data-lang-en="Courses and Certifications">Corsi e Certificazioni</h2>
             <div class="apple-card p-6 md:p-8 scroll-animate">
-                <ul class="custom-list space-y-2 text-gray-700">
-                    <li>MC2-Mobile Center Essentials v2.x Certified Professional Exam</li>
-                    <li>ALM120-ALM/QC Certified Professional Exam 15</li>
-                    <li>LoadRunner Professional 2020 Certified Professional Exam</li>
-                    <li>UFT One v15.x Certified Professional Exam</li>
-                    <li>Alfabetizzazione digitale per pc</li>
-                    <li>Controllo di gestione con Excel</li>
-                    <li>Project management con Excel</li>
-                    <li>Ms Office Word - Excel - Base</li>
-                    <li>Data entry e Data analyst</li>
-                    <li>Metodologia di lavoro agile e strumenti di collaborazione in rete</li>
-                    <li>Sistemista informatico junior</li>
-                    <li>Disegnatore e programmatore industriale</li>
-                    <li>Elementi di Power BI</li>
-                    <li>Elementi di Cyber Security</li>
-                    <li>Metodologia Agile</li>
-                    <li>Public speaking e digital writing</li>
+                <ul class="custom-list space-y-2 text-gray-700 list-disc list-inside">
+                    <li data-lang-it="MC2-Mobile Center Essentials v2.x Certified Professional Exam" data-lang-en="MC2-Mobile Center Essentials v2.x Certified Professional Exam">MC2-Mobile Center Essentials v2.x Certified Professional Exam</li>
+                    <li data-lang-it="ALM120-ALM/QC Certified Professional Exam 15" data-lang-en="ALM120-ALM/QC Certified Professional Exam 15">ALM120-ALM/QC Certified Professional Exam 15</li>
+                    <li data-lang-it="LoadRunner Professional 2020 Certified Professional Exam" data-lang-en="LoadRunner Professional 2020 Certified Professional Exam">LoadRunner Professional 2020 Certified Professional Exam</li>
+                    <li data-lang-it="UFT One v15.x Certified Professional Exam" data-lang-en="UFT One v15.x Certified Professional Exam">UFT One v15.x Certified Professional Exam</li>
+                    <li data-lang-it="Alfabetizzazione digitale per pc" data-lang-en="Digital literacy for PC">Alfabetizzazione digitale per pc</li>
+                    <li data-lang-it="Controllo di gestione con Excel" data-lang-en="Management control with Excel">Controllo di gestione con Excel</li>
+                    <li data-lang-it="Project management con Excel" data-lang-en="Project management with Excel">Project management con Excel</li>
+                    <li data-lang-it="Ms Office Word - Excel - Base" data-lang-en="MS Office Word - Excel - Basic">Ms Office Word - Excel - Base</li>
+                    <li data-lang-it="Data entry e Data analyst" data-lang-en="Data entry and Data analyst">Data entry e Data analyst</li>
+                    <li data-lang-it="Metodologia di lavoro agile e strumenti di collaborazione in rete" data-lang-en="Agile methodology and online collaboration tools">Metodologia di lavoro agile e strumenti di collaborazione in rete</li>
+                    <li data-lang-it="Sistemista informatico junior" data-lang-en="Junior IT systems administrator">Sistemista informatico junior</li>
+                    <li data-lang-it="Disegnatore e programmatore industriale" data-lang-en="Industrial designer and programmer">Disegnatore e programmatore industriale</li>
+                    <li data-lang-it="Elementi di Power BI" data-lang-en="Elements of Power BI">Elementi di Power BI</li>
+                    <li data-lang-it="Elementi di Cyber Security" data-lang-en="Elements of Cyber Security">Elementi di Cyber Security</li>
+                    <li data-lang-it="Metodologia Agile" data-lang-en="Agile Methodology">Metodologia Agile</li>
+                    <li data-lang-it="Public speaking e digital writing" data-lang-en="Public speaking and digital writing">Public speaking e digital writing</li>
                 </ul>
             </div>
         </section>
 
         <section id="soft-skills" class="py-12 md:py-16">
-            <h2 class="section-title scroll-animate">Competenze Trasversali</h2>
+            <h2 class="section-title scroll-animate" data-lang-it="Competenze Trasversali" data-lang-en="Soft Skills">Competenze Trasversali</h2>
             <div class="apple-card p-6 md:p-8 scroll-animate">
                  <div class="flex flex-wrap gap-3 justify-center">
-                    <span class="skill-tag">Lavoro in autonomia e in squadra</span>
-                    <span class="skill-tag">Etica del lavoro</span>
-                    <span class="skill-tag">Precisione</span>
-                    <span class="skill-tag">Adattabilità</span>
-                    <span class="skill-tag">Gestione dello stress</span>
-                    <span class="skill-tag">Empatia</span>
-                    <span class="skill-tag">Pianificazione</span>
-                    <span class="skill-tag">Problem solving</span>
-                    <span class="skill-tag">Decision making logico</span>
-                    <span class="skill-tag">Gestione responsabile delle informazioni</span>
+                    <span class="skill-tag" data-lang-it="Lavoro in autonomia e in squadra" data-lang-en="Autonomous and team work">Lavoro in autonomia e in squadra</span>
+                    <span class="skill-tag" data-lang-it="Etica del lavoro" data-lang-en="Work ethic">Etica del lavoro</span>
+                    <span class="skill-tag" data-lang-it="Precisione" data-lang-en="Accuracy">Precisione</span>
+                    <span class="skill-tag" data-lang-it="Adattabilità" data-lang-en="Adaptability">Adattabilità</span>
+                    <span class="skill-tag" data-lang-it="Gestione dello stress" data-lang-en="Stress management">Gestione dello stress</span>
+                    <span class="skill-tag" data-lang-it="Empatia" data-lang-en="Empathy">Empatia</span>
+                    <span class="skill-tag" data-lang-it="Pianificazione" data-lang-en="Planning">Pianificazione</span>
+                    <span class="skill-tag" data-lang-it="Problem solving" data-lang-en="Problem solving">Problem solving</span>
+                    <span class="skill-tag" data-lang-it="Decision making logico" data-lang-en="Logical decision making">Decision making logico</span>
+                    <span class="skill-tag" data-lang-it="Gestione responsabile delle informazioni" data-lang-en="Responsible information management">Gestione responsabile delle informazioni</span>
                 </div>
             </div>
         </section>
 
         <section id="languages" class="py-12 md:py-16">
-            <h2 class="section-title scroll-animate">Competenze Linguistiche</h2>
+            <h2 class="section-title scroll-animate" data-lang-it="Competenze Linguistiche" data-lang-en="Language Skills">Competenze Linguistiche</h2>
             <div class="apple-card p-6 md:p-8 text-center scroll-animate">
-                <p class="text-xl font-medium text-gray-800">Inglese: <span class="text-blue-600 font-semibold">B2</span> (EF-S.E.T.)</p>
+                <p class="text-xl font-medium text-gray-800">
+                    <span data-lang-it="Inglese" data-lang-en="English">Inglese</span>: <span class="text-blue-600 font-semibold">B2</span> (EF-S.E.T.)
+                </p>
             </div>
         </section>
     </main>
 
     <footer class="border-t border-gray-200 bg-gray-50">
         <div class="container mx-auto px-6 py-8 text-center text-gray-600">
-            <p class="mb-2">Alessandro Chiri</p>
+            <p class="mb-2" data-lang-it="Alessandro Chiri" data-lang-en="Alessandro Chiri">Alessandro Chiri</p>
             <p class="mb-2">
                 <a href="mailto:alexch@hotmail.it" class="hover:text-blue-600">alexch@hotmail.it</a> | 
                 <a href="tel:+393479289149" class="hover:text-blue-600">347 9289149</a>
             </p>
-            <p class="text-sm">&copy; <span id="currentYear"></span> Alessandro Chiri. Tutti i diritti riservati.</p>
+            <p class="text-sm">
+                &copy; <span id="currentYear"></span> 
+                <span data-lang-it="Alessandro Chiri. Tutti i diritti riservati." data-lang-en="Alessandro Chiri. All rights reserved.">Alessandro Chiri. Tutti i diritti riservati.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        // JavaScript for scroll animations
+        // JavaScript per animazioni scroll (script esistente)
         const scrollElements = document.querySelectorAll('.scroll-animate');
 
         const elementInView = (el, dividend = 1) => {
@@ -327,30 +407,97 @@
             element.classList.add('is-visible');
         };
 
-        const hideScrollElement = (element) => {
-            element.classList.remove('is-visible');
-        }
-
         const handleScrollAnimation = () => {
             scrollElements.forEach((el) => {
-                if (elementInView(el, 1.25)) { // Element is 1.25% from bottom of viewport
+                if (elementInView(el, 1.25)) {
                     displayScrollElement(el);
                 }
-                // Optional: To re-trigger animation if element scrolls out of view and back
-                // else {
-                //     hideScrollElement(el);
-                // }
             });
         };
 
-        window.addEventListener('scroll', () => {
-            handleScrollAnimation();
-        });
-        // Trigger on load for elements already in view
-        handleScrollAnimation();
+        window.addEventListener('scroll', handleScrollAnimation);
+        handleScrollAnimation(); // Attiva al caricamento
 
-        // Set current year in footer
+        // Imposta anno corrente nel footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // JavaScript Selettore Lingua
+        document.addEventListener('DOMContentLoaded', () => {
+            const switcher = document.getElementById('language-switcher');
+            const toggleIndicator = document.getElementById('language-toggle-indicator');
+            const flagItIndicator = document.getElementById('flag-it-indicator');
+            const flagGbIndicator = document.getElementById('flag-gb-indicator');
+            const accessibilityLabel = document.getElementById('language-switcher-label');
+
+            let currentLanguage = 'it'; // Lingua predefinita
+
+            const translations = {
+                pageTitle: {
+                    it: "Alessandro Chiri - CV",
+                    en: "Alessandro Chiri - Resume"
+                }
+            };
+
+            function updateTexts() {
+                document.documentElement.lang = currentLanguage;
+                document.title = translations.pageTitle[currentLanguage];
+
+                document.querySelectorAll('[data-lang-it]').forEach(el => {
+                    const dataKey = 'lang' + currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1);
+                    const text = el.dataset[dataKey];
+                    
+                    if (text) {
+                        if (el.hasAttribute('data-lang-alt-it') && el.tagName === 'IMG') {
+                             const altKey = 'langAlt' + currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1);
+                             el.alt = el.dataset[altKey];
+                        } else {
+                             el.textContent = text;
+                        }
+                    }
+                });
+
+                 if (accessibilityLabel) {
+                    const labelKey = 'lang' + currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1);
+                    accessibilityLabel.textContent = accessibilityLabel.dataset[labelKey];
+                 }
+            }
+
+            function updateSwitcherUI() {
+                if (currentLanguage === 'en') {
+                    switcher.classList.add('active');
+                    toggleIndicator.classList.add('active');
+                    flagItIndicator.classList.add('hidden');    // Nasconde bandiera IT
+                    flagGbIndicator.classList.remove('hidden'); // Mostra bandiera GB
+                    switcher.setAttribute('aria-checked', 'true');
+                } else { // currentLanguage === 'it'
+                    switcher.classList.remove('active');
+                    toggleIndicator.classList.remove('active');
+                    flagItIndicator.classList.remove('hidden'); // Mostra bandiera IT
+                    flagGbIndicator.classList.add('hidden');    // Nasconde bandiera GB
+                    switcher.setAttribute('aria-checked', 'false');
+                }
+            }
+
+            function toggleLanguage() {
+                currentLanguage = currentLanguage === 'it' ? 'en' : 'it';
+                updateSwitcherUI();
+                updateTexts();
+            }
+
+            if (switcher) {
+                 switcher.addEventListener('click', toggleLanguage);
+                 switcher.addEventListener('keydown', (event) => { 
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleLanguage();
+                    }
+                });
+            }
+
+            // Setup iniziale
+            updateTexts(); 
+            updateSwitcherUI(); 
+        });
     </script>
 
 </body>
