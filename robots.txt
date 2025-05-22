@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://benz91x.github.io/Alessandro-Chiri/sitemap.xml
