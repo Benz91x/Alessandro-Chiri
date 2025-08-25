@@ -1,19 +1,15 @@
 {
-    "name": "Alessandro Chiri - CV Professionale",
-    "short_name": "Alessandro Chiri",
-    "icons": [
-        {
-            "src": "/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+  "name": "Alessandro Chiri — CV",
+  "short_name": "Chiri CV",
+  "start_url": "/Alessandro-Chiri/",
+  "scope": "/Alessandro-Chiri/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "it",
+  "icons": [
+    { "src": "favicon-16x16.png", "sizes": "16x16", "type": "image/png" },
+    { "src": "favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" }
+  ]
 }

@@ -1,433 +1,319 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO OTTIMIZZAZIONE: Titolo chiaro e conciso. Include nome, ruolo e parole chiave principali (CV, Consultant). -->
-    <title>Alessandro Chiri - CV | Consultant Deloitte, Specialista Innovazione</title>
-    
-    <!-- SEO OTTIMIZZAZIONE: Descrizione accattivante che riassume le competenze chiave e invita al click. -->
-    <meta name="description" content="Esplora il CV di Alessandro Chiri, Consultant in Deloitte. Specializzato in innovazione, Intelligenza Artificiale (IA) e trasferimento tecnologico. Scopri le sue esperienze e competenze.">
-    
-    <!-- SEO OTTIMIZZAZIONE: Il tag keywords è obsoleto per Google, ma non dannoso. Le parole chiave principali sono già nel titolo e nella descrizione. -->
-    <meta name="keywords" content="Alessandro Chiri, CV, Resume, Consultant, Deloitte, Bari, xTech NextHub, Innovazione, Trasferimento Tecnologico, Project Management, Analista Funzionale, Ingegneria Industriale, Experis, Accenture, Competenze Tecniche, Soft Skills, Intelligenza Artificiale, IA">
-    
-    <!-- SEO OTTIMIZZAZIONE: Aggiunto il tag "canonical" per indicare a Google l'URL preferito di questa pagina, evitando problemi di contenuto duplicato. -->
-    <link rel="canonical" href="https://benz91x.github.io/Alessandro-Chiri/" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicon e icone per i dispositivi -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
-    <meta name="theme-color" content="#ffffff">
-    
-    <!-- Open Graph (per Facebook, LinkedIn, etc.) -->
-    <meta property="og:title" content="Alessandro Chiri - Consultant Deloitte | CV Professionale" />
-    <meta property="og:description" content="Esplora il curriculum vitae di Alessandro Chiri, specializzato in IA, scouting tecnologico e gestione di progetti innovativi." />
-    <!-- SEO OTTIMIZZAZIONE: L'URL dell'immagine deve puntare all'immagine "raw" (grezza) per assicurare che l'anteprima venga visualizzata correttamente. -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/Benz91x/Alessandro-Chiri/main/Chiri_Alessandro.jpeg" />
-    <!-- SEO OTTIMIZZAZIONE: L'URL deve essere quello del sito live. -->
-    <meta property="og:url" content="https://benz91x.github.io/Alessandro-Chiri/" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:locale" content="it_IT" />
-    <meta property="profile:first_name" content="Alessandro" />
-    <meta property="profile:last_name" content="Chiri" />
+  <!-- Primary SEO -->
+  <title>Alessandro Chiri — CV | Deloitte Consultant & Innovation Specialist</title>
+  <meta name="description" content="Curriculum online di Alessandro Chiri, Consultant in Deloitte (Bari). Specialista in innovazione, trasferimento tecnologico e analisi funzionale.">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Alessandro Chiri - Consultant Deloitte | CV Professionale">
-    <meta name="twitter:description" content="CV online di Alessandro Chiri, Consultant Deloitte. Esperienze in innovazione, AI, e project management.">
-    <!-- SEO OTTIMIZZAZIONE: Anche qui, l'URL dell'immagine deve essere quello "raw". -->
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/Benz91x/Alessandro-Chiri/main/Chiri_Alessandro.jpeg">
+  <!-- Robots -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-    <!-- Stili e Font -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f5f5f7; color: #1d1d1f; overscroll-behavior-y: none; }
-        .apple-header { background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-        .apple-card { background-color: #ffffff; border-radius: 18px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
-        .apple-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07), 0 3px 6px rgba(0,0,0,0.1); }
-        .section-title { font-size: 2.5rem; font-weight: 700; color: #1d1d1f; margin-bottom: 1.5rem; text-align: center; }
-        .subsection-title { font-size: 1.5rem; font-weight: 600; color: #1d1d1f; margin-top: 1rem; margin-bottom: 0.75rem; }
-        .job-title { font-size: 1.25rem; font-weight: 600; color: #0071e3; }
-        .company-name { font-size: 1rem; font-weight: 500; color: #555; }
-        .date-location { font-size: 0.9rem; color: #6e6e73; margin-bottom: 0.5rem; }
-        .skill-tag { background-color: #e9ecef; color: #333; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: 500; transition: background-color 0.2s ease, color 0.2s ease; }
-        .skill-tag:hover { background-color: #0071e3; color: white; }
-        .apple-button { background-color: #0071e3; color: white; padding: 0.75rem 1.5rem; border-radius: 980px; font-weight: 500; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease; display: inline-block; }
-        .apple-button:hover { background-color: #0077ed; transform: scale(1.05); }
-        .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .scroll-animate.is-visible { opacity: 1; transform: translateY(0); }
-        .experience-list li { padding-left: 25px; margin-bottom: 0.75rem; }
-        .profile-image { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; object-position: center; margin-left: auto; margin-right: auto; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .language-switch-track { width: 64px; height: 32px; background-color: #e9e9eb; border-radius: 9999px; padding: 4px; display: flex; align-items: center; cursor: pointer; transition: background-color 0.3s ease-in-out; user-select: none; }
-        .language-switch-track.active { background-color: #34c759; }
-        .language-switch-indicator { width: 24px; height: 24px; background-color: white; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.1); transform: translateX(0px); transition: transform 0.3s ease-in-out; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .language-switch-indicator.active { transform: translateX(32px); }
-        .language-switch-indicator .flag-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
-        .language-switch-indicator .flag-icon.hidden { display: none !important; }
-        .language-switch-indicator .flag-icon svg { display: block; max-width: 100%; max-height: 100%; }
-        @media (max-width: 768px) {
-            .section-title { font-size: 2rem; }
-            .subsection-title { font-size: 1.25rem; }
-            .apple-card { margin-left: 1rem; margin-right: 1rem; }
-            .profile-image { width: 120px; height: 120px; }
-            .apple-header nav { flex-wrap: wrap; justify-content: space-between; }
-            .header-title { flex-shrink: 1; margin-right: 1rem; }
-            #language-switcher-container { margin-top: 0.5rem; margin-left: auto; }
-        }
-    </style>
+  <!-- Canonical -->
+  <link rel="canonical" href="https://benz91x.github.io/Alessandro-Chiri/">
 
-    <!-- Dati Strutturati (JSON-LD) per Google -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Alessandro Chiri",
-      "url": "https://benz91x.github.io/Alessandro-Chiri/",
-      "image": "https://raw.githubusercontent.com/Benz91x/Alessandro-Chiri/main/Chiri_Alessandro.jpeg",
-      "jobTitle": "Consultant",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Deloitte"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Bari",
-        "addressCountry": "IT"
-      },
-      "email": "mailto:alexch@hotmail.it",
-      "sameAs": [
-        "https://www.linkedin.com/in/alessandro-chiri"
-      ],
-      "alumniOf": [
-        {
-          "@type": "EducationalOrganization",
-          "name": "Università del Salento, Facoltà di Ingegneria"
-        },
-        {
-          "@type": "EducationalOrganization",
-          "name": "I.T.I.S. \"G.Giorgi\""
-        }
-      ],
-      "knowsAbout": ["Innovazione", "Trasferimento Tecnologico", "Intelligenza Artificiale", "Project Management", "Analisi Funzionale", "UFT One", "LoadRunner", "Python", "SQL", "Deloitte xTech NextHub"],
-      "knowsLanguage": ["Italiano", "Inglese"],
-      "description": "Consultant presso Deloitte con sede a Bari, specializzato in progetti di innovazione e trasferimento tecnologico come xTech NextHub. Laureato in Ingegneria Industriale, con esperienza pregressa in Experis e Accenture."
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- Social (Open Graph / Twitter) -->
+  <meta property="og:title" content="Alessandro Chiri — Deloitte Consultant | CV">
+  <meta property="og:description" content="Consultant in Deloitte. Innovazione, tecnologia, project management.">
+  <meta property="og:image" content="https://benz91x.github.io/Alessandro-Chiri/Chiri_Alessandro.jpeg">
+  <meta property="og:url" content="https://benz91x.github.io/Alessandro-Chiri/">
+  <meta property="og:type" content="profile">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alessandro Chiri — Deloitte Consultant | CV">
+  <meta name="twitter:description" content="Consultant in Deloitte. Innovazione, tecnologia, project management.">
+  <meta name="twitter:image" content="https://benz91x.github.io/Alessandro-Chiri/Chiri_Alessandro.jpeg">
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="Chiri_Alessandro.jpeg" imagesrcset="Chiri_Alessandro.jpeg 1x">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
+
+  <!-- Tailwind (configured for dark mode via class) -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    tailwind.config = { darkMode: 'class' };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom styles (small additions) -->
+  <style>
+    :root { --brand:#0071e3; }
+    .card { border-radius: 18px; box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.08); }
+    .card:hover { transform: translateY(-2px); transition: transform .25s ease; }
+    .btn { border-radius: 9999px; }
+    .prose li { margin-bottom:.35rem }
+    .timeline::before { content:''; position:absolute; top:0; bottom:0; left:1.25rem; width:2px; background:linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,0)); }
+    .timeline-item { position:relative; padding-left:3rem }
+    .timeline-item::before { content:''; position:absolute; left:0.9rem; top:.45rem; width:.7rem; height:.7rem; border-radius:9999px; background:var(--brand); box-shadow:0 0 0 4px rgba(0,113,227,.15); }
+    @media (prefers-reduced-motion:no-preference) {
+      .reveal { opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease }
+      .reveal.on { opacity:1; transform:none }
     }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "url": "https://benz91x.github.io/Alessandro-Chiri/",
-      "name": "Alessandro Chiri - CV Professionale | Consultant Deloitte",
-      "mainEntity": {
-          "@type": "Person",
-          "name": "Alessandro Chiri",
-           "url": "https://benz91x.github.io/Alessandro-Chiri/"
-       },
-      "publisher": {
-        "@type": "Person",
-        "name": "Alessandro Chiri"
-      },
-      "inLanguage": "it",
-      "description": "CV online di Alessandro Chiri, Consultant Deloitte. Specializzato in innovazione, IA e trasferimento tecnologico. Esperto in project management e analisi funzionale."
-    }
-    </script>
+  </style>
+
+  <!-- JSON-LD: Person + WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Alessandro Chiri",
+    "image":"https://benz91x.github.io/Alessandro-Chiri/Chiri_Alessandro.jpeg",
+    "jobTitle":"Consultant",
+    "worksFor":{"@type":"Organization","name":"Deloitte"},
+    "address":{"@type":"PostalAddress","addressLocality":"Bari","addressCountry":"IT"},
+    "email":"mailto:alexch@hotmail.it",
+    "sameAs":["https://www.linkedin.com/in/alessandro-chiri"],
+    "knowsAbout":["Innovazione","Trasferimento Tecnologico","Intelligenza Artificiale","Project Management","Analisi Funzionale","UFT One","LoadRunner","Python","SQL","xTech NextHub"],
+    "knowsLanguage":["it","en"],
+    "url":"https://benz91x.github.io/Alessandro-Chiri/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Alessandro Chiri — CV Professionale",
+    "url":"https://benz91x.github.io/Alessandro-Chiri/",
+    "inLanguage":"it",
+    "description":"CV online di Alessandro Chiri (Deloitte). Innovazione, IA, trasferimento tecnologico."
+  }
+  </script>
+
+  <noscript>
+    <style>.reveal{opacity:1 !important; transform:none !important}</style>
+  </noscript>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 selection:bg-blue-200 selection:text-neutral-900">
+  <!-- Skip to content -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-black focus:px-3 focus:py-2 rounded">Vai al contenuto</a>
 
-    <header class="apple-header sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div data-lang-it="Alessandro Chiri - CV" data-lang-en="Alessandro Chiri - Resume" class="text-xl font-bold text-gray-800 header-title">Alessandro Chiri - CV</div>
-            <div id="language-switcher-container" class="flex items-center">
-                <div id="language-switcher" class="language-switch-track" role="switch" aria-checked="false" tabindex="0" aria-labelledby="language-switcher-label">
-                    <div id="language-toggle-indicator" class="language-switch-indicator">
-                        <span id="flag-it-indicator" class="flag-icon"> <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="200" fill="#009246"/><rect x="100" width="100" height="200" fill="#fff"/><rect x="200" width="100" height="200" fill="#ce2b37"/></svg>
-                        </span>
-                        <span id="flag-gb-indicator" class="flag-icon hidden"> <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
-                        </span>
-                    </div>
-                </div>
-                <span id="language-switcher-label" class="sr-only" data-lang-it="Seleziona lingua: Italiano" data-lang-en="Select language: English">Seleziona lingua: Italiano</span>
-            </div>
-        </nav>
-    </header>
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-900/60 border-b border-black/5 dark:border-white/10">
+    <nav class="mx-auto max-w-6xl px-4 md:px-6 py-3 flex items-center justify-between" aria-label="Principale">
+      <div class="flex items-center gap-3">
+        <img src="favicon-32x32.png" alt="" class="h-6 w-6 rounded">
+        <span id="siteTitle" class="font-semibold">Alessandro Chiri — CV</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- Language toggle -->
+        <button id="langToggle" class="btn px-3 py-1.5 text-sm bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700" aria-pressed="false" aria-label="Cambia lingua">IT</button>
+        <!-- Dark mode toggle -->
+        <button id="themeToggle" class="btn px-3 py-1.5 text-sm bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700" aria-pressed="false" aria-label="Tema scuro/chiaro">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </nav>
+  </header>
 
-    <main class="container mx-auto px-4 md:px-6 py-12">
-        <section id="hero" aria-labelledby="hero-title" class="text-center py-16 md:py-24 scroll-animate">
-            <!-- SEO OTTIMIZZAZIONE: Il testo 'alt' è stato reso più descrittivo per migliorare l'accessibilità e includere parole chiave pertinenti. -->
-            <img src="Chiri_Alessandro.jpeg" alt="Foto profilo di Alessandro Chiri, Consultant IT specializzato in innovazione e trasferimento tecnologico" class="profile-image" data-lang-alt-it="Foto profilo di Alessandro Chiri, Consultant IT specializzato in innovazione e trasferimento tecnologico" data-lang-alt-en="Profile photo of Alessandro Chiri, IT Consultant specializing in innovation and technology transfer">
+  <main id="main" class="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-16 space-y-16 md:space-y-24">
+    <!-- Hero -->
+    <section class="text-center reveal on">
+      <img src="Chiri_Alessandro.jpeg" alt="Ritratto di Alessandro Chiri in giacca e cravatta" class="mx-auto h-36 w-36 rounded-full object-cover shadow-lg ring-2 ring-white/80 dark:ring-white/10" loading="eager" decoding="async">
+      <h1 class="mt-6 text-4xl md:text-5xl font-bold tracking-tight">Alessandro Chiri</h1>
+      <p id="roleLine" class="mt-2 text-lg text-neutral-600 dark:text-neutral-300">Consultant presso Deloitte • Bari, Italia</p>
 
-            <!-- SEO OTTIMIZZAZIONE: L'h1 è il tag più importante della pagina. Deve contenere la parola chiave principale: il tuo nome. -->
-            <h1 id="hero-title" class="text-5xl md:text-6xl font-bold mb-4" data-lang-it="Alessandro Chiri" data-lang-en="Alessandro Chiri">Alessandro Chiri</h1>
-            <p class="text-2xl md:text-3xl text-gray-700 mb-2" data-lang-it="Consultant presso Deloitte" data-lang-en="Consultant at Deloitte">Consultant presso Deloitte</p>
-            <p class="text-lg text-gray-600" data-lang-it="Bari, Italia | Specialista in Innovazione e Trasferimento Tecnologico" data-lang-en="Bari, Italy | Innovation and Technology Transfer Specialist">Bari, Italia | Specialista in Innovazione e Trasferimento Tecnologico</p>
-            <div class="mt-8">
-                <a href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" rel="noopener noreferrer" class="apple-button mr-2" data-lang-it="LinkedIn" data-lang-en="LinkedIn">LinkedIn</a>
-                <a href="mailto:alexch@hotmail.it" class="apple-button bg-gray-600 hover:bg-gray-700" data-lang-it="Email" data-lang-en="Email">Email</a>
-            </div>
-        </section>
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <a class="btn px-5 py-2 bg-[var(--brand)] text-white hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500" href="mailto:alexch@hotmail.it">Email</a>
+        <a class="btn px-5 py-2 bg-neutral-900 text-white hover:bg-black dark:bg-white dark:text-black" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/alessandro-chiri">LinkedIn</a>
+        <button id="printCv" class="btn px-5 py-2 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700">Stampa / Salva PDF</button>
+      </div>
+    </section>
 
-        <!-- SEO OTTIMIZZAZIONE: L'uso di 'section' e 'h2' aiuta a strutturare il contenuto in modo gerarchico, facilitando la comprensione da parte di Google. -->
-        <section id="experience" aria-labelledby="experience-title" class="py-12 md:py-16">
-            <h2 id="experience-title" class="section-title scroll-animate" data-lang-it="Esperienze Professionali" data-lang-en="Work Experience">Esperienze Professionali</h2>
-            <div class="space-y-10">
-                <!-- SEO OTTIMIZZAZIONE: 'article' è il tag corretto per un contenuto auto-conclusivo come un'esperienza lavorativa. 'h3' è usato correttamente per il titolo del lavoro. -->
-                <article class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="job-title" data-lang-it="Consultant" data-lang-en="Consultant">Consultant</h3>
-                    <p class="company-name" data-lang-it="Deloitte" data-lang-en="Deloitte">Deloitte</p>
-                    <p class="date-location" data-lang-it="Ottobre 2024 – Presente | Bari, Italia" data-lang-en="October 2024 – Present | Bari, Italy">Ottobre 2024 – Presente | Bari, Italia</p>
-                    <p class="text-gray-700 mt-2"
-                       data-lang-it="Attualmente lavoro come Consultant nel progetto xTech NextHub, un'iniziativa strategica per potenziare il trasferimento tecnologico e l'open innovation. Il mio ruolo si concentra sulla gestione e l'evoluzione di una piattaforma avanzata che utilizza algoritmi di intelligenza artificiale e un database in costante aggiornamento per lo scouting e il matchmaking di soluzioni innovative. Sono attivamente coinvolto in diverse fasi del progetto, contribuendo alla gestione operativa e allo sviluppo continuo della piattaforma. Partecipo alle attività di scouting per identificare soluzioni innovative e facilito il processo di matchmaking tra le esigenze di business dei clienti e le soluzioni presenti nel database, utilizzando e perfezionando il Recommendation Engine basato su IA. Supporto la gestione delle Iniziative all'interno della piattaforma, collaboro alla produzione di deliverables come gli One-Pagers in vari formati, ed estraggo dati per la Business Intelligence. La mia attività include l'interazione costante con team interni e clienti esterni per comprendere i loro bisogni di innovazione e presentare i risultati del progetto, nonché l'analisi e la validazione delle soluzioni raccomandate dalla piattaforma e il monitoraggio continuo per identificare aree di ottimizzazione dei processi e della piattaforma stessa."
-                       data-lang-en="I currently work as a Consultant on the xTech NextHub project, a strategic initiative to enhance technology transfer and open innovation. My role focuses on the management and evolution of an advanced platform that uses artificial intelligence algorithms and a constantly updated database for scouting and matchmaking innovative solutions. I am actively involved in various phases of the project, contributing to operational management and continuous platform development. I participate in scouting activities to identify innovative solutions and facilitate the matchmaking process between clients' business needs and the solutions in the database, using and refining the AI-based Recommendation Engine. I support the management of Initiatives within the platform, collaborate on the production of deliverables such as One-Pagers in various formats, and extract data for Business Intelligence. My activity includes constant interaction with internal teams and external clients to understand their innovation needs and present project results, as well as the analysis and validation of solutions recommended by the platform and continuous monitoring to identify areas for process and platform optimization.">
-                        Attualmente lavoro come Consultant nel progetto xTech NextHub, un'iniziativa strategica per potenziare il trasferimento tecnologico e l'open innovation. Il mio ruolo si concentra sulla gestione e l'evoluzione di una piattaforma avanzata che utilizza algoritmi di intelligenza artificiale e un database in costante aggiornamento per lo scouting e il matchmaking di soluzioni innovative. Sono attivamente coinvolto in diverse fasi del progetto, contribuendo alla gestione operativa e allo sviluppo continuo della piattaforma. Partecipo alle attività di scouting per identificare soluzioni innovative e facilito il processo di matchmaking tra le esigenze di business dei clienti e le soluzioni presenti nel database, utilizzando e perfezionando il Recommendation Engine basato su IA. Supporto la gestione delle Iniziative all'interno della piattaforma, collaboro alla produzione di deliverables come gli One-Pagers in vari formati, ed estraggo dati per la Business Intelligence. La mia attività include l'interazione costante con team interni e clienti esterni per comprendere i loro bisogni di innovazione e presentare i risultati del progetto, nonché l'analisi e la validazione delle soluzioni raccomandate dalla piattaforma e il monitoraggio continuo per identificare aree di ottimizzazione dei processi e della piattaforma stessa.
-                    </p>
-                </article>
+    <!-- Esperienze (Timeline) -->
+    <section aria-labelledby="expTitle" class="reveal">
+      <h2 id="expTitle" class="text-3xl font-semibold mb-6 tracking-tight">Esperienze Professionali</h2>
+      <div class="relative timeline">
+        <article class="timeline-item card bg-white dark:bg-neutral-900 p-6 md:p-8 mb-6">
+          <header class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+            <h3 class="text-xl font-semibold text-[var(--brand)]">Consultant</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Deloitte · Ott 2024 — Presente · Bari</p>
+          </header>
+          <ul class="prose list-disc pl-5 mt-3 text-neutral-700 dark:text-neutral-300">
+            <li>Gestione ed evoluzione della piattaforma xTech NextHub per trasferimento tecnologico e open innovation.</li>
+            <li>Scouting e <em>matchmaking</em> tramite Recommendation Engine basato su IA.</li>
+            <li>Produzione deliverable (One-Pager), estrazione dati per BI e presentazioni a stakeholder.</li>
+            <li>Analisi/validazione delle soluzioni raccomandate, monitoraggio e ottimizzazione dei processi.</li>
+          </ul>
+        </article>
 
-                <article class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="job-title" data-lang-it="Application Specialist Support" data-lang-en="Application Specialist Support">Application Specialist Support</h3>
-                    <p class="company-name" data-lang-it="Experis Srl" data-lang-en="Experis Srl">Experis Srl</p>
-                    <p class="date-location" data-lang-it="Ottobre 2019 – Settembre 2024 (4 anni e 6 mesi)" data-lang-en="October 2019 – September 2024 (4 years and 6 months)">Ottobre 2019 – Settembre 2024 (4 anni e 6 mesi)</p>
-                    <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2 experience-list">
-                       <li data-lang-it="Configurazione e personalizzazione dei software della piattaforma custom (&quot;Spring Q-Cent&quot; in ENEL per azienda utilizzatrice Micro Focus)." data-lang-en="Configuration and customization of custom platform software (&quot;Spring Q-Cent&quot; in ENEL for Micro Focus user company).">Configurazione e personalizzazione dei software della piattaforma custom ("Spring Q-Cent" in ENEL per azienda utilizzatrice Micro Focus).</li>
-                        <li data-lang-it="Assistenza diretta agli utenti finali, risposta alle domande e risoluzione dei problemi tecnici legati alle applicazioni aziendali." data-lang-en="Direct assistance to end-users, answering questions and resolving technical problems related to business applications.">Assistenza diretta agli utenti finali, risposta alle domande e risoluzione dei problemi tecnici legati alle applicazioni aziendali.</li>
-                        <li data-lang-it="Monitoraggio e mantenimento dei software ADM Micro Focus (funzionamento, sicurezza, supporto tecnico e formazione agli utenti)." data-lang-en="Monitoring and maintenance of ADM Micro Focus software (operation, security, technical support, and user training).">Monitoraggio e mantenimento dei software ADM Micro Focus (funzionamento, sicurezza, supporto tecnico e formazione agli utenti).</li>
-                        <li data-lang-it="Analisi e raccomandazione di aggiornamenti, test e validazione dei software prima della distribuzione." data-lang-en="Analysis and recommendation of updates, testing, and validation of software before distribution.">Analisi e raccomandazione di aggiornamenti, test e validazione dei software prima della distribuzione.</li>
-                        <li data-lang-it="Creazione e aggiornamento della documentazione tecnica, inclusa la stesura di guide utente, la documentazione dei problemi risolti e la condivisione di best practice." data-lang-en="Creation and updating of technical documentation, including writing user guides, documenting resolved issues, and sharing best practices.">Creazione e aggiornamento della documentazione tecnica, inclusa la stesura di guide utente, la documentazione dei problemi risolti e la condivisione di best practice.</li>
-                    </ul>
-                </article>
+        <article class="timeline-item card bg-white dark:bg-neutral-900 p-6 md:p-8 mb-6">
+          <header class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+            <h3 class="text-xl font-semibold text-[var(--brand)]">Application Specialist Support</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Experis · Ott 2019 — Set 2024</p>
+          </header>
+          <ul class="prose list-disc pl-5 mt-3 text-neutral-700 dark:text-neutral-300">
+            <li>Configurazione e personalizzazione di piattaforme (Spring Q‑Cent @ENEL) per ecosistema Micro Focus.</li>
+            <li>Supporto utenti, troubleshooting e formazione.</li>
+            <li>Monitoraggio operativo, sicurezza e validazione aggiornamenti.</li>
+            <li>Documentazione tecnica e diffusione best practice.</li>
+          </ul>
+        </article>
 
-                <article class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="job-title" data-lang-it="Business Analyst & Analista Funzionale" data-lang-en="Business Analyst & Functional Analyst">Business Analyst & Analista Funzionale</h3>
-                    <p class="company-name" data-lang-it="Accenture S.p.A." data-lang-en="Accenture S.p.A.">Accenture S.p.A.</p>
-                    <p class="date-location" data-lang-it="Marzo 2018 – Agosto 2019 (1 anno e 6 mesi)" data-lang-en="March 2018 – August 2019 (1 year and 6 months)">Marzo 2018 – Agosto 2019 (1 anno e 6 mesi)</p>
-                     <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2 experience-list">
-                        <li data-lang-it="Redazione di requisiti funzionali in MS Word." data-lang-en="Drafting functional requirements in MS Word.">Redazione di requisiti funzionali in MS Word.</li>
-                        <li data-lang-it="Supporto Ongoing degli applicativi rilasciati." data-lang-en="Ongoing support for released applications.">Supporto Ongoing degli applicativi rilasciati.</li>
-                        <li data-lang-it="Lavoro in metodologia Agile." data-lang-en="Working in Agile methodology.">Lavoro in metodologia Agile.</li>
-                        <li data-lang-it="Analisi delle esigenze degli utenti e raccolta dati per produzione di requisiti funzionali per i sistemi informativi." data-lang-en="Analysis of user needs and data collection for producing functional requirements for information systems.">Analisi delle esigenze degli utenti e raccolta dati per produzione di requisiti funzionali per i sistemi informativi.</li>
-                        <li data-lang-it="Coordinamento con sviluppatori, project manager e subject matter expert per risolvere problemi complessi e supportare l'implementazione di nuove soluzioni." data-lang-en="Coordination with developers, project managers, and subject matter experts to solve complex problems and support the implementation of new solutions.">Coordinamento con sviluppatori, project manager e subject matter expert per risolvere problemi complessi e supportare l'implementazione di nuove soluzioni.</li>
-                        <li data-lang-it="Analisi KPI temporali e di qualità." data-lang-en="Analysis of time and quality KPIs.">Analisi KPI temporali e di qualità.</li>
-                        <li data-lang-it="Analisi e progettazione dei sistemi informativi." data-lang-en="Analysis and design of information systems.">Analisi e progettazione dei sistemi informativi.</li>
-                        <li data-lang-it="Gestione delle relazioni con stakeholders." data-lang-en="Stakeholder relationship management.">Gestione delle relazioni con stakeholders.</li>
-                        <li data-lang-it="Rappresentazione grafica e funzionale dei processi aziendali (flowchart, Gantt)." data-lang-en="Graphical and functional representation of business processes (flowchart, Gantt).">Rappresentazione grafica e funzionale dei processi aziendali (flowchart, Gantt).</li>
-                        <li data-lang-it="Utilizzo di tecnologie IT (MS Office, VBA, Excel)." data-lang-en="Use of IT technologies (MS Office, VBA, Excel).">Utilizzo di tecnologie IT (MS Office, VBA, Excel).</li>
-                        <li data-lang-it="Analisi dei ticket e degli stati di avanzamento degli ordini su DB Oracle." data-lang-en="Analysis of tickets and order progress statuses on Oracle DB.">Analisi dei ticket e degli stati di avanzamento degli ordini su DB Oracle.</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
+        <article class="timeline-item card bg-white dark:bg-neutral-900 p-6 md:p-8">
+          <header class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+            <h3 class="text-xl font-semibold text-[var(--brand)]">Business Analyst & Analista Funzionale</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Accenture · Mar 2018 — Ago 2019</p>
+          </header>
+          <ul class="prose list-disc pl-5 mt-3 text-neutral-700 dark:text-neutral-300">
+            <li>Raccolta requisiti, analisi processi e progettazione sistemi informativi.</li>
+            <li>Metodologie Agile, coordinamento con PM e SME.</li>
+            <li>Analisi KPI qualità/tempi, rappresentazioni grafiche (flowchart, Gantt).</li>
+            <li>Uso strumenti: MS Office/VBA, Oracle DB, Jira/Confluence.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
-        <section id="technical-skills" aria-labelledby="technical-skills-title" class="py-12 md:py-16">
-            <h2 id="technical-skills-title" class="section-title scroll-animate" data-lang-it="Competenze Tecniche" data-lang-en="Technical Skills">Competenze Tecniche</h2>
-            <div class="apple-card p-6 md:p-8 scroll-animate">
-                <div class="flex flex-wrap gap-3 justify-center">
-                    <span class="skill-tag" data-lang-it="UFT One Unified Functional Testing" data-lang-en="UFT One Unified Functional Testing">UFT One Unified Functional Testing</span>
-                    <span class="skill-tag" data-lang-it="Mobile Center" data-lang-en="Mobile Center">Mobile Center</span>
-                    <span class="skill-tag" data-lang-it="LoadRunner Professional" data-lang-en="LoadRunner Professional">LoadRunner Professional</span>
-                    <span class="skill-tag" data-lang-it="VBA (Excel Macros)" data-lang-en="VBA (Excel Macros)">VBA (Excel Macros)</span>
-                    <span class="skill-tag" data-lang-it="Tabelle Pivot (Excel)" data-lang-en="Pivot Tables (Excel)">Tabelle Pivot (Excel)</span>
-                    <span class="skill-tag" data-lang-it="MS PowerPoint" data-lang-en="MS PowerPoint">MS PowerPoint</span>
-                    <span class="skill-tag" data-lang-it="Jira" data-lang-en="Jira">Jira</span>
-                    <span class="skill-tag" data-lang-it="Confluence" data-lang-en="Confluence">Confluence</span>
-                    <span class="skill-tag" data-lang-it="Python 3.0" data-lang-en="Python 3.0">Python 3.0</span>
-                    <span class="skill-tag" data-lang-it="SQL (Base)" data-lang-en="SQL (Basic)">SQL (Base)</span>
-                    <span class="skill-tag" data-lang-it="HTML (Base)" data-lang-en="HTML (Basic)">HTML (Base)</span>
-                    <span class="skill-tag" data-lang-it="Autocad 2D" data-lang-en="Autocad 2D">Autocad 2D</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="education" aria-labelledby="education-title" class="py-12 md:py-16">
-            <h2 id="education-title" class="section-title scroll-animate" data-lang-it="Formazione Accademica" data-lang-en="Education">Formazione</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="subsection-title" data-lang-it="Laurea in Ingegneria Industriale (L-09)" data-lang-en="Bachelor's Degree in Industrial Engineering (L-09)">Laurea in Ingegneria Industriale (L-09)</h3>
-                    <p class="company-name" data-lang-it="Università del Salento, Facoltà di Ingegneria" data-lang-en="University of Salento, Faculty of Engineering">Università del Salento, Facoltà di Ingegneria</p>
-                </div>
-                <div class="apple-card p-6 md:p-8 scroll-animate">
-                    <h3 class="subsection-title" data-lang-it="Diploma di Perito Industriale Capotecnico" data-lang-en="Industrial Expert Technical Diploma">Diploma di Perito Industriale Capotecnico</h3>
-                    <p class="company-name" data-lang-it="Specializzazione Meccanica, I.T.I.S. &quot;G.Giorgi&quot;" data-lang-en="Mechanical Specialization, I.T.I.S. &quot;G.Giorgi&quot;">Specializzazione Meccanica, I.T.I.S. "G.Giorgi"</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="courses" aria-labelledby="courses-title" class="py-12 md:py-16">
-            <h2 id="courses-title" class="section-title scroll-animate" data-lang-it="Corsi e Certificazioni" data-lang-en="Courses and Certifications">Corsi e Certificazioni</h2>
-            <div class="apple-card p-6 md:p-8 scroll-animate">
-                <ul class="custom-list space-y-2 text-gray-700 list-disc list-inside">
-                     <li data-lang-it="MC2-Mobile Center Essentials v2.x Certified Professional Exam" data-lang-en="MC2-Mobile Center Essentials v2.x Certified Professional Exam">MC2-Mobile Center Essentials v2.x Certified Professional Exam</li>
-                    <li data-lang-it="ALM120-ALM/QC Certified Professional Exam 15" data-lang-en="ALM120-ALM/QC Certified Professional Exam 15">ALM120-ALM/QC Certified Professional Exam 15</li>
-                    <li data-lang-it="LoadRunner Professional 2020 Certified Professional Exam" data-lang-en="LoadRunner Professional 2020 Certified Professional Exam">LoadRunner Professional 2020 Certified Professional Exam</li>
-                    <li data-lang-it="UFT One v15.x Certified Professional Exam" data-lang-en="UFT One v15.x Certified Professional Exam">UFT One v15.x Certified Professional Exam</li>
-                    <li data-lang-it="Alfabetizzazione digitale per pc" data-lang-en="Digital literacy for PC">Alfabetizzazione digitale per pc</li>
-                    <li data-lang-it="Controllo di gestione con Excel" data-lang-en="Management control with Excel">Controllo di gestione con Excel</li>
-                    <li data-lang-it="Project management con Excel" data-lang-en="Project management with Excel">Project management con Excel</li>
-                    <li data-lang-it="Ms Office Word - Excel - Base" data-lang-en="MS Office Word - Excel - Basic">Ms Office Word - Excel - Base</li>
-                    <li data-lang-it="Data entry e Data analyst" data-lang-en="Data entry and Data analyst">Data entry e Data analyst</li>
-                    <li data-lang-it="Metodologia di lavoro agile e strumenti di collaborazione in rete" data-lang-en="Agile methodology and online collaboration tools">Metodologia di lavoro agile e strumenti di collaborazione in rete</li>
-                    <li data-lang-it="Sistemista informatico junior" data-lang-en="Junior IT systems administrator">Sistemista informatico junior</li>
-                    <li data-lang-it="Disegnatore e programmatore industriale" data-lang-en="Industrial designer and programmer">Disegnatore e programmatore industriale</li>
-                    <li data-lang-it="Elementi di Power BI" data-lang-en="Elements of Power BI">Elementi di Power BI</li>
-                    <li data-lang-it="Elementi di Cyber Security" data-lang-en="Elements of Cyber Security">Elementi di Cyber Security</li>
-                    <li data-lang-it="Metodologia Agile" data-lang-en="Agile Methodology">Metodologia Agile</li>
-                    <li data-lang-it="Public speaking e digital writing" data-lang-en="Public speaking and digital writing">Public speaking e digital writing</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="soft-skills" aria-labelledby="soft-skills-title" class="py-12 md:py-16">
-            <h2 id="soft-skills-title" class="section-title scroll-animate" data-lang-it="Competenze Trasversali" data-lang-en="Soft Skills">Competenze Trasversali</h2>
-            <div class="apple-card p-6 md:p-8 scroll-animate">
-                 <div class="flex flex-wrap gap-3 justify-center">
-                    <span class="skill-tag" data-lang-it="Lavoro in autonomia e in squadra" data-lang-en="Autonomous and team work">Lavoro in autonomia e in squadra</span>
-                    <span class="skill-tag" data-lang-it="Etica del lavoro" data-lang-en="Work ethic">Etica del lavoro</span>
-                    <span class="skill-tag" data-lang-it="Precisione" data-lang-en="Accuracy">Precisione</span>
-                    <span class="skill-tag" data-lang-it="Adattabilità" data-lang-en="Adaptability">Adattabilità</span>
-                    <span class="skill-tag" data-lang-it="Gestione dello stress" data-lang-en="Stress management">Gestione dello stress</span>
-                    <span class="skill-tag" data-lang-it="Empatia" data-lang-en="Empathy">Empatia</span>
-                    <span class="skill-tag" data-lang-it="Pianificazione" data-lang-en="Planning">Pianificazione</span>
-                    <span class="skill-tag" data-lang-it="Problem solving" data-lang-en="Problem solving">Problem solving</span>
-                    <span class="skill-tag" data-lang-it="Decision making logico" data-lang-en="Logical decision making">Decision making logico</span>
-                    <span class="skill-tag" data-lang-it="Gestione responsabile delle informazioni" data-lang-en="Responsible information management">Gestione responsabile delle informazioni</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="languages" aria-labelledby="languages-title" class="py-12 md:py-16">
-            <h2 id="languages-title" class="section-title scroll-animate" data-lang-it="Competenze Linguistiche" data-lang-en="Language Skills">Competenze Linguistiche</h2>
-            <div class="apple-card p-6 md:p-8 text-center scroll-animate">
-                <p class="text-xl font-medium text-gray-800">
-                    <span data-lang-it="Italiano" data-lang-en="Italian">Italiano</span>: <span class="text-blue-600 font-semibold" data-lang-it="Madrelingua" data-lang-en="Native">Madrelingua</span>
-                </p>
-                <p class="text-xl font-medium text-gray-800 mt-2">
-                    <span data-lang-it="Inglese" data-lang-en="English">Inglese</span>: <span class="text-blue-600 font-semibold">B2</span> (EF-S.E.T.)
-                </p>
-            </div>
-        </section>
-    </main>
-
-    <footer class="border-t border-gray-200 bg-gray-50">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
-            <p class="mb-2 font-semibold" data-lang-it="Alessandro Chiri" data-lang-en="Alessandro Chiri">Alessandro Chiri</p>
-            <p class="mb-2">
-                <a href="mailto:alexch@hotmail.it" class="hover:text-blue-600">alexch@hotmail.it</a> |
-                <a href="tel:+393479289149" class="hover:text-blue-600">347 9289149</a>
-            </p>
-            <p class="text-sm">
-                &copy; <span id="currentYear"></span>
-                <span data-lang-it="Alessandro Chiri. Tutti i diritti riservati." data-lang-en="Alessandro Chiri. All rights reserved.">Alessandro Chiri. Tutti i diritti riservati.</span>
-            </p>
+    <!-- Competenze -->
+    <section aria-labelledby="skillsTitle" class="reveal">
+      <h2 id="skillsTitle" class="text-3xl font-semibold mb-6 tracking-tight">Competenze Tecniche</h2>
+      <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
+        <div class="flex flex-wrap gap-2 md:gap-3">
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">UFT One</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Mobile Center</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">LoadRunner</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Python</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">SQL (base)</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">VBA</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Jira</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Confluence</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Excel (Pivot)</span>
+          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Autocad 2D</span>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Animazione allo scroll
-        const scrollElements = document.querySelectorAll('.scroll-animate');
-        const elementInView = (el, dividend = 1) => {
-            const elementTop = el.getBoundingClientRect().top;
-            return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend);
-        };
-        const displayScrollElement = (element) => element.classList.add('is-visible');
-        const handleScrollAnimation = () => {
-            scrollElements.forEach((el) => {
-                if (elementInView(el, 1.25)) displayScrollElement(el);
-            });
-        };
-        window.addEventListener('scroll', handleScrollAnimation);
-        handleScrollAnimation();
-        
-        // Anno corrente nel footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    <!-- Formazione -->
+    <section aria-labelledby="eduTitle" class="reveal">
+      <h2 id="eduTitle" class="text-3xl font-semibold mb-6 tracking-tight">Formazione</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
+          <h3 class="text-lg font-semibold">Laurea in Ingegneria Industriale (L‑09)</h3>
+          <p class="text-neutral-600 dark:text-neutral-400">Università del Salento — Facoltà di Ingegneria</p>
+        </div>
+        <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
+          <h3 class="text-lg font-semibold">Diploma Perito Industriale Capotecnico</h3>
+          <p class="text-neutral-600 dark:text-neutral-400">I.T.I.S. “G. Giorgi” — Meccanica</p>
+        </div>
+      </div>
+    </section>
 
-        // Gestione cambio lingua
-        document.addEventListener('DOMContentLoaded', () => {
-            const switcher = document.getElementById('language-switcher');
-            const toggleIndicator = document.getElementById('language-toggle-indicator');
-            const flagItIndicator = document.getElementById('flag-it-indicator');
-            const flagGbIndicator = document.getElementById('flag-gb-indicator');
-            const accessibilityLabel = document.getElementById('language-switcher-label');
-            let currentLanguage = 'it';
+    <!-- Corsi e Certificazioni -->
+    <section aria-labelledby="certTitle" class="reveal">
+      <h2 id="certTitle" class="text-3xl font-semibold mb-6 tracking-tight">Corsi & Certificazioni</h2>
+      <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
+        <ul class="prose list-disc pl-5 text-neutral-700 dark:text-neutral-300">
+          <li>MC2 — Mobile Center Essentials v2.x (Certified Professional)</li>
+          <li>ALM120 — ALM/QC 15 (Certified Professional)</li>
+          <li>LoadRunner Professional 2020 (Certified Professional)</li>
+          <li>UFT One v15.x (Certified Professional)</li>
+          <li>Metodologia Agile, Cyber Security, Power BI, Public speaking & digital writing</li>
+        </ul>
+      </div>
+    </section>
 
-            const pageTitles = {
-                it: "Alessandro Chiri - CV | Consultant Deloitte, Specialista Innovazione",
-                en: "Alessandro Chiri - Resume | Deloitte Consultant, Innovation Specialist"
-            };
-            
-            const metaDescriptions = {
-               it: "Esplora il CV di Alessandro Chiri, Consultant in Deloitte. Specializzato in innovazione, Intelligenza Artificiale (IA) e trasferimento tecnologico. Scopri le sue esperienze e competenze.",
-               en: "Explore the resume of Alessandro Chiri, a Consultant at Deloitte. Specializing in innovation, Artificial Intelligence (AI), and technology transfer. Discover his experience and skills."
-            };
+    <!-- Lingue -->
+    <section aria-labelledby="langTitle" class="reveal">
+      <h2 id="langTitle" class="text-3xl font-semibold mb-6 tracking-tight">Competenze Linguistiche</h2>
+      <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8 text-center">
+        <p class="text-lg">Italiano: <strong>madrelingua</strong></p>
+        <p class="text-lg mt-1">Inglese: <strong>B2 (EF‑SET)</strong></p>
+      </div>
+    </section>
 
-            function updateTexts() {
-                document.documentElement.lang = currentLanguage;
-                document.title = pageTitles[currentLanguage];
-                
-                const metaDescTag = document.querySelector('meta[name="description"]');
-                if (metaDescTag) {
-                   metaDescTag.setAttribute('content', metaDescriptions[currentLanguage]);
-                }
+    <!-- CTA finale -->
+    <section class="reveal text-center">
+      <div class="card bg-gradient-to-br from-blue-600 to-blue-700 text-white p-8 md:p-10">
+        <h2 class="text-2xl md:text-3xl font-semibold">Interessato a collaborare?</h2>
+        <p class="mt-2 opacity-90">Scrivimi: <a class="underline underline-offset-2" href="mailto:alexch@hotmail.it">alexch@hotmail.it</a></p>
+        <p class="mt-1 opacity-90">Profilo: <a class="underline underline-offset-2" target="_blank" rel="noopener" href="https://www.linkedin.com/in/alessandro-chiri">linkedin.com/in/alessandro-chiri</a></p>
+      </div>
+    </section>
+  </main>
 
-                document.querySelectorAll('[data-lang-it]').forEach(el => {
-                    const dataKey = 'lang' + currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1);
-                    const text = el.dataset[dataKey];
-                    if (text) {
-                        if (el.hasAttribute('data-lang-alt-it') && el.tagName === 'IMG') {
-                             const altKey = 'langAlt' + currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1);
-                             el.alt = el.dataset[altKey];
-                        } else {
-                             el.textContent = text;
-                        }
-                    }
-                });
+  <footer class="mt-12 border-t border-black/5 dark:border-white/10">
+    <div class="mx-auto max-w-6xl px-4 md:px-6 py-8 text-center text-sm text-neutral-600 dark:text-neutral-400">
+      <p>&copy; <span id="year"></span> Alessandro Chiri — Tutti i diritti riservati.</p>
+      <p class="mt-1"><a class="hover:underline" href="sitemap.xml">Sitemap</a> · <a class="hover:underline" href="site.webmanifest">Web Manifest</a></p>
+    </div>
+  </footer>
 
-                 if (accessibilityLabel) {
-                    const labelKey = 'lang' + currentLanguage.charAt(0).toUpperCase() + currentLanguage.slice(1);
-                    accessibilityLabel.textContent = accessibilityLabel.dataset[labelKey];
-                 }
-            }
+  <!-- Scripts: reveal on scroll, theme + language toggle, print -->
+  <script>
+    const reveal = () => {
+      const els = document.querySelectorAll('.reveal');
+      const vH = window.innerHeight;
+      els.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < vH * 0.9) el.classList.add('on');
+      });
+    };
+    window.addEventListener('scroll', reveal, {passive:true});
+    window.addEventListener('load', reveal);
 
-            function updateSwitcherUI() {
-                if (currentLanguage === 'en') {
-                    switcher.classList.add('active');
-                    toggleIndicator.classList.add('active');
-                    flagItIndicator.classList.add('hidden');
-                    flagGbIndicator.classList.remove('hidden');
-                    switcher.setAttribute('aria-checked', 'true');
-                } else {
-                    switcher.classList.remove('active');
-                    toggleIndicator.classList.remove('active');
-                    flagItIndicator.classList.remove('hidden');
-                    flagGbIndicator.classList.add('hidden');
-                    switcher.setAttribute('aria-checked', 'false');
-                }
-            }
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-            function toggleLanguage() {
-                currentLanguage = currentLanguage === 'it' ? 'en' : 'it';
-                updateSwitcherUI();
-                updateTexts();
-            }
+    // Theme toggle (persist)
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark'); themeBtn.setAttribute('aria-pressed','true'); themeIcon.textContent='☀️';
+    }
+    themeBtn.addEventListener('click', () => {
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      themeBtn.setAttribute('aria-pressed', String(isDark));
+      themeIcon.textContent = isDark ? '☀️' : '🌙';
+    });
 
-            if (switcher) {
-                 switcher.addEventListener('click', toggleLanguage);
-                 switcher.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        toggleLanguage();
-                    }
-                });
-            }
-            // Inizializza i testi e l'UI al caricamento della pagina
-            updateTexts();
-            updateSwitcherUI();
-        });
-    </script>
+    // Language toggle (very light, IT/EN for key strings)
+    const langBtn = document.getElementById('langToggle');
+    const roleLine = document.getElementById('roleLine');
+    const siteTitle = document.getElementById('siteTitle');
+    const titles = {
+      it: { role: 'Consultant presso Deloitte • Bari, Italia', site: 'Alessandro Chiri — CV' },
+      en: { role: 'Consultant at Deloitte • Bari, Italy', site: 'Alessandro Chiri — Resume' }
+    };
+    let lang = localStorage.getItem('lang') || (navigator.language || 'it').startsWith('it') ? 'it' : 'en';
+    const applyLang = () => {
+      roleLine.textContent = titles[lang].role;
+      siteTitle.textContent = titles[lang].site;
+      document.documentElement.lang = lang;
+      document.title = lang === 'it' ? 'Alessandro Chiri — CV | Deloitte Consultant & Innovation Specialist' : 'Alessandro Chiri — Resume | Deloitte Consultant & Innovation Specialist';
+      const metaDesc = document.querySelector('meta[name=\"description\"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', lang === 'it'
+          ? 'Curriculum online di Alessandro Chiri, Consultant in Deloitte (Bari). Specialista in innovazione, trasferimento tecnologico e analisi funzionale.'
+          : 'Online resume of Alessandro Chiri, Consultant at Deloitte (Bari). Specialist in innovation, technology transfer and functional analysis.');
+      }
+      langBtn.textContent = lang.toUpperCase();
+      langBtn.setAttribute('aria-pressed', String(lang === 'en'));
+    };
+    applyLang();
+    langBtn.addEventListener('click', () => {
+      lang = (lang === 'it') ? 'en' : 'it';
+      localStorage.setItem('lang', lang);
+      applyLang();
+    });
 
+    // Print to PDF
+    document.getElementById('printCv').addEventListener('click', () => window.print());
+  </script>
 </body>
 </html>

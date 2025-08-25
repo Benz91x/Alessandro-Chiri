@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.google.com/search?q=https://benz91x.github.io/Alessandro-Chiri/sitemap.xml
+Sitemap: https://benz91x.github.io/Alessandro-Chiri/sitemap.xml
