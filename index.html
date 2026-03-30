@@ -1,319 +1,1059 @@
-<!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<!doctype html>
+<html lang="it" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>Alessandro Chiri · Senior Consultant Big 4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Alessandro Chiri, Senior Consultant con 8 anni di esperienza in consulenza Big 4 su progetti di trasformazione digitale, IT & business.s.">
+  /jpeg" href="favicon-32x32.jpg" sizes="32x32">
+  >
 
-  <!-- Primary SEO -->
-  <title>Alessandro Chiri — CV | Deloitte Consultant & Innovation Specialist</title>
-  <meta name="description" content="Curriculum online di Alessandro Chiri, Consultant in Deloitte (Bari). Specialista in innovazione, trasferimento tecnologico e analisi funzionale.">
+  <!-- Font (puoi cambiare se preferisci) -->
+  //fonts.googleapis.com">
+  //fonts.gstatic.com" crossorigin>
+  //fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Robots -->
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://benz91x.github.io/Alessandro-Chiri/">
-
-  <!-- Favicons -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#0a0a0a">
-
-  <!-- Social (Open Graph / Twitter) -->
-  <meta property="og:title" content="Alessandro Chiri — Deloitte Consultant | CV">
-  <meta property="og:description" content="Consultant in Deloitte. Innovazione, tecnologia, project management.">
-  <meta property="og:image" content="https://benz91x.github.io/Alessandro-Chiri/Chiri_Alessandro.jpeg">
-  <meta property="og:url" content="https://benz91x.github.io/Alessandro-Chiri/">
-  <meta property="og:type" content="profile">
-  <meta property="og:locale" content="it_IT">
-  <meta property="og:locale:alternate" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Alessandro Chiri — Deloitte Consultant | CV">
-  <meta name="twitter:description" content="Consultant in Deloitte. Innovazione, tecnologia, project management.">
-  <meta name="twitter:image" content="https://benz91x.github.io/Alessandro-Chiri/Chiri_Alessandro.jpeg">
-
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="Chiri_Alessandro.jpeg" imagesrcset="Chiri_Alessandro.jpeg 1x">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
-
-  <!-- Tailwind (configured for dark mode via class) -->
-  <script>
-    window.tailwind = window.tailwind || {};
-    tailwind.config = { darkMode: 'class' };
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Custom styles (small additions) -->
   <style>
-    :root { --brand:#0071e3; }
-    .card { border-radius: 18px; box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.08); }
-    .card:hover { transform: translateY(-2px); transition: transform .25s ease; }
-    .btn { border-radius: 9999px; }
-    .prose li { margin-bottom:.35rem }
-    .timeline::before { content:''; position:absolute; top:0; bottom:0; left:1.25rem; width:2px; background:linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,0)); }
-    .timeline-item { position:relative; padding-left:3rem }
-    .timeline-item::before { content:''; position:absolute; left:0.9rem; top:.45rem; width:.7rem; height:.7rem; border-radius:9999px; background:var(--brand); box-shadow:0 0 0 4px rgba(0,113,227,.15); }
-    @media (prefers-reduced-motion:no-preference) {
-      .reveal { opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease }
-      .reveal.on { opacity:1; transform:none }
+    /* ========================
+       Design tokens di base
+       ======================== */
+    :root {
+      --font-body: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+
+      --radius-sm: 0.375rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1.25rem;
+      --radius-full: 999px;
+
+      /* Light */
+      --color-bg: #f7f6f2;
+      --color-surface: #ffffff;
+      --color-surface-soft: #f1eee7;
+      --color-border: #ddd6c8;
+      --color-text: #22201a;
+      --color-text-muted: #6e6a60;
+      --color-primary: #01696f;
+      --color-primary-soft: rgba(1, 105, 111, 0.08);
+      --color-accent: #e09b3d;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.20);
+      --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #10100f;
+      --color-surface: #181a1b;
+      --color-surface-soft: #212325;
+      --color-border: #292c30;
+      --color-text: #f5f4f0;
+      --color-text-muted: #9b9b93;
+      --color-primary: #4fb0b8;
+      --color-primary-soft: rgba(79, 176, 184, 0.12);
+      --color-accent: #f0bf5a;
+      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Reset essenziale */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      background: radial-gradient(circle at top left, #f9efe0 0, #f7f6f2 45%, #e8f3f4 100%);
+      color: var(--color-text);
+    }
+    [data-theme="dark"] body {
+      background: radial-gradient(circle at top left, #1b2226 0, #101010 45%, #020617 100%);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout */
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4) var(--space-10);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: conic-gradient(from 180deg, #01696f, #0ea5e9, #eab308, #01696f);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: inherit;
+      background: var(--color-bg);
+    }
+
+    .logo-mark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-text-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+    }
+
+    .brand-text-sub {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .nav-link {
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-full);
+      background: transparent;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      background: var(--color-surface-soft);
+      border-color: rgba(0,0,0,0.04);
+    }
+
+    .btn-primary {
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: #fdfcfb;
+      border: none;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 14px 40px rgba(1, 105, 111, 0.45);
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 60px rgba(1, 105, 111, 0.6);
+      background: #015157;
+    }
+
+    .btn-ghost {
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      background: transparent;
+      border: 1px solid var(--color-border);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      background: var(--color-surface-soft);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(16px);
+      font-size: 0.9rem;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-primary-soft);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      border-color: rgba(0,0,0,0.14);
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: var(--space-10);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: var(--space-8);
+      align-items: center;
+    }
+
+    .hero-badge-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.7rem;
+      border-radius: var(--radius-full);
+      background: rgba(1, 105, 111, 0.07);
+      color: var(--color-primary);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      margin-bottom: var(--space-3);
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      box-shadow: 0 0 0 5px rgba(240, 191, 90, 0.33);
+    }
+
+    .hero-title {
+      font-size: var(--text-2xl);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: var(--space-3);
+    }
+
+    .hero-title span {
+      color: var(--color-primary);
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 36rem;
+      margin-bottom: var(--space-5);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .metric-pill {
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(12px);
+    }
+
+    [data-theme="dark"] .metric-pill {
+      background: rgba(24,24,27,0.8);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .metric-pill strong {
+      display: block;
+      font-size: var(--text-sm);
+    }
+
+    .metric-pill span {
+      color: var(--color-text-muted);
+    }
+
+    .hero-photo-wrapper {
+      position: relative;
+      padding: var(--space-3);
+      border-radius: 28px;
+      background: radial-gradient(circle at top left, rgba(240, 191, 90, 0.6), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(1, 105, 111, 0.7), transparent 60%),
+                  var(--color-surface);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-photo-inner {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.65);
+      background: var(--color-surface-soft);
+    }
+
+    .hero-tag {
+      position: absolute;
+      bottom: var(--space-3);
+      left: var(--space-3);
+      right: var(--space-3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      border-radius: var(--radius-md);
+      background: rgba(10, 10, 12, 0.82);
+      color: #f9fafb;
+      font-size: var(--text-xs);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-tag span {
+      display: block;
+    }
+
+    .hero-tag strong {
+      font-size: 0.95em;
+    }
+
+    /* Sezioni */
+    section {
+      margin-bottom: var(--space-10);
+    }
+
+    .section-label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .section-title {
+      font-size: var(--text-xl);
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-3);
+    }
+
+    .section-intro {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 42rem;
+      margin-bottom: var(--space-5);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .pill {
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius-full);
+      background: rgba(0,0,0,0.04);
+      font-size: var(--text-xs);
+    }
+
+    [data-theme="dark"] .pill {
+      background: rgba(148, 163, 184, 0.16);
+    }
+
+    /* Grid / cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .card {
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(0,0,0,0.04);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 16px 50px rgba(15,23,42,0.06);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    [data-theme="dark"] .card {
+      background: rgba(15,23,42,0.86);
+      border-color: rgba(148,163,184,0.12);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.8);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 70px rgba(15,23,42,0.15);
+      border-color: rgba(1,105,111,0.35);
+    }
+
+    .card-title {
+      font-size: var(--text-lg);
+      margin-bottom: 0.35rem;
+    }
+
+    .card-sub {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .card-list {
+      list-style: none;
+      font-size: var(--text-sm);
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .card-list li::before {
+      content: "•";
+      color: var(--color-primary);
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    /* Timeline esperienza */
+    .timeline {
+      position: relative;
+      padding-left: 1.3rem;
+      border-left: 1px dashed rgba(148,163,184,0.5);
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: var(--space-2);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -0.73rem;
+      top: 0.25rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--color-bg);
+      box-shadow: 0 0 0 4px var(--color-primary-soft);
+      border: 2px solid var(--color-primary);
+    }
+
+    .timeline-role {
+      font-size: var(--text-sm);
+      font-weight: 600;
+    }
+
+    .timeline-meta {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .timeline-body {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    /* Tabs competenze */
+    .tabs {
+      display: inline-flex;
+      padding: 0.25rem;
+      border-radius: var(--radius-full);
+      background: rgba(148,163,184,0.16);
+      margin-bottom: var(--space-4);
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .tab.active {
+      background: var(--color-surface);
+      color: var(--color-primary);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15,23,42,0.18);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .skill-pill {
+      padding: 0.45rem 0.7rem;
+      border-radius: var(--radius-full);
+      background: rgba(15,23,42,0.03);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    [data-theme="dark"] .skill-pill {
+      background: rgba(15,23,42,0.7);
+    }
+
+    .skill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--color-primary);
+    }
+
+    /* CTA finale */
+    .cta-card {
+      padding: var(--space-5);
+      border-radius: 26px;
+      background: radial-gradient(circle at top left, rgba(1,105,111,0.45), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(240,191,90,0.55), transparent 60%),
+                  #020617;
+      color: #e5e7eb;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+    }
+
+    .cta-card h2 {
+      font-size: var(--text-xl);
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-card p {
+      font-size: var(--text-sm);
+      max-width: 28rem;
+      color: #e5e7eb;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .cta-btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      font-size: var(--text-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 500;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .cta-btn-primary {
+      background: #f9fafb;
+      color: #020617;
+      box-shadow: 0 10px 35px rgba(15,23,42,0.9);
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 50px rgba(15,23,42,1);
+    }
+
+    .cta-btn-ghost {
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid rgba(148,163,184,0.6);
+    }
+
+    .cta-btn-ghost:hover {
+      background: rgba(15,23,42,0.8);
+    }
+
+    footer {
+      margin-top: var(--space-8);
+      padding-top: var(--space-4);
+      border-top: 1px solid rgba(148,163,184,0.3);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 320ms var(--transition-fast), transform 320ms var(--transition-fast);
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsività */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        margin-bottom: var(--space-8);
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .grid-3,
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .hero-photo-wrapper {
+        order: -1;
+      }
+      .cta-card {
+        padding: var(--space-4);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .cta-card h2 {
+        font-size: var(--text-lg);
+      }
     }
   </style>
-
-  <!-- JSON-LD: Person + WebPage -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Alessandro Chiri",
-    "image":"https://benz91x.github.io/Alessandro-Chiri/Chiri_Alessandro.jpeg",
-    "jobTitle":"Consultant",
-    "worksFor":{"@type":"Organization","name":"Deloitte"},
-    "address":{"@type":"PostalAddress","addressLocality":"Bari","addressCountry":"IT"},
-    "email":"mailto:alexch@hotmail.it",
-    "sameAs":["https://www.linkedin.com/in/alessandro-chiri"],
-    "knowsAbout":["Innovazione","Trasferimento Tecnologico","Intelligenza Artificiale","Project Management","Analisi Funzionale","UFT One","LoadRunner","Python","SQL","xTech NextHub"],
-    "knowsLanguage":["it","en"],
-    "url":"https://benz91x.github.io/Alessandro-Chiri/"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"Alessandro Chiri — CV Professionale",
-    "url":"https://benz91x.github.io/Alessandro-Chiri/",
-    "inLanguage":"it",
-    "description":"CV online di Alessandro Chiri (Deloitte). Innovazione, IA, trasferimento tecnologico."
-  }
-  </script>
-
-  <noscript>
-    <style>.reveal{opacity:1 !important; transform:none !important}</style>
-  </noscript>
 </head>
-<body class="antialiased bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 selection:bg-blue-200 selection:text-neutral-900">
-  <!-- Skip to content -->
-  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-black focus:px-3 focus:py-2 rounded">Vai al contenuto</a>
-
-  <!-- Header -->
-  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-neutral-900/60 border-b border-black/5 dark:border-white/10">
-    <nav class="mx-auto max-w-6xl px-4 md:px-6 py-3 flex items-center justify-between" aria-label="Principale">
-      <div class="flex items-center gap-3">
-        <img src="favicon-32x32.png" alt="" class="h-6 w-6 rounded">
-        <span id="siteTitle" class="font-semibold">Alessandro Chiri — CV</span>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <div class="logo-mark">AC</div>
+        </div>
+        <div>
+          <div class="brand-text-title">Alessandro Chiri</div>
+          <div class="brand-text-sub">Senior Consultant · Big 4</div>
+        </div>
       </div>
-      <div class="flex items-center gap-2">
-        <!-- Language toggle -->
-        <button id="langToggle" class="btn px-3 py-1.5 text-sm bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700" aria-pressed="false" aria-label="Cambia lingua">IT</button>
-        <!-- Dark mode toggle -->
-        <button id="themeToggle" class="btn px-3 py-1.5 text-sm bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700" aria-pressed="false" aria-label="Tema scuro/chiaro">
-          <span id="themeIcon">🌙</span>
+      <nav>
+        <a href="#esperienza" class="nav-link">Esperienza</a>
+        <a href="#competenze" class="nav-link">Competenze</a>
+        <a href="#formazione" class="nav-link">Formazione</a>
+        <a href="#contatti" class="nav-link">Contatti</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+          ☀️
         </button>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
-  <main id="main" class="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-16 space-y-16 md:space-y-24">
     <!-- Hero -->
-    <section class="text-center reveal on">
-      <img src="Chiri_Alessandro.jpeg" alt="Ritratto di Alessandro Chiri in giacca e cravatta" class="mx-auto h-36 w-36 rounded-full object-cover shadow-lg ring-2 ring-white/80 dark:ring-white/10" loading="eager" decoding="async">
-      <h1 class="mt-6 text-4xl md:text-5xl font-bold tracking-tight">Alessandro Chiri</h1>
-      <p id="roleLine" class="mt-2 text-lg text-neutral-600 dark:text-neutral-300">Consultant presso Deloitte • Bari, Italia</p>
+    <main>
+      <section class="hero reveal">
+        <div>
+          <div class="hero-badge-row">
+            <span class="hero-badge-dot"></span>
+            <span>In cerca di nuove opportunità · Italia / EU</span>
+          </div>
+          <h1 class="hero-title">
+            Consulente con <span>8 anni</span> di esperienza Big 4
+            su progetti IT & business.
+          </h1>
+          <p class="hero-subtitle">
+            Aiuto aziende e pubbliche amministrazioni a guidare progetti di trasformazione digitale,
+            migliorare processi e piattaforme e tradurre requisiti di business in soluzioni tecnologiche concrete.
+          </p>
 
-      <div class="mt-6 flex items-center justify-center gap-3">
-        <a class="btn px-5 py-2 bg-[var(--brand)] text-white hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500" href="mailto:alexch@hotmail.it">Email</a>
-        <a class="btn px-5 py-2 bg-neutral-900 text-white hover:bg-black dark:bg-white dark:text-black" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/alessandro-chiri">LinkedIn</a>
-        <button id="printCv" class="btn px-5 py-2 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700">Stampa / Salva PDF</button>
-      </div>
-    </section>
+          <div class="hero-actions">
+            <!-- TODO: se carichi un PDF CV nella repo con questo nome il link funzionerà; altrimenti aggiorna l'href -->
+            <a href="Alessandro_Chiri_CV.pdf" class="btn-primary" target="_blank" rel="noopener noreferrer">
+              Scarica CV
+            </a>
+            <a href="#contatti" class="btn-ghost">
+              Scrivimi per una call
+            </a>
+          </div>
 
-    <!-- Esperienze (Timeline) -->
-    <section aria-labelledby="expTitle" class="reveal">
-      <h2 id="expTitle" class="text-3xl font-semibold mb-6 tracking-tight">Esperienze Professionali</h2>
-      <div class="relative timeline">
-        <article class="timeline-item card bg-white dark:bg-neutral-900 p-6 md:p-8 mb-6">
-          <header class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-            <h3 class="text-xl font-semibold text-[var(--brand)]">Consultant</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400">Deloitte · Ott 2024 — Presente · Bari</p>
-          </header>
-          <ul class="prose list-disc pl-5 mt-3 text-neutral-700 dark:text-neutral-300">
-            <li>Gestione ed evoluzione della piattaforma xTech NextHub per trasferimento tecnologico e open innovation.</li>
-            <li>Scouting e <em>matchmaking</em> tramite Recommendation Engine basato su IA.</li>
-            <li>Produzione deliverable (One-Pager), estrazione dati per BI e presentazioni a stakeholder.</li>
-            <li>Analisi/validazione delle soluzioni raccomandate, monitoraggio e ottimizzazione dei processi.</li>
-          </ul>
-        </article>
-
-        <article class="timeline-item card bg-white dark:bg-neutral-900 p-6 md:p-8 mb-6">
-          <header class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-            <h3 class="text-xl font-semibold text-[var(--brand)]">Application Specialist Support</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400">Experis · Ott 2019 — Set 2024</p>
-          </header>
-          <ul class="prose list-disc pl-5 mt-3 text-neutral-700 dark:text-neutral-300">
-            <li>Configurazione e personalizzazione di piattaforme (Spring Q‑Cent @ENEL) per ecosistema Micro Focus.</li>
-            <li>Supporto utenti, troubleshooting e formazione.</li>
-            <li>Monitoraggio operativo, sicurezza e validazione aggiornamenti.</li>
-            <li>Documentazione tecnica e diffusione best practice.</li>
-          </ul>
-        </article>
-
-        <article class="timeline-item card bg-white dark:bg-neutral-900 p-6 md:p-8">
-          <header class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-            <h3 class="text-xl font-semibold text-[var(--brand)]">Business Analyst & Analista Funzionale</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400">Accenture · Mar 2018 — Ago 2019</p>
-          </header>
-          <ul class="prose list-disc pl-5 mt-3 text-neutral-700 dark:text-neutral-300">
-            <li>Raccolta requisiti, analisi processi e progettazione sistemi informativi.</li>
-            <li>Metodologie Agile, coordinamento con PM e SME.</li>
-            <li>Analisi KPI qualità/tempi, rappresentazioni grafiche (flowchart, Gantt).</li>
-            <li>Uso strumenti: MS Office/VBA, Oracle DB, Jira/Confluence.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <!-- Competenze -->
-    <section aria-labelledby="skillsTitle" class="reveal">
-      <h2 id="skillsTitle" class="text-3xl font-semibold mb-6 tracking-tight">Competenze Tecniche</h2>
-      <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
-        <div class="flex flex-wrap gap-2 md:gap-3">
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">UFT One</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Mobile Center</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">LoadRunner</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Python</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">SQL (base)</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">VBA</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Jira</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Confluence</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Excel (Pivot)</span>
-          <span class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800">Autocad 2D</span>
+          <div class="hero-metrics">
+            <div class="metric-pill">
+              <strong>8+ anni</strong>
+              <span>Consulenza in contesti enterprise</span>
+            </div>
+            <div class="metric-pill">
+              <strong>Big 4</strong>
+              <span>Esperienza consolidata in Deloitte</span>
+            </div>
+            <div class="metric-pill">
+              <strong>Settore pubblico & utility</strong>
+              <span>Progetti per PA centrale, locale ed energy</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Formazione -->
-    <section aria-labelledby="eduTitle" class="reveal">
-      <h2 id="eduTitle" class="text-3xl font-semibold mb-6 tracking-tight">Formazione</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
-          <h3 class="text-lg font-semibold">Laurea in Ingegneria Industriale (L‑09)</h3>
-          <p class="text-neutral-600 dark:text-neutral-400">Università del Salento — Facoltà di Ingegneria</p>
+        <aside class="hero-photo-wrapper">
+          <div class="hero-photo-inner">
+            <!-- Sostituisci il nome file con quello effettivo nella repo (es. Chiri_Alessandro.jpg) -->
+            <img src="Chiri_Alessandro.jpg" alt="Ritratto professionale di Alessandro Chiri">
+          </div>
+          <div class="hero-tag">
+            <div>
+              <span>Ultima posizione</span>
+              <strong>Consultant · Deloitte</strong>
+            </div>
+            <div>
+              <span>Basato a</span>
+              <strong>Italia · disponibile full remote / ibrido</strong>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Sezione: Cosa porto in azienda -->
+      <section id="valore" class="reveal">
+        <p class="section-label">Posizionamento</p>
+        <h2 class="section-title">Cosa porto in azienda</h2>
+        <p class="section-intro">
+          Un profilo ibrido tra business e tecnologia: so parlare con stakeholder non tecnici,
+          tradurre esigenze in requisiti chiari e accompagnare l’implementazione con metodo e attenzione ai risultati.
+        </p>
+        <div class="grid-3">
+          <article class="card">
+            <h3 class="card-title">Execution affidabile</h3>
+            <p class="card-sub">Project delivery in contesti complessi</p>
+            <ul class="card-listst">
+              >Gestione attività progettuali end‑to‑end, coordinando team cross‑funzionali.</l/li>
+              >Monitoraggio KPI di avanzamento, qualità e rischio.</l/li>
+              >Documentazione chiara e condivisa con PM e stakeholder.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 class="card-title">Business & tecnologia</h3>
+            <p class="card-sub">Dal requisito al sistema in esercizio</p>
+            <ul class="card-listst">
+              >Raccolta, analisi e formalizzazione requisiti funzionali e non funzionali.</l/li>
+              >Configurazione / evoluzione di piattaforme enterprise (ALM, testing, xTech, ecc.).</l/li>
+              >Validazione soluzioni, test, formazione utenti e adozione.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 class="card-title">Relazione con il cliente</h3>
+            <p class="card-sub">Fiducia e comunicazione trasparente</p>
+            <ul class="card-listst">
+              >Interfaccia quotidiana con referenti di business e IT.</l/li>
+              >Capacity di storytelling: presentazioni, one‑pager e materiali per C‑level.</l/li>
+              >Approccio pragmatico, orientato a risultati misurabili.</li>
+            </ul>
+          </article>
         </div>
-        <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
-          <h3 class="text-lg font-semibold">Diploma Perito Industriale Capotecnico</h3>
-          <p class="text-neutral-600 dark:text-neutral-400">I.T.I.S. “G. Giorgi” — Meccanica</p>
+      </section>
+
+      <!-- Sezione: Esperienza -->
+      <section id="esperienza" class="reveal">
+        <p class="section-label">Esperienza</p>
+        <h2 class="section-title">8 anni di consulenza professionale</h2>
+        <p class="section-intro">
+          Ho maturato esperienza su progetti di trasformazione digitale, gestione applicativa e
+          piattaforme enterprise in ambienti Big 4, lavorando con utility, PA e grandi clienti corporate.
+        </p>
+
+        <div class="grid-2">
+          <div>
+            <div class="timeline">
+              <article class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-role">Consultant · Deloitte</h3>
+                <p class="timeline-meta">2019 – oggi · Italia · Big 4</p>
+                <p class="timeline-body">
+                  Coinvolto in progetti di open innovation, trasferimento tecnologico e modernizzazione applicativa.
+                  Gestione di piattaforme enterprise, attività di scouting digitale e supporto alla decisione
+                  tramite analisi dati e deliverable per stakeholder interni ed esterni.
+                </p>
+              </article>
+
+              <article class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h3 class="timeline-role">Consultant / Analyst · contesto enterprise</h3>
+                <p class="timeline-meta">2016 – 2019 · Italia</p>
+                <p class="timeline-body">
+                  Configurazione e personalizzazione di soluzioni ALM/testing, supporto utenti e troubleshooting,
+                  automazione test, analisi processi e supporto al disegno di nuovi sistemi informativi.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Alcuni esempi di attività</h3>
+            <p class="card-sub">Selezione sintetica di responsabilità ricorrenti</p>
+            <ul class="card-listst">
+              >Gestione ed evoluzione di piattaforme per open innovation, matchmaking e trasferimento tecnologico.</l/li>
+              >Produzione di one‑pager, report e presentazioni per CXO e stakeholder istituzionali.</l/li>
+              >Analisi e modellazione processi, definizione backlog, supporto a PM e Product Owner.</l/li>
+              >Monitoraggio sicurezza, qualità e performance delle soluzioni in esercizio.</l/li>
+              >Raccolta requisiti presso funzioni di business e traduzione per i team tecnici.</li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Corsi e Certificazioni -->
-    <section aria-labelledby="certTitle" class="reveal">
-      <h2 id="certTitle" class="text-3xl font-semibold mb-6 tracking-tight">Corsi & Certificazioni</h2>
-      <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8">
-        <ul class="prose list-disc pl-5 text-neutral-700 dark:text-neutral-300">
-          <li>MC2 — Mobile Center Essentials v2.x (Certified Professional)</li>
-          <li>ALM120 — ALM/QC 15 (Certified Professional)</li>
-          <li>LoadRunner Professional 2020 (Certified Professional)</li>
-          <li>UFT One v15.x (Certified Professional)</li>
-          <li>Metodologia Agile, Cyber Security, Power BI, Public speaking & digital writing</li>
-        </ul>
-      </div>
-    </section>
+      <!-- Sezione: Competenze -->
+      <section id="competenze" class="reveal">
+        <p class="section-label">Competenze</p>
+        <h2 class="section-title">Competenze tecniche & trasversali</h2>
+        <p class="section-intro">
+          Una combinazione di competenze consulenziali, strumenti enterprise e basi tecniche che
+          mi permettono di dialogare sia con il business sia con i team IT.
+        </p>
 
-    <!-- Lingue -->
-    <section aria-labelledby="langTitle" class="reveal">
-      <h2 id="langTitle" class="text-3xl font-semibold mb-6 tracking-tight">Competenze Linguistiche</h2>
-      <div class="card bg-white dark:bg-neutral-900 p-6 md:p-8 text-center">
-        <p class="text-lg">Italiano: <strong>madrelingua</strong></p>
-        <p class="text-lg mt-1">Inglese: <strong>B2 (EF‑SET)</strong></p>
-      </div>
-    </section>
+        <div class="tabs" aria-label="Tipologia competenze">
+          <button class="tab active" data-tab="hard">Tecniche</button>
+          <button class="tab" data-tab="soft">Consulenziali</button>
+        </div>
 
-    <!-- CTA finale -->
-    <section class="reveal text-center">
-      <div class="card bg-gradient-to-br from-blue-600 to-blue-700 text-white p-8 md:p-10">
-        <h2 class="text-2xl md:text-3xl font-semibold">Interessato a collaborare?</h2>
-        <p class="mt-2 opacity-90">Scrivimi: <a class="underline underline-offset-2" href="mailto:alexch@hotmail.it">alexch@hotmail.it</a></p>
-        <p class="mt-1 opacity-90">Profilo: <a class="underline underline-offset-2" target="_blank" rel="noopener" href="https://www.linkedin.com/in/alessandro-chiri">linkedin.com/in/alessandro-chiri</a></p>
-      </div>
-    </section>
-  </main>
+        <div id="skills-hard" class="skills-grid">
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Testing & QA (UFT One, LoadRunner, Mobile Center)
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Piattaforme ALM / Q‑Cent, ecosistema Micro Focus
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> xTech / NextHub, recommendation engine basati su IA
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> SQL (base), Python (base), VBA per automazioni Office
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Analisi dati con Excel avanzato (tabelle pivot, grafici)
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Jira, Confluence, strumenti di project e knowledge management
+          </div>
+        </div>
 
-  <footer class="mt-12 border-t border-black/5 dark:border-white/10">
-    <div class="mx-auto max-w-6xl px-4 md:px-6 py-8 text-center text-sm text-neutral-600 dark:text-neutral-400">
-      <p>&copy; <span id="year"></span> Alessandro Chiri — Tutti i diritti riservati.</p>
-      <p class="mt-1"><a class="hover:underline" href="sitemap.xml">Sitemap</a> · <a class="hover:underline" href="site.webmanifest">Web Manifest</a></p>
-    </div>
-  </footer>
+        <div id="skills-soft" class="skills-grid" style="display:none;">
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Raccolta requisiti e analisi processi
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Gestione stakeholder e comunicazione con il top management
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Metodologie Agile / Scrum e lavoro cross‑team
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Strutturazione deliverable (one‑pager, slide, executive summary)
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Problem solving strutturato e orientamento al risultato
+          </div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span> Public speaking e facilitazione di workshop
+          </div>
+        </div>
 
-  <!-- Scripts: reveal on scroll, theme + language toggle, print -->
+        <div class="pill-row">
+          <div class="pill">Italiano: madrelingua</div>
+          <div class="pill">Inglese: livello B2 (EF‑SET)</div>
+        </div>
+      </section>
+
+      <!-- Formazione & certificazioni -->
+      <section id="formazione" class="reveal">
+        <p class="section-label">Background</p>
+        <h2 class="section-title">Formazione & certificazioni</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3 class="card-title">Formazione</h3>
+            <ul class="card-listst">
+              >Laurea in Ingegneria Industriale (L‑09) · Università del Salento.</l/li>
+              >Diploma Perito Industriale Capotecnico · I.T.I.S. “G. Giorgi”.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3 class="card-title">Corsi & certificazioni</h3>
+            <ul class="card-listst">
+              >MC2 — Mobile Center Essentials v2.x (Certified Professional).</l/li>
+              >ALM120 — ALM/QC 15 (Certified Professional).</l/li>
+              >LoadRunner Professional 2020 (Certified Professional).</l/li>
+              >UFT One v15.x (Certified Professional).</l/li>
+              >Corsi su Agile, Cyber Security, Power BI, public speaking & digital writing.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- CTA / Contatti -->
+      <section id="contatti" class="reveal">
+        <div class="cta-card">
+          <div>
+            <h2>Parliamo della tua prossima posizione aperta</h2>
+            <p>
+              Sono interessato a opportunità come Senior Consultant / Manager
+              in ambito consulenza direzionale, IT & digital transformation,
+              preferibilmente in contesti strutturati (Big 4, società di consulenza,
+              corporate o scale‑up tecnologiche).
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a class="cta-btn cta-btn-primary" href="mailto:alexch@hotmail.it?subject=Candidatura%20-%20Alessandro%20Chiri">
+              📩 Scrivimi su email
+            </a>
+            <a class="cta-btn cta-btn-ghost" href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" rel="noopener noreferrer">
+              🔗 Profilo LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <footer>
+          <span>© <span id="year"></span> Alessandro Chiri · Portfolio CV</span>
+          <span>Ultimo aggiornamento: <span id="lastUpdate">2026</span></span>
+        </footer>
+      </section>
+    </main>
+  </div>
+
   <script>
-    const reveal = () => {
-      const els = document.querySelectorAll('.reveal');
-      const vH = window.innerHeight;
-      els.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < vH * 0.9) el.classList.add('on');
+    // Dark / light mode toggle
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById("themeToggle");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      let theme = prefersDark ? "dark" : "light";
+      root.setAttribute("data-theme", theme);
+      btn.textContent = theme === "dark" ? "🌙" : "☀️";
+
+      btn.addEventListener("click", function () {
+        theme = theme === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", theme);
+        btn.textContent = theme === "dark" ? "🌙" : "☀️";
       });
-    };
-    window.addEventListener('scroll', reveal, {passive:true});
-    window.addEventListener('load', reveal);
+    })();
 
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Scroll reveal
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    reveals.forEach((el) => observer.observe(el));
 
-    // Theme toggle (persist)
-    const html = document.documentElement;
-    const themeBtn = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      html.classList.add('dark'); themeBtn.setAttribute('aria-pressed','true'); themeIcon.textContent='☀️';
-    }
-    themeBtn.addEventListener('click', () => {
-      const isDark = html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      themeBtn.setAttribute('aria-pressed', String(isDark));
-      themeIcon.textContent = isDark ? '☀️' : '🌙';
+    // Tabs competenze
+    const tabs = document.querySelectorAll(".tab");
+    const hard = document.getElementById("skills-hard");
+    const soft = document.getElementById("skills-soft");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        const type = tab.dataset.tab;
+        if (type === "hard") {
+          hard.style.display = "grid";
+          soft.style.display = "none";
+        } else {
+          hard.style.display = "none";
+          soft.style.display = "grid";
+        }
+      });
     });
 
-    // Language toggle (very light, IT/EN for key strings)
-    const langBtn = document.getElementById('langToggle');
-    const roleLine = document.getElementById('roleLine');
-    const siteTitle = document.getElementById('siteTitle');
-    const titles = {
-      it: { role: 'Consultant presso Deloitte • Bari, Italia', site: 'Alessandro Chiri — CV' },
-      en: { role: 'Consultant at Deloitte • Bari, Italy', site: 'Alessandro Chiri — Resume' }
-    };
-    let lang = localStorage.getItem('lang') || (navigator.language || 'it').startsWith('it') ? 'it' : 'en';
-    const applyLang = () => {
-      roleLine.textContent = titles[lang].role;
-      siteTitle.textContent = titles[lang].site;
-      document.documentElement.lang = lang;
-      document.title = lang === 'it' ? 'Alessandro Chiri — CV | Deloitte Consultant & Innovation Specialist' : 'Alessandro Chiri — Resume | Deloitte Consultant & Innovation Specialist';
-      const metaDesc = document.querySelector('meta[name=\"description\"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('content', lang === 'it'
-          ? 'Curriculum online di Alessandro Chiri, Consultant in Deloitte (Bari). Specialista in innovazione, trasferimento tecnologico e analisi funzionale.'
-          : 'Online resume of Alessandro Chiri, Consultant at Deloitte (Bari). Specialist in innovation, technology transfer and functional analysis.');
-      }
-      langBtn.textContent = lang.toUpperCase();
-      langBtn.setAttribute('aria-pressed', String(lang === 'en'));
-    };
-    applyLang();
-    langBtn.addEventListener('click', () => {
-      lang = (lang === 'it') ? 'en' : 'it';
-      localStorage.setItem('lang', lang);
-      applyLang();
-    });
-
-    // Print to PDF
-    document.getElementById('printCv').addEventListener('click', () => window.print());
+    // Anno automatico in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
