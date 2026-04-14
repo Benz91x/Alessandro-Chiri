@@ -5,6 +5,7 @@
   <title>Alessandro Chiri · Senior Consultant</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Alessandro Chiri, consulente con oltre 8 anni di esperienza in ruoli business & IT tra Accenture, Micro Focus e Deloitte NextHub.">
+
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="shortcut icon" type="image/png" href="favicon-32x32.png">
@@ -16,9 +17,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ========================
-       Design tokens di base
-       ======================== */
     :root {
       --font-body: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -45,7 +43,6 @@
       --radius-lg: 1.25rem;
       --radius-full: 999px;
 
-      /* Light */
       --color-bg: #f7f6f2;
       --color-surface: #ffffff;
       --color-surface-soft: #f1eee7;
@@ -72,7 +69,6 @@
       --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.7);
     }
 
-    /* Reset essenziale */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -98,13 +94,11 @@
       height: auto;
       display: block;
     }
-
     a {
       color: inherit;
       text-decoration: none;
     }
 
-    /* Layout */
     .page {
       max-width: 1120px;
       margin: 0 auto;
@@ -133,7 +127,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .logo::after {
       content: "";
       position: absolute;
@@ -141,7 +134,6 @@
       border-radius: inherit;
       background: var(--color-bg);
     }
-
     .logo-mark {
       position: absolute;
       inset: 0;
@@ -158,7 +150,6 @@
       font-size: var(--text-sm);
       font-weight: 600;
     }
-
     .brand-text-sub {
       font-size: var(--text-xs);
       color: var(--color-text-muted);
@@ -178,7 +169,6 @@
       border: 1px solid transparent;
       transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
     }
-
     .nav-link:hover {
       background: var(--color-surface-soft);
       border-color: rgba(0,0,0,0.04);
@@ -199,7 +189,6 @@
       cursor: pointer;
       transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
     }
-
     .btn-primary:hover {
       transform: translateY(-1px);
       box-shadow: 0 20px 60px rgba(1, 105, 111, 0.6);
@@ -219,14 +208,14 @@
       cursor: pointer;
       transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
     }
-
     .btn-ghost:hover {
       background: var(--color-surface-soft);
       transform: translateY(-1px);
     }
 
-    .theme-toggle {
-      width: 34px;
+    .theme-toggle,
+    .lang-toggle {
+      width: 40px;
       height: 34px;
       border-radius: 999px;
       border: 1px solid var(--color-border);
@@ -239,15 +228,14 @@
       font-size: 0.9rem;
       transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
     }
-
-    .theme-toggle:hover {
+    .theme-toggle:hover,
+    .lang-toggle:hover {
       background: var(--color-primary-soft);
       transform: translateY(-1px);
       box-shadow: 0 10px 25px rgba(0,0,0,0.25);
       border-color: rgba(0,0,0,0.14);
     }
 
-    /* Hero */
     .hero {
       margin-bottom: var(--space-10);
       display: grid;
@@ -268,7 +256,6 @@
       font-weight: 500;
       margin-bottom: var(--space-3);
     }
-
     .hero-badge-dot {
       width: 8px;
       height: 8px;
@@ -283,7 +270,6 @@
       letter-spacing: -0.04em;
       margin-bottom: var(--space-3);
     }
-
     .hero-title span {
       color: var(--color-primary);
     }
@@ -309,7 +295,6 @@
       gap: var(--space-3);
       font-size: var(--text-sm);
     }
-
     .metric-pill {
       padding: 0.5rem 0.9rem;
       border-radius: var(--radius-full);
@@ -317,17 +302,14 @@
       background: rgba(255,255,255,0.55);
       backdrop-filter: blur(12px);
     }
-
     [data-theme="dark"] .metric-pill {
       background: rgba(24,24,27,0.8);
       border-color: rgba(255,255,255,0.06);
     }
-
     .metric-pill strong {
       display: block;
       font-size: var(--text-sm);
     }
-
     .metric-pill span {
       color: var(--color-text-muted);
     }
@@ -342,14 +324,12 @@
       box-shadow: var(--shadow-soft);
       overflow: hidden;
     }
-
     .hero-photo-inner {
       border-radius: 22px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.65);
       background: var(--color-surface-soft);
     }
-
     .hero-tag {
       position: absolute;
       bottom: var(--space-3);
@@ -365,16 +345,10 @@
       font-size: var(--text-xs);
       backdrop-filter: blur(16px);
     }
-
     .hero-tag span {
       display: block;
     }
 
-    .hero-tag strong {
-      font-size: 0.95em;
-    }
-
-    /* Sezioni */
     section {
       margin-bottom: var(--space-10);
     }
@@ -386,13 +360,11 @@
       color: var(--color-text-muted);
       margin-bottom: 0.45rem;
     }
-
     .section-title {
       font-size: var(--text-xl);
       letter-spacing: -0.03em;
       margin-bottom: var(--space-3);
     }
-
     .section-intro {
       font-size: var(--text-base);
       color: var(--color-text-muted);
@@ -406,25 +378,21 @@
       gap: var(--space-2);
       margin-top: var(--space-3);
     }
-
     .pill {
       padding: 0.35rem 0.7rem;
       border-radius: var(--radius-full);
       background: rgba(0,0,0,0.04);
       font-size: var(--text-xs);
     }
-
     [data-theme="dark"] .pill {
       background: rgba(148, 163, 184, 0.16);
     }
 
-    /* Grid / cards */
     .grid-2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-5);
     }
-
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -440,37 +408,31 @@
       box-shadow: 0 16px 50px rgba(15,23,42,0.06);
       transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
     }
-
     [data-theme="dark"] .card {
       background: rgba(15,23,42,0.86);
       border-color: rgba(148,163,184,0.12);
       box-shadow: 0 18px 60px rgba(0,0,0,0.8);
     }
-
     .card:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 70px rgba(15,23,42,0.15);
       border-color: rgba(1,105,111,0.35);
     }
-
     .card-title {
       font-size: var(--text-lg);
       margin-bottom: 0.35rem;
     }
-
     .card-sub {
       font-size: var(--text-sm);
       color: var(--color-text-muted);
       margin-bottom: var(--space-3);
     }
-
     .card-list {
       list-style: none;
       font-size: var(--text-sm);
       display: grid;
       gap: 0.45rem;
     }
-
     .card-list li::before {
       content: "•";
       color: var(--color-primary);
@@ -479,7 +441,6 @@
       margin-left: -1em;
     }
 
-    /* Timeline esperienza */
     .timeline {
       position: relative;
       padding-left: 1.3rem;
@@ -487,12 +448,10 @@
       display: grid;
       gap: var(--space-4);
     }
-
     .timeline-item {
       position: relative;
       padding-left: var(--space-2);
     }
-
     .timeline-dot {
       position: absolute;
       left: -0.73rem;
@@ -509,19 +468,16 @@
       font-size: var(--text-sm);
       font-weight: 600;
     }
-
     .timeline-meta {
       font-size: var(--text-xs);
       color: var(--color-text-muted);
       margin-bottom: 0.45rem;
     }
-
     .timeline-body {
       font-size: var(--text-sm);
       color: var(--color-text-muted);
     }
 
-    /* Tabs competenze */
     .tabs {
       display: inline-flex;
       padding: 0.25rem;
@@ -529,7 +485,6 @@
       background: rgba(148,163,184,0.16);
       margin-bottom: var(--space-4);
     }
-
     .tab {
       border: none;
       background: transparent;
@@ -541,7 +496,6 @@
       color: var(--color-text-muted);
       transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
     }
-
     .tab.active {
       background: var(--color-surface);
       color: var(--color-primary);
@@ -555,7 +509,6 @@
       gap: var(--space-3);
       font-size: var(--text-sm);
     }
-
     .skill-pill {
       padding: 0.45rem 0.7rem;
       border-radius: var(--radius-full);
@@ -564,11 +517,9 @@
       align-items: center;
       gap: 0.35rem;
     }
-
     [data-theme="dark"] .skill-pill {
       background: rgba(15,23,42,0.7);
     }
-
     .skill-dot {
       width: 7px;
       height: 7px;
@@ -576,7 +527,6 @@
       background: var(--color-primary);
     }
 
-    /* CTA finale */
     .cta-card {
       padding: var(--space-5);
       border-radius: 26px;
@@ -591,24 +541,20 @@
       justify-content: space-between;
       box-shadow: 0 24px 80px rgba(0,0,0,0.8);
     }
-
     .cta-card h2 {
       font-size: var(--text-xl);
       margin-bottom: 0.5rem;
     }
-
     .cta-card p {
       font-size: var(--text-sm);
       max-width: 28rem;
       color: #e5e7eb;
     }
-
     .cta-actions {
       display: flex;
       flex-wrap: wrap;
       gap: var(--space-3);
     }
-
     .cta-btn {
       padding: 0.6rem 1.2rem;
       border-radius: var(--radius-full);
@@ -621,24 +567,20 @@
       font-weight: 500;
       transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
     }
-
     .cta-btn-primary {
       background: #f9fafb;
       color: #020617;
       box-shadow: 0 10px 35px rgba(15,23,42,0.9);
     }
-
     .cta-btn-primary:hover {
       transform: translateY(-1px);
       box-shadow: 0 16px 50px rgba(15,23,42,1);
     }
-
     .cta-btn-ghost {
       background: transparent;
       color: #e5e7eb;
       border: 1px solid rgba(148,163,184,0.6);
     }
-
     .cta-btn-ghost:hover {
       background: rgba(15,23,42,0.8);
     }
@@ -655,19 +597,16 @@
       gap: var(--space-3);
     }
 
-    /* Scroll reveal */
     .reveal {
       opacity: 0;
       transform: translateY(18px);
       transition: opacity 320ms var(--transition-fast), transform 320ms var(--transition-fast);
     }
-
     .reveal.in-view {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Responsività */
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
@@ -676,7 +615,6 @@
         margin-bottom: var(--space-8);
       }
     }
-
     @media (max-width: 720px) {
       header {
         flex-direction: column;
@@ -685,7 +623,8 @@
       }
       nav {
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-end;
+        gap: var(--space-2);
       }
       .grid-2 {
         grid-template-columns: 1fr;
@@ -701,7 +640,6 @@
         padding: var(--space-4);
       }
     }
-
     @media (max-width: 500px) {
       .skills-grid {
         grid-template-columns: 1fr;
@@ -722,114 +660,117 @@
         </div>
         <div>
           <div class="brand-text-title">Alessandro Chiri</div>
-          <div class="brand-text-sub">Consultant · Deloitte NextHub</div>
+          <div class="brand-text-sub" data-i18n="brand.subtitle">
+            Consultant · Deloitte NextHub
+          </div>
         </div>
       </div>
       <nav>
-        <a href="#esperienza" class="nav-link">Esperienza</a>
-        <a href="#competenze" class="nav-link">Competenze</a>
-        <a href="#formazione" class="nav-link">Formazione</a>
-        <a href="#contatti" class="nav-link">Contatti</a>
+        <a href="#esperienza" class="nav-link" data-i18n="nav.experience">Esperienza</a>
+        <a href="#competenze" class="nav-link" data-i18n="nav.skills">Competenze</a>
+        <a href="#formazione" class="nav-link" data-i18n="nav.education">Formazione</a>
+        <a href="#contatti" class="nav-link" data-i18n="nav.contact">Contatti</a>
+        <button class="lang-toggle" id="langToggle" aria-label="Cambia lingua">
+          IT
+        </button>
         <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
           ☀️
         </button>
       </nav>
     </header>
 
-    <!-- Hero -->
     <main>
+      <!-- Hero -->
       <section class="hero reveal">
         <div>
           <div class="hero-badge-row">
             <span class="hero-badge-dot"></span>
-            <span>In cerca di nuove opportunità · Italia / EU</span>
+            <span data-i18n="hero.badge">In cerca di nuove opportunità · Italia / EU</span>
           </div>
-          <h1 class="hero-title">
+          <h1 class="hero-title" data-i18n="hero.title">
             Consulente con oltre <span>8 anni</span> di esperienza
             in ruoli business &amp; IT.
           </h1>
-          <p class="hero-subtitle">
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
             Dal 2018 ho maturato esperienza in contesti enterprise tra Accenture, Micro Focus
             e oggi Deloitte NextHub, seguendo progetti di trasformazione digitale,
             gestione applicativa e piattaforme enterprise al confine tra business e tecnologia.
           </p>
 
           <div class="hero-actions">
-            <!-- Se carichi un PDF con questo nome nella repo il link funzionerà -->
-            <a href="Alessandro_Chiri_CV.pdf" class="btn-primary" target="_blank" rel="noopener noreferrer">
+            <a href="Alessandro_Chiri_CV.pdf" class="btn-primary" target="_blank" rel="noopener noreferrer" data-i18n="hero.btnCv">
               Scarica CV
             </a>
-            <a href="#contatti" class="btn-ghost">
+            <a href="#contatti" class="btn-ghost" data-i18n="hero.btnCall">
               Scrivimi per una call
             </a>
           </div>
 
           <div class="hero-metrics">
             <div class="metric-pill">
-              <strong>Dal 2018</strong>
-              <span>Esperienza continua in ruoli business &amp; IT</span>
+              <strong data-i18n="hero.metric1.title">Dal 2018</strong>
+              <span data-i18n="hero.metric1.text">Esperienza continua in ruoli business &amp; IT</span>
             </div>
             <div class="metric-pill">
-              <strong>Deloitte NextHub</strong>
-              <span>Consultant su open innovation &amp; digitale</span>
+              <strong data-i18n="hero.metric2.title">Deloitte NextHub</strong>
+              <span data-i18n="hero.metric2.text">Consultant su open innovation &amp; digitale</span>
             </div>
             <div class="metric-pill">
-              <strong>Accenture &amp; Micro Focus</strong>
-              <span>Business Analyst e Application Specialist Support</span>
+              <strong data-i18n="hero.metric3.title">Accenture &amp; Micro Focus</strong>
+              <span data-i18n="hero.metric3.text">Business Analyst e Application Specialist Support</span>
             </div>
           </div>
         </div>
 
         <aside class="hero-photo-wrapper">
           <div class="hero-photo-inner">
-            <!-- Assicurati che il file nella repo abbia questo nome -->
             <img src="Chiri_Alessandro.jpg" alt="Ritratto professionale di Alessandro Chiri">
           </div>
           <div class="hero-tag">
             <div>
-              <span>Ultima posizione</span>
-              <strong>Consultant · Deloitte NextHub</strong>
+              <span data-i18n="hero.tag.roleLabel">Ultima posizione</span>
+              <strong data-i18n="hero.tag.roleValue">Consultant · Deloitte NextHub</strong>
             </div>
             <div>
-              <span>Basato a</span>
-              <strong>Italia · disponibile full remote / ibrido</strong>
+              <span data-i18n="hero.tag.locLabel">Basato a</span>
+              <strong data-i18n="hero.tag.locValue">Italia · disponibile full remote / ibrido</strong>
             </div>
           </div>
         </aside>
       </section>
 
-      <!-- Sezione: Cosa porto in azienda -->
+      <!-- Cosa porto in azienda -->
       <section id="valore" class="reveal">
-        <p class="section-label">Posizionamento</p>
-        <h2 class="section-title">Cosa porto in azienda</h2>
-        <p class="section-intro">
+        <p class="section-label" data-i18n="value.label">Posizionamento</p>
+        <h2 class="section-title" data-i18n="value.title">Cosa porto in azienda</h2>
+        <p class="section-intro" data-i18n="value.intro">
           Un profilo ibrido tra business e tecnologia: so parlare con stakeholder non tecnici,
           tradurre esigenze in requisiti chiari e accompagnare l’implementazione con metodo
           e attenzione ai risultati.
         </p>
         <div class="grid-3">
           <article class="card">
-            <h3 class="card-title">Execution affidabile</h3>
-            <p class="card-sub">Project delivery in contesti complessi</p>
-            <ul class="card-list">
+            <h3 class="card-title" data-i18n="value.card1.title">Execution affidabile</h3>
+            <p class="card-sub" data-i18n="value.card1.sub">Project delivery in contesti complessi</p>
+            <ul class="card-list" data-i18n="value.card1.list">
               <li>Gestione attività progettuali end‑to‑end, coordinando team cross‑funzionali.</li>
               <li>Monitoraggio KPI di avanzamento, qualità e rischio.</li>
               <li>Documentazione chiara e condivisa con PM e stakeholder.</li>
             </ul>
           </article>
           <article class="card">
-            <h3 class="card-title">Business &amp; tecnologia</h3>
-            <p class="card-sub">Dal requisito al sistema in esercizio</p>
-            <ul class="card-list">
+            <h3 class="card-title" data-i18n="value.card2.title">Business &amp; tecnologia</h3>
+            <p class="card-sub" data-i18n="value.card2.sub">Dal requisito al sistema in esercizio</p>
+            <ul class="card-list" data-i18n="value.card2.list">
               <li>Raccolta, analisi e formalizzazione requisiti funzionali e non funzionali.</li>
               <li>Configurazione / evoluzione di piattaforme enterprise (ALM, testing, xTech, ecc.).</li>
               <li>Validazione soluzioni, test, formazione utenti e adozione.</li>
             </ul>
           </article>
           <article class="card">
-            <h3 class="card-title">Relazione con il cliente</h3>
-            <p class="card-sub">Fiducia e comunicazione trasparente</p>
-            <ul class="card-list">
+            <h3 class="card-title" data-i18n="value.card3.title">Relazione con il cliente</h3>
+            <p class="card-sub" data-i18n="value.card3.sub">Fiducia e comunicazione trasparente</p>
+            <ul class="card-list" data-i18n="value.card3.list">
               <li>Interfaccia quotidiana con referenti di business e IT.</li>
               <li>Storytelling: presentazioni, one‑pager e materiali per C‑level.</li>
               <li>Approccio pragmatico, orientato a risultati misurabili.</li>
@@ -838,11 +779,11 @@
         </div>
       </section>
 
-      <!-- Sezione: Esperienza -->
+      <!-- Esperienza -->
       <section id="esperienza" class="reveal">
-        <p class="section-label">Esperienza</p>
-        <h2 class="section-title">Percorso professionale dal 2018</h2>
-        <p class="section-intro">
+        <p class="section-label" data-i18n="exp.label">Esperienza</p>
+        <h2 class="section-title" data-i18n="exp.title">Percorso professionale dal 2018</h2>
+        <p class="section-intro" data-i18n="exp.intro">
           Ho iniziato come Business Analyst in Accenture, sono cresciuto come Application Specialist
           in Micro Focus e oggi sono Consultant in Deloitte NextHub, sempre su progetti a cavallo tra
           processi di business e sistemi IT.
@@ -853,9 +794,9 @@
             <div class="timeline">
               <article class="timeline-item">
                 <div class="timeline-dot"></div>
-                <h3 class="timeline-role">Consultant · Deloitte NextHub</h3>
-                <p class="timeline-meta">dal 21 ottobre 2024 · Italia · Big 4</p>
-                <p class="timeline-body">
+                <h3 class="timeline-role" data-i18n="exp.t1.role">Consultant · Deloitte NextHub</h3>
+                <p class="timeline-meta" data-i18n="exp.t1.meta">dal 21 ottobre 2024 · Italia · Big 4</p>
+                <p class="timeline-body" data-i18n="exp.t1.body">
                   Consultant in Deloitte NextHub, focalizzato su iniziative di open innovation,
                   trasferimento tecnologico e progetti di trasformazione digitale.
                   Supporto a clienti corporate e PA nella definizione dei requisiti,
@@ -866,10 +807,10 @@
 
               <article class="timeline-item">
                 <div class="timeline-dot"></div>
-                <h3 class="timeline-role">Application Specialist Support · Micro Focus</h3>
-                <p class="timeline-meta">7 ottobre 2019 – 30 settembre 2024 · Italia</p>
-                <p class="timeline-body">
-                  Supporto applicativo e evoluzione di soluzioni ALM / testing e piattaforme enterprise.
+                <h3 class="timeline-role" data-i18n="exp.t2.role">Application Specialist Support · Micro Focus</h3>
+                <p class="timeline-meta" data-i18n="exp.t2.meta">7 ottobre 2019 – 30 settembre 2024 · Italia</p>
+                <p class="timeline-body" data-i18n="exp.t2.body">
+                  Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise.
                   Configurazione e personalizzazione ambienti, monitoraggio operativo,
                   gestione incident/problem, validazione aggiornamenti, documentazione tecnica
                   e formazione agli utenti.
@@ -878,9 +819,9 @@
 
               <article class="timeline-item">
                 <div class="timeline-dot"></div>
-                <h3 class="timeline-role">Business Analyst · Accenture</h3>
-                <p class="timeline-meta">5 marzo 2018 – 31 agosto 2019 · Italia</p>
-                <p class="timeline-body">
+                <h3 class="timeline-role" data-i18n="exp.t3.role">Business Analyst · Accenture</h3>
+                <p class="timeline-meta" data-i18n="exp.t3.meta">5 marzo 2018 – 31 agosto 2019 · Italia</p>
+                <p class="timeline-body" data-i18n="exp.t3.body">
                   Business Analyst in progetti di consulenza, con focus su raccolta requisiti,
                   analisi processi e supporto alla progettazione di soluzioni IT.
                   Coinvolto nella preparazione di documentazione funzionale, test di accettazione
@@ -891,9 +832,9 @@
           </div>
 
           <div class="card">
-            <h3 class="card-title">Attività ricorrenti nei diversi ruoli</h3>
-            <p class="card-sub">Selezione sintetica di responsabilità tipiche</p>
-            <ul class="card-list">
+            <h3 class="card-title" data-i18n="exp.card.title">Attività ricorrenti nei diversi ruoli</h3>
+            <p class="card-sub" data-i18n="exp.card.sub">Selezione sintetica di responsabilità tipiche</p>
+            <ul class="card-list" data-i18n="exp.card.list">
               <li>Gestione ed evoluzione di piattaforme enterprise e soluzioni per open innovation.</li>
               <li>Produzione di one‑pager, report e presentazioni per CXO e stakeholder istituzionali.</li>
               <li>Analisi e modellazione processi, definizione backlog, supporto a PM e Product Owner.</li>
@@ -904,83 +845,83 @@
         </div>
       </section>
 
-      <!-- Sezione: Competenze -->
+      <!-- Competenze -->
       <section id="competenze" class="reveal">
-        <p class="section-label">Competenze</p>
-        <h2 class="section-title">Competenze tecniche &amp; trasversali</h2>
-        <p class="section-intro">
+        <p class="section-label" data-i18n="skills.label">Competenze</p>
+        <h2 class="section-title" data-i18n="skills.title">Competenze tecniche &amp; trasversali</h2>
+        <p class="section-intro" data-i18n="skills.intro">
           Una combinazione di competenze consulenziali, strumenti enterprise e basi tecniche
           che mi permettono di dialogare sia con il business sia con i team IT.
         </p>
 
         <div class="tabs" aria-label="Tipologia competenze">
-          <button class="tab active" data-tab="hard">Tecniche</button>
-          <button class="tab" data-tab="soft">Consulenziali</button>
+          <button class="tab active" data-tab="hard" data-i18n="skills.tab.hard">Tecniche</button>
+          <button class="tab" data-tab="soft" data-i18n="skills.tab.soft">Consulenziali</button>
         </div>
 
         <div id="skills-hard" class="skills-grid">
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.hard1">
             <span class="skill-dot"></span> Testing &amp; QA (UFT One, LoadRunner, Mobile Center)
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.hard2">
             <span class="skill-dot"></span> Piattaforme ALM / Q‑Cent, ecosistema Micro Focus
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.hard3">
             <span class="skill-dot"></span> Piattaforme xTech / NextHub, recommendation engine basati su IA
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.hard4">
             <span class="skill-dot"></span> SQL (base), Python (base), VBA per automazioni Office
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.hard5">
             <span class="skill-dot"></span> Analisi dati con Excel avanzato (tabelle pivot, grafici)
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.hard6">
             <span class="skill-dot"></span> Jira, Confluence, strumenti di project e knowledge management
           </div>
         </div>
 
         <div id="skills-soft" class="skills-grid" style="display:none;">
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.soft1">
             <span class="skill-dot"></span> Raccolta requisiti e analisi processi
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.soft2">
             <span class="skill-dot"></span> Gestione stakeholder e comunicazione con il top management
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.soft3">
             <span class="skill-dot"></span> Metodologie Agile / Scrum e lavoro cross‑team
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.soft4">
             <span class="skill-dot"></span> Strutturazione deliverable (one‑pager, slide, executive summary)
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.soft5">
             <span class="skill-dot"></span> Problem solving strutturato e orientamento al risultato
           </div>
-          <div class="skill-pill">
+          <div class="skill-pill" data-i18n="skills.soft6">
             <span class="skill-dot"></span> Public speaking e facilitazione di workshop
           </div>
         </div>
 
         <div class="pill-row">
-          <div class="pill">Italiano: madrelingua</div>
-          <div class="pill">Inglese: livello B2 (EF‑SET)</div>
+          <div class="pill" data-i18n="skills.lang1">Italiano: madrelingua</div>
+          <div class="pill" data-i18n="skills.lang2">Inglese: livello B2 (EF‑SET)</div>
         </div>
       </section>
 
-      <!-- Formazione & certificazioni -->
+      <!-- Formazione -->
       <section id="formazione" class="reveal">
-        <p class="section-label">Background</p>
-        <h2 class="section-title">Formazione &amp; certificazioni</h2>
+        <p class="section-label" data-i18n="edu.label">Background</p>
+        <h2 class="section-title" data-i18n="edu.title">Formazione &amp; certificazioni</h2>
         <div class="grid-2">
           <article class="card">
-            <h3 class="card-title">Formazione</h3>
-            <ul class="card-list">
+            <h3 class="card-title" data-i18n="edu.card1.title">Formazione</h3>
+            <ul class="card-list" data-i18n="edu.card1.list">
               <li>Laurea in Ingegneria Industriale (L‑09) · Università del Salento.</li>
               <li>Diploma Perito Industriale Capotecnico · I.T.I.S. “G. Giorgi”.</li>
             </ul>
           </article>
           <article class="card">
-            <h3 class="card-title">Corsi &amp; certificazioni</h3>
-            <ul class="card-list">
+            <h3 class="card-title" data-i18n="edu.card2.title">Corsi &amp; certificazioni</h3>
+            <ul class="card-list" data-i18n="edu.card2.list">
               <li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li>
               <li>ALM120 — ALM/QC 15 (Certified Professional).</li>
               <li>LoadRunner Professional 2020 (Certified Professional).</li>
@@ -991,12 +932,12 @@
         </div>
       </section>
 
-      <!-- CTA / Contatti -->
+      <!-- Contatti -->
       <section id="contatti" class="reveal">
         <div class="cta-card">
           <div>
-            <h2>Parliamo della tua prossima posizione aperta</h2>
-            <p>
+            <h2 data-i18n="cta.title">Parliamo della tua prossima posizione aperta</h2>
+            <p data-i18n="cta.text">
               Sono interessato a opportunità come Senior Consultant / Manager
               in ambito consulenza direzionale, IT &amp; digital transformation,
               preferibilmente in contesti strutturati (Big 4, società di consulenza,
@@ -1004,10 +945,15 @@
             </p>
           </div>
           <div class="cta-actions">
-            <a class="cta-btn cta-btn-primary" href="mailto:alexch@hotmail.it?subject=Candidatura%20-%20Alessandro%20Chiri">
+            <a class="cta-btn cta-btn-primary"
+               href="mailto:alexch@hotmail.it?subject=Candidatura%20-%20Alessandro%20Chiri"
+               data-i18n="cta.btnMail">
               📩 Scrivimi su email
             </a>
-            <a class="cta-btn cta-btn-ghost" href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" rel="noopener noreferrer">
+            <a class="cta-btn cta-btn-ghost"
+               href="https://www.linkedin.com/in/alessandro-chiri"
+               target="_blank" rel="noopener noreferrer"
+               data-i18n="cta.btnLinkedin">
               🔗 Profilo LinkedIn
             </a>
           </div>
@@ -1015,26 +961,238 @@
 
         <footer>
           <span>© <span id="year"></span> Alessandro Chiri · Portfolio CV</span>
-          <span>Ultimo aggiornamento: <span id="lastUpdate">2026</span></span>
+          <span data-i18n="footer.lastUpdate">
+            Ultimo aggiornamento: <span id="lastUpdate">2026</span>
+          </span>
         </footer>
       </section>
     </main>
   </div>
 
   <script>
-    // Dark / light mode toggle
+    // Dizionario IT/EN
+    const translations = {
+      it: {
+        "meta.title": "Alessandro Chiri · Senior Consultant",
+        "meta.description": "Alessandro Chiri, consulente con oltre 8 anni di esperienza in ruoli business & IT tra Accenture, Micro Focus e Deloitte NextHub.",
+        "brand.subtitle": "Consultant · Deloitte NextHub",
+        "nav.experience": "Esperienza",
+        "nav.skills": "Competenze",
+        "nav.education": "Formazione",
+        "nav.contact": "Contatti",
+        "hero.badge": "In cerca di nuove opportunità · Italia / EU",
+        "hero.title": "Consulente con oltre <span>8 anni</span> di esperienza in ruoli business &amp; IT.",
+        "hero.subtitle": "Dal 2018 ho maturato esperienza in contesti enterprise tra Accenture, Micro Focus e oggi Deloitte NextHub, seguendo progetti di trasformazione digitale, gestione applicativa e piattaforme enterprise al confine tra business e tecnologia.",
+        "hero.btnCv": "Scarica CV",
+        "hero.btnCall": "Scrivimi per una call",
+        "hero.metric1.title": "Dal 2018",
+        "hero.metric1.text": "Esperienza continua in ruoli business &amp; IT",
+        "hero.metric2.title": "Deloitte NextHub",
+        "hero.metric2.text": "Consultant su open innovation &amp; digitale",
+        "hero.metric3.title": "Accenture &amp; Micro Focus",
+        "hero.metric3.text": "Business Analyst e Application Specialist Support",
+        "hero.tag.roleLabel": "Ultima posizione",
+        "hero.tag.roleValue": "Consultant · Deloitte NextHub",
+        "hero.tag.locLabel": "Basato a",
+        "hero.tag.locValue": "Italia · disponibile full remote / ibrido",
+
+        "value.label": "Posizionamento",
+        "value.title": "Cosa porto in azienda",
+        "value.intro": "Un profilo ibrido tra business e tecnologia: so parlare con stakeholder non tecnici, tradurre esigenze in requisiti chiari e accompagnare l’implementazione con metodo e attenzione ai risultati.",
+        "value.card1.title": "Execution affidabile",
+        "value.card1.sub": "Project delivery in contesti complessi",
+        "value.card1.list": "<li>Gestione attività progettuali end‑to‑end, coordinando team cross‑funzionali.</li><li>Monitoraggio KPI di avanzamento, qualità e rischio.</li><li>Documentazione chiara e condivisa con PM e stakeholder.</li>",
+        "value.card2.title": "Business &amp; tecnologia",
+        "value.card2.sub": "Dal requisito al sistema in esercizio",
+        "value.card2.list": "<li>Raccolta, analisi e formalizzazione requisiti funzionali e non funzionali.</li><li>Configurazione / evoluzione di piattaforme enterprise (ALM, testing, xTech, ecc.).</li><li>Validazione soluzioni, test, formazione utenti e adozione.</li>",
+        "value.card3.title": "Relazione con il cliente",
+        "value.card3.sub": "Fiducia e comunicazione trasparente",
+        "value.card3.list": "<li>Interfaccia quotidiana con referenti di business e IT.</li><li>Storytelling: presentazioni, one‑pager e materiali per C‑level.</li><li>Approccio pragmatico, orientato a risultati misurabili.</li>",
+
+        "exp.label": "Esperienza",
+        "exp.title": "Percorso professionale dal 2018",
+        "exp.intro": "Ho iniziato come Business Analyst in Accenture, sono cresciuto come Application Specialist in Micro Focus e oggi sono Consultant in Deloitte NextHub, sempre su progetti a cavallo tra processi di business e sistemi IT.",
+        "exp.t1.role": "Consultant · Deloitte NextHub",
+        "exp.t1.meta": "dal 21 ottobre 2024 · Italia · Big 4",
+        "exp.t1.body": "Consultant in Deloitte NextHub, focalizzato su iniziative di open innovation, trasferimento tecnologico e progetti di trasformazione digitale. Supporto a clienti corporate e PA nella definizione dei requisiti, nell’evoluzione di piattaforme xTech e nella produzione di deliverable per stakeholder e decision maker.",
+        "exp.t2.role": "Application Specialist Support · Micro Focus",
+        "exp.t2.meta": "7 ottobre 2019 – 30 settembre 2024 · Italia",
+        "exp.t2.body": "Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise. Configurazione e personalizzazione ambienti, monitoraggio operativo, gestione incident/problem, validazione aggiornamenti, documentazione tecnica e formazione agli utenti.",
+        "exp.t3.role": "Business Analyst · Accenture",
+        "exp.t3.meta": "5 marzo 2018 – 31 agosto 2019 · Italia",
+        "exp.t3.body": "Business Analyst in progetti di consulenza, con focus su raccolta requisiti, analisi processi e supporto alla progettazione di soluzioni IT. Coinvolto nella preparazione di documentazione funzionale, test di accettazione e coordinamento con team di sviluppo e referenti di business.",
+        "exp.card.title": "Attività ricorrenti nei diversi ruoli",
+        "exp.card.sub": "Selezione sintetica di responsabilità tipiche",
+        "exp.card.list": "<li>Gestione ed evoluzione di piattaforme enterprise e soluzioni per open innovation.</li><li>Produzione di one‑pager, report e presentazioni per CXO e stakeholder istituzionali.</li><li>Analisi e modellazione processi, definizione backlog, supporto a PM e Product Owner.</li><li>Monitoraggio sicurezza, qualità e performance delle soluzioni in esercizio.</li><li>Raccolta requisiti presso funzioni di business e traduzione per i team tecnici.</li>",
+
+        "skills.label": "Competenze",
+        "skills.title": "Competenze tecniche &amp; trasversali",
+        "skills.intro": "Una combinazione di competenze consulenziali, strumenti enterprise e basi tecniche che mi permettono di dialogare sia con il business sia con i team IT.",
+        "skills.tab.hard": "Tecniche",
+        "skills.tab.soft": "Consulenziali",
+        "skills.hard1": "<span class=\"skill-dot\"></span> Testing &amp; QA (UFT One, LoadRunner, Mobile Center)",
+        "skills.hard2": "<span class=\"skill-dot\"></span> Piattaforme ALM / Q‑Cent, ecosistema Micro Focus",
+        "skills.hard3": "<span class=\"skill-dot\"></span> Piattaforme xTech / NextHub, recommendation engine basati su IA",
+        "skills.hard4": "<span class=\"skill-dot\"></span> SQL (base), Python (base), VBA per automazioni Office",
+        "skills.hard5": "<span class=\"skill-dot\"></span> Analisi dati con Excel avanzato (tabelle pivot, grafici)",
+        "skills.hard6": "<span class=\"skill-dot\"></span> Jira, Confluence, strumenti di project e knowledge management",
+        "skills.soft1": "<span class=\"skill-dot\"></span> Raccolta requisiti e analisi processi",
+        "skills.soft2": "<span class=\"skill-dot\"></span> Gestione stakeholder e comunicazione con il top management",
+        "skills.soft3": "<span class=\"skill-dot\"></span> Metodologie Agile / Scrum e lavoro cross‑team",
+        "skills.soft4": "<span class=\"skill-dot\"></span> Strutturazione deliverable (one‑pager, slide, executive summary)",
+        "skills.soft5": "<span class=\"skill-dot\"></span> Problem solving strutturato e orientamento al risultato",
+        "skills.soft6": "<span class=\"skill-dot\"></span> Public speaking e facilitazione di workshop",
+        "skills.lang1": "Italiano: madrelingua",
+        "skills.lang2": "Inglese: livello B2 (EF‑SET)",
+
+        "edu.label": "Background",
+        "edu.title": "Formazione &amp; certificazioni",
+        "edu.card1.title": "Formazione",
+        "edu.card1.list": "<li>Laurea in Ingegneria Industriale (L‑09) · Università del Salento.</li><li>Diploma Perito Industriale Capotecnico · I.T.I.S. “G. Giorgi”.</li>",
+        "edu.card2.title": "Corsi &amp; certificazioni",
+        "edu.card2.list": "<li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li><li>ALM120 — ALM/QC 15 (Certified Professional).</li><li>LoadRunner Professional 2020 (Certified Professional).</li><li>UFT One v15.x (Certified Professional).</li><li>Corsi su Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>",
+
+        "cta.title": "Parliamo della tua prossima posizione aperta",
+        "cta.text": "Sono interessato a opportunità come Senior Consultant / Manager in ambito consulenza direzionale, IT &amp; digital transformation, preferibilmente in contesti strutturati (Big 4, società di consulenza, corporate o scale‑up tecnologiche).",
+        "cta.btnMail": "📩 Scrivimi su email",
+        "cta.btnLinkedin": "🔗 Profilo LinkedIn",
+        "footer.lastUpdate": "Ultimo aggiornamento: <span id=\"lastUpdate\">2026</span>"
+      },
+
+      en: {
+        "meta.title": "Alessandro Chiri · Senior Consultant",
+        "meta.description": "Alessandro Chiri, consultant with 8+ years of experience in business & IT roles across Accenture, Micro Focus and Deloitte NextHub.",
+        "brand.subtitle": "Consultant · Deloitte NextHub",
+        "nav.experience": "Experience",
+        "nav.skills": "Skills",
+        "nav.education": "Education",
+        "nav.contact": "Contact",
+        "hero.badge": "Open to new opportunities · Italy / EU",
+        "hero.title": "Consultant with <span>8+ years</span> of experience in business &amp; IT roles.",
+        "hero.subtitle": "Since 2018 I have worked in enterprise environments at Accenture, Micro Focus and now Deloitte NextHub, supporting digital transformation, application management and enterprise platforms at the intersection of business and technology.",
+        "hero.btnCv": "Download CV",
+        "hero.btnCall": "Schedule a call",
+        "hero.metric1.title": "Since 2018",
+        "hero.metric1.text": "Continuous experience in business &amp; IT roles",
+        "hero.metric2.title": "Deloitte NextHub",
+        "hero.metric2.text": "Consultant on open innovation &amp; digital projects",
+        "hero.metric3.title": "Accenture &amp; Micro Focus",
+        "hero.metric3.text": "Business Analyst and Application Specialist Support",
+        "hero.tag.roleLabel": "Current role",
+        "hero.tag.roleValue": "Consultant · Deloitte NextHub",
+        "hero.tag.locLabel": "Based in",
+        "hero.tag.locValue": "Italy · open to remote / hybrid",
+
+        "value.label": "Positioning",
+        "value.title": "What I bring to your team",
+        "value.intro": "A hybrid profile across business and technology: I can speak to non‑technical stakeholders, translate needs into clear requirements and support implementation with method and focus on measurable outcomes.",
+        "value.card1.title": "Reliable execution",
+        "value.card1.sub": "Project delivery in complex environments",
+        "value.card1.list": "<li>End‑to‑end management of project activities, coordinating cross‑functional teams.</li><li>Monitoring of progress, quality and risk KPIs.</li><li>Clear documentation shared with project managers and stakeholders.</li>",
+        "value.card2.title": "Business &amp; technology bridge",
+        "value.card2.sub": "From requirement to live system",
+        "value.card2.list": "<li>Collection, analysis and formalisation of functional and non‑functional requirements.</li><li>Configuration and evolution of enterprise platforms (ALM, testing, xTech, etc.).</li><li>Solution validation, testing, user training and adoption support.</li>",
+        "value.card3.title": "Client relationship",
+        "value.card3.sub": "Trust and transparent communication",
+        "value.card3.list": "<li>Daily interaction with business and IT stakeholders.</li><li>Storytelling through presentations, one‑pagers and C‑level materials.</li><li>Pragmatic approach focused on measurable business results.</li>",
+
+        "exp.label": "Experience",
+        "exp.title": "Professional journey since 2018",
+        "exp.intro": "I started as a Business Analyst at Accenture, grew as an Application Specialist at Micro Focus and I am now a Consultant at Deloitte NextHub, always working on projects sitting between business processes and IT systems.",
+        "exp.t1.role": "Consultant · Deloitte NextHub",
+        "exp.t1.meta": "since 21 October 2024 · Italy · Big 4",
+        "exp.t1.body": "Consultant at Deloitte NextHub, focused on open innovation initiatives, technology transfer and digital transformation projects. I support corporate and public sector clients in defining requirements, evolving xTech platforms and producing decision‑ready deliverables for stakeholders.",
+        "exp.t2.role": "Application Specialist Support · Micro Focus",
+        "exp.t2.meta": "7 October 2019 – 30 September 2024 · Italy",
+        "exp.t2.body": "Application support and evolution of ALM / testing solutions and enterprise platforms. Configuration and customisation of environments, operational monitoring, incident/problem management, release validation, technical documentation and user training.",
+        "exp.t3.role": "Business Analyst · Accenture",
+        "exp.t3.meta": "5 March 2018 – 31 August 2019 · Italy",
+        "exp.t3.body": "Business Analyst on consulting projects, focusing on requirements gathering, process analysis and support to the design of IT solutions. Involved in functional documentation, user acceptance testing and coordination with development teams and business stakeholders.",
+        "exp.card.title": "Recurring responsibilities across roles",
+        "exp.card.sub": "Short selection of typical accountabilities",
+        "exp.card.list": "<li>Management and evolution of enterprise platforms and solutions for open innovation.</li><li>Production of one‑pagers, reports and presentations for CXOs and institutional stakeholders.</li><li>Process analysis and modelling, backlog definition, support to PMs and Product Owners.</li><li>Monitoring of security, quality and performance of live solutions.</li><li>Requirements gathering with business functions and translation for technical teams.</li>",
+
+        "skills.label": "Skills",
+        "skills.title": "Technical &amp; consulting skills",
+        "skills.intro": "A mix of consulting capabilities, enterprise tools and technical foundations that allows me to work effectively with both business stakeholders and IT teams.",
+        "skills.tab.hard": "Technical",
+        "skills.tab.soft": "Consulting",
+        "skills.hard1": "<span class=\"skill-dot\"></span> Testing &amp; QA (UFT One, LoadRunner, Mobile Center)",
+        "skills.hard2": "<span class=\"skill-dot\"></span> ALM / Q‑Cent platforms, Micro Focus ecosystem",
+        "skills.hard3": "<span class=\"skill-dot\"></span> xTech / NextHub platforms, AI‑based recommendation engines",
+        "skills.hard4": "<span class=\"skill-dot\"></span> SQL (basic), Python (basic), VBA for Office automation",
+        "skills.hard5": "<span class=\"skill-dot\"></span> Data analysis with advanced Excel (pivot tables, charts)",
+        "skills.hard6": "<span class=\"skill-dot\"></span> Jira, Confluence and project / knowledge management tools",
+        "skills.soft1": "<span class=\"skill-dot\"></span> Requirements gathering and process analysis",
+        "skills.soft2": "<span class=\"skill-dot\"></span> Stakeholder management and communication with top management",
+        "skills.soft3": "<span class=\"skill-dot\"></span> Agile / Scrum methodologies and cross‑team collaboration",
+        "skills.soft4": "<span class=\"skill-dot\"></span> Structuring deliverables (one‑pagers, slides, executive summaries)",
+        "skills.soft5": "<span class=\"skill-dot\"></span> Structured problem solving and results orientation",
+        "skills.soft6": "<span class=\"skill-dot\"></span> Public speaking and workshop facilitation",
+        "skills.lang1": "Italian: native speaker",
+        "skills.lang2": "English: B2 level (EF‑SET)",
+
+        "edu.label": "Background",
+        "edu.title": "Education &amp; certifications",
+        "edu.card1.title": "Education",
+        "edu.card1.list": "<li>Bachelor’s degree in Industrial Engineering (L‑09) · University of Salento.</li><li>Technical high school diploma in Industrial Mechanics · I.T.I.S. “G. Giorgi”.</li>",
+        "edu.card2.title": "Courses &amp; certifications",
+        "edu.card2.list": "<li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li><li>ALM120 — ALM/QC 15 (Certified Professional).</li><li>LoadRunner Professional 2020 (Certified Professional).</li><li>UFT One v15.x (Certified Professional).</li><li>Courses on Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>",
+
+        "cta.title": "Let’s talk about your open role",
+        "cta.text": "I am interested in opportunities as Senior Consultant / Manager in management consulting, IT &amp; digital transformation, ideally within structured environments (Big 4, consulting firms, corporates or tech scale‑ups).",
+        "cta.btnMail": "📩 Email me",
+        "cta.btnLinkedin": "🔗 View LinkedIn profile",
+        "footer.lastUpdate": "Last updated: <span id=\"lastUpdate\">2026</span>"
+      }
+    };
+
+    // Tema + lingua + traduzioni
     (function () {
       const root = document.documentElement;
-      const btn = document.getElementById("themeToggle");
+      const themeBtn = document.getElementById("themeToggle");
+      const langBtn = document.getElementById("langToggle");
       const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
       let theme = prefersDark ? "dark" : "light";
-      root.setAttribute("data-theme", theme);
-      btn.textContent = theme === "dark" ? "🌙" : "☀️";
+      let lang = "it";
 
-      btn.addEventListener("click", function () {
+      root.setAttribute("data-theme", theme);
+      themeBtn.textContent = theme === "dark" ? "🌙" : "☀️";
+      langBtn.textContent = lang.toUpperCase();
+      document.documentElement.lang = lang;
+
+      function applyTranslations() {
+        const dict = translations[lang] || {};
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (dict[key]) {
+            el.innerHTML = dict[key];
+          }
+        });
+
+        if (dict["meta.title"]) {
+          document.title = dict["meta.title"];
+        }
+        if (dict["meta.description"]) {
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) metaDesc.setAttribute("content", dict["meta.description"]);
+        }
+
+        langBtn.textContent = lang.toUpperCase();
+        document.documentElement.lang = lang;
+      }
+
+      applyTranslations();
+
+      themeBtn.addEventListener("click", function () {
         theme = theme === "dark" ? "light" : "dark";
         root.setAttribute("data-theme", theme);
-        btn.textContent = theme === "dark" ? "🌙" : "☀️";
+        themeBtn.textContent = theme === "dark" ? "🌙" : "☀️";
+      });
+
+      langBtn.addEventListener("click", function () {
+        lang = lang === "it" ? "en" : "it";
+        applyTranslations();
       });
     })();
 
@@ -1073,7 +1231,7 @@
       });
     });
 
-    // Anno automatico in footer
+    // Anno automatico
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
