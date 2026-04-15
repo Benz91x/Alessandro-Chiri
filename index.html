@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Alessandro Chiri · Senior Consultant</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Alessandro Chiri, consulente con oltre 8 anni di esperienza in ruoli business & IT tra Accenture, Micro Focus e Deloitte NextHub.">
+  <meta name="description" content="Alessandro Chiri, Senior Consultant for digital & data transformation in enterprise and public sector, with experience at Accenture, Micro Focus and Deloitte NextHub.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -153,6 +153,15 @@
     .brand-text-sub {
       font-size: var(--text-xs);
       color: var(--color-text-muted);
+    }
+    .brand-links {
+      margin-top: 0.15rem;
+      font-size: var(--text-xs);
+    }
+    .brand-links a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
     }
 
     nav {
@@ -314,6 +323,24 @@
       color: var(--color-text-muted);
     }
 
+    .target-box {
+      margin-top: var(--space-4);
+      padding: 0.7rem 0.9rem;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.7);
+      font-size: var(--text-xs);
+    }
+    [data-theme="dark"] .target-box {
+      background: rgba(15,23,42,0.85);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .target-box strong {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
     .hero-photo-wrapper {
       position: relative;
       padding: var(--space-3);
@@ -439,6 +466,9 @@
       display: inline-block;
       width: 1em;
       margin-left: -1em;
+    }
+    .card-list strong {
+      font-weight: 600;
     }
 
     .timeline {
@@ -663,10 +693,16 @@
           <div class="brand-text-sub" data-i18n="brand.subtitle">
             Consultant · Deloitte NextHub
           </div>
+          <div class="brand-links">
+            <a href="https://www.linkedin.com/in/alessandro-chiri" target="_blank" rel="noopener noreferrer" data-i18n="brand.linkedin">
+              View LinkedIn profile
+            </a>
+          </div>
         </div>
       </div>
       <nav>
         <a href="#esperienza" class="nav-link" data-i18n="nav.experience">Esperienza</a>
+        <a href="#projects" class="nav-link" data-i18n="nav.projects">Progetti</a>
         <a href="#competenze" class="nav-link" data-i18n="nav.skills">Competenze</a>
         <a href="#formazione" class="nav-link" data-i18n="nav.education">Formazione</a>
         <a href="#contatti" class="nav-link" data-i18n="nav.contact">Contatti</a>
@@ -685,16 +721,18 @@
         <div>
           <div class="hero-badge-row">
             <span class="hero-badge-dot"></span>
-            <span data-i18n="hero.badge">In cerca di nuove opportunità · Italia / EU</span>
+            <span data-i18n="hero.badge">
+              In cerca di nuove opportunità · Italia / EU · Energy &amp; Tech
+            </span>
           </div>
           <h1 class="hero-title" data-i18n="hero.title">
-            Consulente con oltre <span>8 anni</span> di esperienza
-            in ruoli business &amp; IT.
+            Senior consultant for <span>digital &amp; data transformation</span>
+            in enterprise and public sector.
           </h1>
           <p class="hero-subtitle" data-i18n="hero.subtitle">
-            Dal 2018 ho maturato esperienza in contesti enterprise tra Accenture, Micro Focus
-            e oggi Deloitte NextHub, seguendo progetti di trasformazione digitale,
-            gestione applicativa e piattaforme enterprise al confine tra business e tecnologia.
+            Dal 2018 lavoro in contesti enterprise tra Accenture, Micro Focus e oggi Deloitte NextHub,
+            supportando iniziative di trasformazione digitale, gestione applicativa e piattaforme dati
+            per clienti corporate, utility e pubbliche amministrazioni.
           </p>
 
           <div class="hero-actions">
@@ -708,16 +746,25 @@
 
           <div class="hero-metrics">
             <div class="metric-pill">
-              <strong data-i18n="hero.metric1.title">Dal 2018</strong>
+              <strong data-i18n="hero.metric1.title">8+ anni</strong>
               <span data-i18n="hero.metric1.text">Esperienza continua in ruoli business &amp; IT</span>
             </div>
             <div class="metric-pill">
-              <strong data-i18n="hero.metric2.title">Deloitte NextHub</strong>
-              <span data-i18n="hero.metric2.text">Consultant su open innovation &amp; digitale</span>
+              <strong data-i18n="hero.metric2.title">Enterprise &amp; PA</strong>
+              <span data-i18n="hero.metric2.text">Clienti corporate, utility e pubblici</span>
             </div>
             <div class="metric-pill">
-              <strong data-i18n="hero.metric3.title">Accenture &amp; Micro Focus</strong>
-              <span data-i18n="hero.metric3.text">Business Analyst e Application Specialist Support</span>
+              <strong data-i18n="hero.metric3.title">Digital &amp; data</strong>
+              <span data-i18n="hero.metric3.text">Piattaforme, processi e analytics</span>
+            </div>
+          </div>
+
+          <div class="target-box">
+            <strong data-i18n="hero.target.title">Target roles &amp; locations</strong>
+            <div data-i18n="hero.target.text">
+              Senior Consultant / Senior Business Analyst / Product Specialist (Digital &amp; IT).<br>
+              Settori di interesse: Energy &amp; Utilities, Industrial, Public Sector, Technology.<br>
+              Basato in Italia (Milano / Bari), aperto a EU, remote e modelli ibridi.
             </div>
           </div>
         </div>
@@ -728,12 +775,12 @@
           </div>
           <div class="hero-tag">
             <div>
-              <span data-i18n="hero.tag.roleLabel">Ultima posizione</span>
+              <span data-i18n="hero.tag.roleLabel">Current role</span>
               <strong data-i18n="hero.tag.roleValue">Consultant · Deloitte NextHub</strong>
             </div>
             <div>
-              <span data-i18n="hero.tag.locLabel">Basato a</span>
-              <strong data-i18n="hero.tag.locValue">Italia · disponibile full remote / ibrido</strong>
+              <span data-i18n="hero.tag.locLabel">Based in</span>
+              <strong data-i18n="hero.tag.locValue">Italy · open to remote / hybrid</strong>
             </div>
           </div>
         </aside>
@@ -741,39 +788,39 @@
 
       <!-- Cosa porto in azienda -->
       <section id="valore" class="reveal">
-        <p class="section-label" data-i18n="value.label">Posizionamento</p>
-        <h2 class="section-title" data-i18n="value.title">Cosa porto in azienda</h2>
+        <p class="section-label" data-i18n="value.label">Positioning</p>
+        <h2 class="section-title" data-i18n="value.title">Impact &amp; strengths for your organisation</h2>
         <p class="section-intro" data-i18n="value.intro">
-          Un profilo ibrido tra business e tecnologia: so parlare con stakeholder non tecnici,
-          tradurre esigenze in requisiti chiari e accompagnare l’implementazione con metodo
-          e attenzione ai risultati.
+          Un profilo ibrido tra business e tecnologia: porto struttura consulenziale, attenzione ai numeri
+          e capacità di tradurre esigenze di business in soluzioni digitali concrete, lavorando a stretto
+          contatto con stakeholder non tecnici, team IT e fornitori.
         </p>
         <div class="grid-3">
           <article class="card">
-            <h3 class="card-title" data-i18n="value.card1.title">Execution affidabile</h3>
-            <p class="card-sub" data-i18n="value.card1.sub">Project delivery in contesti complessi</p>
+            <h3 class="card-title" data-i18n="value.card1.title">Reliable end‑to‑end execution</h3>
+            <p class="card-sub" data-i18n="value.card1.sub">Delivery di progetti in contesti complessi</p>
             <ul class="card-list" data-i18n="value.card1.list">
-              <li>Gestione attività progettuali end‑to‑end, coordinando team cross‑funzionali.</li>
-              <li>Monitoraggio KPI di avanzamento, qualità e rischio.</li>
-              <li>Documentazione chiara e condivisa con PM e stakeholder.</li>
+              <li><strong>Ownership operativo:</strong> gestione day‑by‑day di attività progettuali, coordinando team cross‑funzionali.</li>
+              <li><strong>Governance:</strong> monitoraggio di avanzamento, qualità e rischio con KPI e reporting strutturato.</li>
+              <li><strong>Change management:</strong> supporto a go‑live, formazione utenti e gestione del feedback.</li>
             </ul>
           </article>
           <article class="card">
-            <h3 class="card-title" data-i18n="value.card2.title">Business &amp; tecnologia</h3>
-            <p class="card-sub" data-i18n="value.card2.sub">Dal requisito al sistema in esercizio</p>
+            <h3 class="card-title" data-i18n="value.card2.title">Bridge between business &amp; IT</h3>
+            <p class="card-sub" data-i18n="value.card2.sub">Dal requisito al sistema in produzione</p>
             <ul class="card-list" data-i18n="value.card2.list">
-              <li>Raccolta, analisi e formalizzazione requisiti funzionali e non funzionali.</li>
-              <li>Configurazione / evoluzione di piattaforme enterprise (ALM, testing, xTech, ecc.).</li>
-              <li>Validazione soluzioni, test, formazione utenti e adozione.</li>
+              <li><strong>Requirements:</strong> raccolta e formalizzazione di requisiti funzionali / non funzionali e user stories.</li>
+              <li><strong>Solution design:</strong> configurazione ed evoluzione di piattaforme ALM, testing e xTech.</li>
+              <li><strong>Quality:</strong> definizione casi di test, esecuzione, gestione difetti e validazione rilasci.</li>
             </ul>
           </article>
           <article class="card">
-            <h3 class="card-title" data-i18n="value.card3.title">Relazione con il cliente</h3>
-            <p class="card-sub" data-i18n="value.card3.sub">Fiducia e comunicazione trasparente</p>
+            <h3 class="card-title" data-i18n="value.card3.title">Executive‑ready communication</h3>
+            <p class="card-sub" data-i18n="value.card3.sub">Storytelling per decision maker</p>
             <ul class="card-list" data-i18n="value.card3.list">
-              <li>Interfaccia quotidiana con referenti di business e IT.</li>
-              <li>Storytelling: presentazioni, one‑pager e materiali per C‑level.</li>
-              <li>Approccio pragmatico, orientato a risultati misurabili.</li>
+              <li><strong>Materiali per C‑level:</strong> one‑pager, business case e slide sintetiche e orientate all’azione.</li>
+              <li><strong>Stakeholder management:</strong> allineamento continuo tra funzioni di business, IT e fornitori.</li>
+              <li><strong>Data‑driven:</strong> uso di dati e indicatori per supportare scelte di roadmap e priorità.</li>
             </ul>
           </article>
         </div>
@@ -781,12 +828,12 @@
 
       <!-- Esperienza -->
       <section id="esperienza" class="reveal">
-        <p class="section-label" data-i18n="exp.label">Esperienza</p>
-        <h2 class="section-title" data-i18n="exp.title">Percorso professionale dal 2018</h2>
+        <p class="section-label" data-i18n="exp.label">Experience</p>
+        <h2 class="section-title" data-i18n="exp.title">Professional journey since 2018</h2>
         <p class="section-intro" data-i18n="exp.intro">
-          Ho iniziato come Business Analyst in Accenture, sono cresciuto come Application Specialist
-          in Micro Focus e oggi sono Consultant in Deloitte NextHub, sempre su progetti a cavallo tra
-          processi di business e sistemi IT.
+          Ho iniziato come Business Analyst in Accenture, sono cresciuto come Application Specialist in Micro Focus
+          e oggi sono Consultant in Deloitte NextHub, lavorando su iniziative di innovazione, modernizzazione
+          applicativa e data‑driven decision making per clienti enterprise e PA.
         </p>
 
         <div class="grid-2">
@@ -795,138 +842,177 @@
               <article class="timeline-item">
                 <div class="timeline-dot"></div>
                 <h3 class="timeline-role" data-i18n="exp.t1.role">Consultant · Deloitte NextHub</h3>
-                <p class="timeline-meta" data-i18n="exp.t1.meta">dal 21 ottobre 2024 · Italia · Big 4</p>
+                <p class="timeline-meta" data-i18n="exp.t1.meta">since 21 October 2024 · Italy · Big 4</p>
                 <p class="timeline-body" data-i18n="exp.t1.body">
-                  Consultant in Deloitte NextHub, focalizzato su iniziative di open innovation,
-                  trasferimento tecnologico e progetti di trasformazione digitale.
-                  Supporto a clienti corporate e PA nella definizione dei requisiti,
-                  nell’evoluzione di piattaforme xTech e nella produzione di deliverable
-                  per stakeholder e decision maker.
+                  Consultant in Deloitte NextHub, focalizzato su iniziative di open innovation, trasferimento tecnologico
+                  e progetti di trasformazione digitale basati sulla piattaforma xTech / NextHub. Supporto clienti
+                  corporate e PA nella definizione dei requisiti, nella prioritizzazione del backlog e nella produzione
+                  di deliverable decisionali (one‑pager, metriche, report) per executive e stakeholder istituzionali.
                 </p>
               </article>
 
               <article class="timeline-item">
                 <div class="timeline-dot"></div>
                 <h3 class="timeline-role" data-i18n="exp.t2.role">Application Specialist Support · Micro Focus</h3>
-                <p class="timeline-meta" data-i18n="exp.t2.meta">7 ottobre 2019 – 30 settembre 2024 · Italia</p>
+                <p class="timeline-meta" data-i18n="exp.t2.meta">7 October 2019 – 30 September 2024 · Italy</p>
                 <p class="timeline-body" data-i18n="exp.t2.body">
-                  Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise.
-                  Configurazione e personalizzazione ambienti, monitoraggio operativo,
-                  gestione incident/problem, validazione aggiornamenti, documentazione tecnica
-                  e formazione agli utenti.
+                  Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise, con focus su qualità
+                  del servizio e continuità operativa. Configurazione e personalizzazione ambienti, monitoraggio giornaliero,
+                  gestione incident / problem, validazione aggiornamenti, documentazione tecnica e knowledge sharing verso team interni e clienti.
                 </p>
               </article>
 
               <article class="timeline-item">
                 <div class="timeline-dot"></div>
                 <h3 class="timeline-role" data-i18n="exp.t3.role">Business Analyst · Accenture</h3>
-                <p class="timeline-meta" data-i18n="exp.t3.meta">5 marzo 2018 – 31 agosto 2019 · Italia</p>
+                <p class="timeline-meta" data-i18n="exp.t3.meta">5 March 2018 – 31 August 2019 · Italy</p>
                 <p class="timeline-body" data-i18n="exp.t3.body">
-                  Business Analyst in progetti di consulenza, con focus su raccolta requisiti,
-                  analisi processi e supporto alla progettazione di soluzioni IT.
-                  Coinvolto nella preparazione di documentazione funzionale, test di accettazione
-                  e coordinamento con team di sviluppo e referenti di business.
+                  Business Analyst in progetti di consulenza per grandi clienti, occupandomi di raccolta requisiti,
+                  analisi e ridisegno processi, supporto al disegno di soluzioni IT e preparazione di documentazione
+                  funzionale e casi di test. Collaborazione con PM, SME e team di sviluppo in ambienti Agile.
                 </p>
               </article>
             </div>
           </div>
 
           <div class="card">
-            <h3 class="card-title" data-i18n="exp.card.title">Attività ricorrenti nei diversi ruoli</h3>
-            <p class="card-sub" data-i18n="exp.card.sub">Selezione sintetica di responsabilità tipiche</p>
+            <h3 class="card-title" data-i18n="exp.card.title">Core responsibilities across roles</h3>
+            <p class="card-sub" data-i18n="exp.card.sub">Selezione di attività ad alto impatto</p>
             <ul class="card-list" data-i18n="exp.card.list">
-              <li>Gestione ed evoluzione di piattaforme enterprise e soluzioni per open innovation.</li>
-              <li>Produzione di one‑pager, report e presentazioni per CXO e stakeholder istituzionali.</li>
-              <li>Analisi e modellazione processi, definizione backlog, supporto a PM e Product Owner.</li>
-              <li>Monitoraggio sicurezza, qualità e performance delle soluzioni in esercizio.</li>
-              <li>Raccolta requisiti presso funzioni di business e traduzione per i team tecnici.</li>
+              <li><strong>Platform ownership:</strong> gestione e miglioramento continuo di piattaforme enterprise per ALM, testing e open innovation.</li>
+              <li><strong>Decision‑ready reporting:</strong> creazione di one‑pager, report e dashboard per CXO e stakeholder pubblici.</li>
+              <li><strong>Process improvement:</strong> analisi e modellazione processi, supporto alla definizione di roadmap e backlog.</li>
+              <li><strong>Service quality:</strong> monitoraggio di stabilità, performance e sicurezza delle soluzioni in esercizio.</li>
+              <li><strong>Business‑IT alignment:</strong> traduzione costante tra esigenze di business e linguaggio tecnico dei delivery team.</li>
             </ul>
           </div>
         </div>
       </section>
 
+      <!-- Selected Projects -->
+      <section id="projects" class="reveal">
+        <p class="section-label" data-i18n="proj.label">Selected projects</p>
+        <h2 class="section-title" data-i18n="proj.title">Examples of work relevant for global tech &amp; energy</h2>
+        <p class="section-intro" data-i18n="proj.intro">
+          Alcuni casi che riassumono il mio modo di lavorare su piattaforme digitali, innovazione e qualità del software
+          in contesti enterprise e PA.
+        </p>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3 class="card-title" data-i18n="proj.card1.title">xTech / NextHub – Innovation &amp; startup scouting</h3>
+            <p class="card-sub" data-i18n="proj.card1.sub">Open innovation per corporate e PA</p>
+            <ul class="card-list" data-i18n="proj.card1.list">
+              <li><strong>Challenge:</strong> supportare clienti nel selezionare le soluzioni innovative più rilevanti tra decine di startup.</li>
+              <li><strong>Contribution:</strong> configurazione e gestione della piattaforma, definizione criteri di valutazione, produzione one‑pager e materiali di sintesi.</li>
+              <li><strong>Outcome:</strong> processi di scouting più strutturati, decisioni più rapide e maggiore tracciabilità delle valutazioni.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title" data-i18n="proj.card2.title">ALM &amp; testing platform for utility client</h3>
+            <p class="card-sub" data-i18n="proj.card2.sub">Qualità e stabilità delle applicazioni</p>
+            <ul class="card-list" data-i18n="proj.card2.list">
+              <li><strong>Challenge:</strong> garantire qualità e continuità operativa su un portafoglio applicativo critico per una grande utility.</li>
+              <li><strong>Contribution:</strong> configurazione suite Micro Focus (ALM, UFT, LoadRunner), gestione incident e supporto ai cicli di test.</li>
+              <li><strong>Outcome:</strong> riduzione delle interruzioni legate a rilasci e maggiore confidenza degli stakeholder nei processi di change.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3 class="card-title" data-i18n="proj.card3.title">Process analysis &amp; reporting automation</h3>
+            <p class="card-sub" data-i18n="proj.card3.sub">Supporto decisionale data‑driven</p>
+            <ul class="card-list" data-i18n="proj.card3.list">
+              <li><strong>Challenge:</strong> rendere più veloci e affidabili le analisi a supporto di decisioni di progetto.</li>
+              <li><strong>Contribution:</strong> sviluppo di report automatizzati in Excel / VBA e definizione di template standard per KPI e milestone.</li>
+              <li><strong>Outcome:</strong> meno attività manuali a basso valore, reporting più coerente e migliore visibilità per PM e sponsor.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <!-- Competenze -->
       <section id="competenze" class="reveal">
-        <p class="section-label" data-i18n="skills.label">Competenze</p>
-        <h2 class="section-title" data-i18n="skills.title">Competenze tecniche &amp; trasversali</h2>
+        <p class="section-label" data-i18n="skills.label">Skills</p>
+        <h2 class="section-title" data-i18n="skills.title">Technical &amp; consulting skills</h2>
         <p class="section-intro" data-i18n="skills.intro">
-          Una combinazione di competenze consulenziali, strumenti enterprise e basi tecniche
-          che mi permettono di dialogare sia con il business sia con i team IT.
+          Una combinazione di capacità consulenziali, strumenti enterprise e basi tecniche che mi permette
+          di lavorare in modo efficace con stakeholder di business, team IT e fornitori.
         </p>
 
         <div class="tabs" aria-label="Tipologia competenze">
-          <button class="tab active" data-tab="hard" data-i18n="skills.tab.hard">Tecniche</button>
-          <button class="tab" data-tab="soft" data-i18n="skills.tab.soft">Consulenziali</button>
+          <button class="tab active" data-tab="hard" data-i18n="skills.tab.hard">Technical</button>
+          <button class="tab" data-tab="soft" data-i18n="skills.tab.soft">Consulting</button>
         </div>
 
         <div id="skills-hard" class="skills-grid">
           <div class="skill-pill" data-i18n="skills.hard1">
-            <span class="skill-dot"></span> Testing &amp; QA (UFT One, LoadRunner, Mobile Center)
+            <span class="skill-dot"></span> Testing &amp; QA · UFT One, LoadRunner, Mobile Center (hands‑on)
           </div>
           <div class="skill-pill" data-i18n="skills.hard2">
-            <span class="skill-dot"></span> Piattaforme ALM / Q‑Cent, ecosistema Micro Focus
+            <span class="skill-dot"></span> ALM / Q‑Cent, Micro Focus ecosystem (configuration &amp; support)
           </div>
           <div class="skill-pill" data-i18n="skills.hard3">
-            <span class="skill-dot"></span> Piattaforme xTech / NextHub, recommendation engine basati su IA
+            <span class="skill-dot"></span> xTech / NextHub innovation platforms, AI‑based recommendation engines
           </div>
           <div class="skill-pill" data-i18n="skills.hard4">
-            <span class="skill-dot"></span> SQL (base), Python (base), VBA per automazioni Office
+            <span class="skill-dot"></span> Data &amp; automation · Advanced Excel, VBA, SQL (basic), Python (basic)
           </div>
           <div class="skill-pill" data-i18n="skills.hard5">
-            <span class="skill-dot"></span> Analisi dati con Excel avanzato (tabelle pivot, grafici)
+            <span class="skill-dot"></span> Project &amp; work management · Jira, Confluence, MS Office suite
           </div>
           <div class="skill-pill" data-i18n="skills.hard6">
-            <span class="skill-dot"></span> Jira, Confluence, strumenti di project e knowledge management
+            <span class="skill-dot"></span> Interest in cloud &amp; DevOps concepts (CI/CD, modern application lifecycle)
           </div>
         </div>
 
         <div id="skills-soft" class="skills-grid" style="display:none;">
           <div class="skill-pill" data-i18n="skills.soft1">
-            <span class="skill-dot"></span> Raccolta requisiti e analisi processi
+            <span class="skill-dot"></span> Requirements engineering &amp; process analysis
           </div>
           <div class="skill-pill" data-i18n="skills.soft2">
-            <span class="skill-dot"></span> Gestione stakeholder e comunicazione con il top management
+            <span class="skill-dot"></span> Stakeholder management &amp; clear communication with executives
           </div>
           <div class="skill-pill" data-i18n="skills.soft3">
-            <span class="skill-dot"></span> Metodologie Agile / Scrum e lavoro cross‑team
+            <span class="skill-dot"></span> Working in Agile / Scrum and cross‑functional teams
           </div>
           <div class="skill-pill" data-i18n="skills.soft4">
-            <span class="skill-dot"></span> Strutturazione deliverable (one‑pager, slide, executive summary)
+            <span class="skill-dot"></span> Structuring decision‑ready deliverables (one‑pagers, decks, executive summaries)
           </div>
           <div class="skill-pill" data-i18n="skills.soft5">
-            <span class="skill-dot"></span> Problem solving strutturato e orientamento al risultato
+            <span class="skill-dot"></span> Structured problem solving &amp; ownership mindset
           </div>
           <div class="skill-pill" data-i18n="skills.soft6">
-            <span class="skill-dot"></span> Public speaking e facilitazione di workshop
+            <span class="skill-dot"></span> Public speaking, facilitation of workshops &amp; training sessions
           </div>
         </div>
 
         <div class="pill-row">
-          <div class="pill" data-i18n="skills.lang1">Italiano: madrelingua</div>
-          <div class="pill" data-i18n="skills.lang2">Inglese: livello B2 (EF‑SET)</div>
+          <div class="pill" data-i18n="skills.lang1">Italian: native speaker</div>
+          <div class="pill" data-i18n="skills.lang2">English: B2 level (EF‑SET)</div>
         </div>
       </section>
 
       <!-- Formazione -->
       <section id="formazione" class="reveal">
         <p class="section-label" data-i18n="edu.label">Background</p>
-        <h2 class="section-title" data-i18n="edu.title">Formazione &amp; certificazioni</h2>
+        <h2 class="section-title" data-i18n="edu.title">Education &amp; certifications</h2>
         <div class="grid-2">
           <article class="card">
-            <h3 class="card-title" data-i18n="edu.card1.title">Formazione</h3>
+            <h3 class="card-title" data-i18n="edu.card1.title">Education</h3>
             <ul class="card-list" data-i18n="edu.card1.list">
-              <li>Laurea in Ingegneria Industriale (L‑09) · Università del Salento.</li>
-              <li>Diploma Perito Industriale Capotecnico · I.T.I.S. “G. Giorgi”.</li>
+              <li>Bachelor’s degree in Industrial Engineering (L‑09) · University of Salento.</li>
+              <li>Technical high school diploma in Industrial Mechanics · I.T.I.S. “G. Giorgi”.</li>
             </ul>
           </article>
           <article class="card">
-            <h3 class="card-title" data-i18n="edu.card2.title">Corsi &amp; certificazioni</h3>
+            <h3 class="card-title" data-i18n="edu.card2.title">Courses &amp; certifications</h3>
             <ul class="card-list" data-i18n="edu.card2.list">
               <li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li>
               <li>ALM120 — ALM/QC 15 (Certified Professional).</li>
               <li>LoadRunner Professional 2020 (Certified Professional).</li>
               <li>UFT One v15.x (Certified Professional).</li>
-              <li>Corsi su Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>
+              <li>Courses on Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>
             </ul>
           </article>
         </div>
@@ -936,33 +1022,34 @@
       <section id="contatti" class="reveal">
         <div class="cta-card">
           <div>
-            <h2 data-i18n="cta.title">Parliamo della tua prossima posizione aperta</h2>
+            <h2 data-i18n="cta.title">Let’s talk about your open role</h2>
             <p data-i18n="cta.text">
-              Sono interessato a opportunità come Senior Consultant / Manager
-              in ambito consulenza direzionale, IT &amp; digital transformation,
-              preferibilmente in contesti strutturati (Big 4, società di consulenza,
-              corporate o scale‑up tecnologiche).
+              Sono interessato a opportunità come Senior Consultant / Manager in ambito consulenza direzionale,
+              IT &amp; digital transformation, idealmente in contesti strutturati (Big 4, società di consulenza,
+              corporate o scale‑up tecnologiche), con particolare interesse per energy, industrial e PA.
             </p>
           </div>
           <div class="cta-actions">
             <a class="cta-btn cta-btn-primary"
-               href="mailto:alexch@hotmail.it?subject=Candidatura%20-%20Alessandro%20Chiri"
+               href="mailto:alexch@hotmail.it?subject=Application%20-%20Alessandro%20Chiri"
                data-i18n="cta.btnMail">
-              📩 Scrivimi su email
+              📩 Email me
             </a>
             <a class="cta-btn cta-btn-ghost"
                href="https://www.linkedin.com/in/alessandro-chiri"
                target="_blank" rel="noopener noreferrer"
                data-i18n="cta.btnLinkedin">
-              🔗 Profilo LinkedIn
+              🔗 View LinkedIn profile
             </a>
           </div>
         </div>
 
         <footer>
-          <span>© <span id="year"></span> Alessandro Chiri · Portfolio CV</span>
+          <span data-i18n="footer.copy">
+            © <span id="year"></span> Alessandro Chiri · Digital résumé
+          </span>
           <span data-i18n="footer.lastUpdate">
-            Ultimo aggiornamento: <span id="lastUpdate">2026</span>
+            Last updated: <span id="lastUpdate">2026</span>
           </span>
         </footer>
       </section>
@@ -974,161 +1061,196 @@
     const translations = {
       it: {
         "meta.title": "Alessandro Chiri · Senior Consultant",
-        "meta.description": "Alessandro Chiri, consulente con oltre 8 anni di esperienza in ruoli business & IT tra Accenture, Micro Focus e Deloitte NextHub.",
+        "meta.description": "Alessandro Chiri, Senior Consultant per digital & data transformation in contesti enterprise e PA, con esperienza in Accenture, Micro Focus e Deloitte NextHub.",
         "brand.subtitle": "Consultant · Deloitte NextHub",
+        "brand.linkedin": "Vedi profilo LinkedIn",
         "nav.experience": "Esperienza",
+        "nav.projects": "Progetti",
         "nav.skills": "Competenze",
         "nav.education": "Formazione",
         "nav.contact": "Contatti",
-        "hero.badge": "In cerca di nuove opportunità · Italia / EU",
-        "hero.title": "Consulente con oltre <span>8 anni</span> di esperienza in ruoli business &amp; IT.",
-        "hero.subtitle": "Dal 2018 ho maturato esperienza in contesti enterprise tra Accenture, Micro Focus e oggi Deloitte NextHub, seguendo progetti di trasformazione digitale, gestione applicativa e piattaforme enterprise al confine tra business e tecnologia.",
+        "hero.badge": "In cerca di nuove opportunità · Italia / EU · Energy &amp; Tech",
+        "hero.title": "Senior consultant per <span>digital &amp; data transformation</span> in contesti enterprise e pubblici.",
+        "hero.subtitle": "Dal 2018 lavoro in contesti enterprise tra Accenture, Micro Focus e oggi Deloitte NextHub, supportando iniziative di trasformazione digitale, gestione applicativa e piattaforme dati per clienti corporate, utility e pubbliche amministrazioni.",
         "hero.btnCv": "Scarica CV",
         "hero.btnCall": "Scrivimi per una call",
-        "hero.metric1.title": "Dal 2018",
+        "hero.metric1.title": "8+ anni",
         "hero.metric1.text": "Esperienza continua in ruoli business &amp; IT",
-        "hero.metric2.title": "Deloitte NextHub",
-        "hero.metric2.text": "Consultant su open innovation &amp; digitale",
-        "hero.metric3.title": "Accenture &amp; Micro Focus",
-        "hero.metric3.text": "Business Analyst e Application Specialist Support",
-        "hero.tag.roleLabel": "Ultima posizione",
+        "hero.metric2.title": "Enterprise &amp; PA",
+        "hero.metric2.text": "Clienti corporate, utility e pubblici",
+        "hero.metric3.title": "Digital &amp; data",
+        "hero.metric3.text": "Piattaforme, processi e analytics",
+        "hero.tag.roleLabel": "Ruolo attuale",
         "hero.tag.roleValue": "Consultant · Deloitte NextHub",
-        "hero.tag.locLabel": "Basato a",
-        "hero.tag.locValue": "Italia · disponibile full remote / ibrido",
+        "hero.tag.locLabel": "Basato in",
+        "hero.tag.locValue": "Italia · disponibile remote / ibrido",
+        "hero.target.title": "Target roles &amp; locations",
+        "hero.target.text": "Senior Consultant / Senior Business Analyst / Product Specialist (Digital &amp; IT).<br>Settori di interesse: Energy &amp; Utilities, Industrial, Public Sector, Technology.<br>Basato in Italia (Milano / Bari), aperto a EU, remote e modelli ibridi.",
 
-        "value.label": "Posizionamento",
-        "value.title": "Cosa porto in azienda",
-        "value.intro": "Un profilo ibrido tra business e tecnologia: so parlare con stakeholder non tecnici, tradurre esigenze in requisiti chiari e accompagnare l’implementazione con metodo e attenzione ai risultati.",
-        "value.card1.title": "Execution affidabile",
-        "value.card1.sub": "Project delivery in contesti complessi",
-        "value.card1.list": "<li>Gestione attività progettuali end‑to‑end, coordinando team cross‑funzionali.</li><li>Monitoraggio KPI di avanzamento, qualità e rischio.</li><li>Documentazione chiara e condivisa con PM e stakeholder.</li>",
-        "value.card2.title": "Business &amp; tecnologia",
-        "value.card2.sub": "Dal requisito al sistema in esercizio",
-        "value.card2.list": "<li>Raccolta, analisi e formalizzazione requisiti funzionali e non funzionali.</li><li>Configurazione / evoluzione di piattaforme enterprise (ALM, testing, xTech, ecc.).</li><li>Validazione soluzioni, test, formazione utenti e adozione.</li>",
-        "value.card3.title": "Relazione con il cliente",
-        "value.card3.sub": "Fiducia e comunicazione trasparente",
-        "value.card3.list": "<li>Interfaccia quotidiana con referenti di business e IT.</li><li>Storytelling: presentazioni, one‑pager e materiali per C‑level.</li><li>Approccio pragmatico, orientato a risultati misurabili.</li>",
+        "value.label": "Positioning",
+        "value.title": "Impact &amp; strengths for your organisation",
+        "value.intro": "Un profilo ibrido tra business e tecnologia: porto struttura consulenziale, attenzione ai numeri e capacità di tradurre esigenze di business in soluzioni digitali concrete, lavorando a stretto contatto con stakeholder non tecnici, team IT e fornitori.",
+        "value.card1.title": "Reliable end‑to‑end execution",
+        "value.card1.sub": "Delivery di progetti in contesti complessi",
+        "value.card1.list": "<li><strong>Ownership operativo:</strong> gestione day‑by‑day di attività progettuali, coordinando team cross‑funzionali.</li><li><strong>Governance:</strong> monitoraggio di avanzamento, qualità e rischio con KPI e reporting strutturato.</li><li><strong>Change management:</strong> supporto a go‑live, formazione utenti e gestione del feedback.</li>",
+        "value.card2.title": "Bridge between business &amp; IT",
+        "value.card2.sub": "Dal requisito al sistema in produzione",
+        "value.card2.list": "<li><strong>Requirements:</strong> raccolta e formalizzazione di requisiti funzionali / non funzionali e user stories.</li><li><strong>Solution design:</strong> configurazione ed evoluzione di piattaforme ALM, testing e xTech.</li><li><strong>Quality:</strong> definizione casi di test, esecuzione, gestione difetti e validazione rilasci.</li>",
+        "value.card3.title": "Executive‑ready communication",
+        "value.card3.sub": "Storytelling per decision maker",
+        "value.card3.list": "<li><strong>Materiali per C‑level:</strong> one‑pager, business case e slide sintetiche e orientate all’azione.</li><li><strong>Stakeholder management:</strong> allineamento continuo tra funzioni di business, IT e fornitori.</li><li><strong>Data‑driven:</strong> uso di dati e indicatori per supportare scelte di roadmap e priorità.</li>",
 
-        "exp.label": "Esperienza",
-        "exp.title": "Percorso professionale dal 2018",
-        "exp.intro": "Ho iniziato come Business Analyst in Accenture, sono cresciuto come Application Specialist in Micro Focus e oggi sono Consultant in Deloitte NextHub, sempre su progetti a cavallo tra processi di business e sistemi IT.",
+        "exp.label": "Experience",
+        "exp.title": "Professional journey since 2018",
+        "exp.intro": "Ho iniziato come Business Analyst in Accenture, sono cresciuto come Application Specialist in Micro Focus e oggi sono Consultant in Deloitte NextHub, lavorando su iniziative di innovazione, modernizzazione applicativa e data‑driven decision making per clienti enterprise e PA.",
         "exp.t1.role": "Consultant · Deloitte NextHub",
-        "exp.t1.meta": "dal 21 ottobre 2024 · Italia · Big 4",
-        "exp.t1.body": "Consultant in Deloitte NextHub, focalizzato su iniziative di open innovation, trasferimento tecnologico e progetti di trasformazione digitale. Supporto a clienti corporate e PA nella definizione dei requisiti, nell’evoluzione di piattaforme xTech e nella produzione di deliverable per stakeholder e decision maker.",
+        "exp.t1.meta": "since 21 October 2024 · Italy · Big 4",
+        "exp.t1.body": "Consultant in Deloitte NextHub, focalizzato su iniziative di open innovation, trasferimento tecnologico e progetti di trasformazione digitale basati sulla piattaforma xTech / NextHub. Supporto clienti corporate e PA nella definizione dei requisiti, nella prioritizzazione del backlog e nella produzione di deliverable decisionali (one‑pager, metriche, report) per executive e stakeholder istituzionali.",
         "exp.t2.role": "Application Specialist Support · Micro Focus",
-        "exp.t2.meta": "7 ottobre 2019 – 30 settembre 2024 · Italia",
-        "exp.t2.body": "Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise. Configurazione e personalizzazione ambienti, monitoraggio operativo, gestione incident/problem, validazione aggiornamenti, documentazione tecnica e formazione agli utenti.",
+        "exp.t2.meta": "7 October 2019 – 30 September 2024 · Italy",
+        "exp.t2.body": "Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise, con focus su qualità del servizio e continuità operativa. Configurazione e personalizzazione ambienti, monitoraggio giornaliero, gestione incident / problem, validazione aggiornamenti, documentazione tecnica e knowledge sharing verso team interni e clienti.",
         "exp.t3.role": "Business Analyst · Accenture",
-        "exp.t3.meta": "5 marzo 2018 – 31 agosto 2019 · Italia",
-        "exp.t3.body": "Business Analyst in progetti di consulenza, con focus su raccolta requisiti, analisi processi e supporto alla progettazione di soluzioni IT. Coinvolto nella preparazione di documentazione funzionale, test di accettazione e coordinamento con team di sviluppo e referenti di business.",
-        "exp.card.title": "Attività ricorrenti nei diversi ruoli",
-        "exp.card.sub": "Selezione sintetica di responsabilità tipiche",
-        "exp.card.list": "<li>Gestione ed evoluzione di piattaforme enterprise e soluzioni per open innovation.</li><li>Produzione di one‑pager, report e presentazioni per CXO e stakeholder istituzionali.</li><li>Analisi e modellazione processi, definizione backlog, supporto a PM e Product Owner.</li><li>Monitoraggio sicurezza, qualità e performance delle soluzioni in esercizio.</li><li>Raccolta requisiti presso funzioni di business e traduzione per i team tecnici.</li>",
+        "exp.t3.meta": "5 March 2018 – 31 August 2019 · Italy",
+        "exp.t3.body": "Business Analyst in progetti di consulenza per grandi clienti, occupandomi di raccolta requisiti, analisi e ridisegno processi, supporto al disegno di soluzioni IT e preparazione di documentazione funzionale e casi di test. Collaborazione con PM, SME e team di sviluppo in ambienti Agile.",
+        "exp.card.title": "Core responsibilities across roles",
+        "exp.card.sub": "Selezione di attività ad alto impatto",
+        "exp.card.list": "<li><strong>Platform ownership:</strong> gestione e miglioramento continuo di piattaforme enterprise per ALM, testing e open innovation.</li><li><strong>Decision‑ready reporting:</strong> creazione di one‑pager, report e dashboard per CXO e stakeholder istituzionali.</li><li><strong>Process improvement:</strong> analisi e modellazione processi, supporto alla definizione di roadmap e backlog.</li><li><strong>Service quality:</strong> monitoraggio di stabilità, performance e sicurezza delle soluzioni in esercizio.</li><li><strong>Business‑IT alignment:</strong> traduzione costante tra esigenze di business e linguaggio tecnico dei delivery team.</li>",
 
-        "skills.label": "Competenze",
-        "skills.title": "Competenze tecniche &amp; trasversali",
-        "skills.intro": "Una combinazione di competenze consulenziali, strumenti enterprise e basi tecniche che mi permettono di dialogare sia con il business sia con i team IT.",
-        "skills.tab.hard": "Tecniche",
-        "skills.tab.soft": "Consulenziali",
-        "skills.hard1": "<span class=\"skill-dot\"></span> Testing &amp; QA (UFT One, LoadRunner, Mobile Center)",
-        "skills.hard2": "<span class=\"skill-dot\"></span> Piattaforme ALM / Q‑Cent, ecosistema Micro Focus",
+        "proj.label": "Selected projects",
+        "proj.title": "Examples of work relevant for global tech &amp; energy",
+        "proj.intro": "Alcuni casi che riassumono il mio modo di lavorare su piattaforme digitali, innovazione e qualità del software in contesti enterprise e PA.",
+        "proj.card1.title": "xTech / NextHub – Innovation &amp; startup scouting",
+        "proj.card1.sub": "Open innovation per corporate e PA",
+        "proj.card1.list": "<li><strong>Challenge:</strong> supportare clienti nel selezionare le soluzioni innovative più rilevanti tra decine di startup.</li><li><strong>Contribution:</strong> configurazione e gestione della piattaforma, definizione criteri di valutazione, produzione one‑pager e materiali di sintesi.</li><li><strong>Outcome:</strong> processi di scouting più strutturati, decisioni più rapide e maggiore tracciabilità delle valutazioni.</li>",
+        "proj.card2.title": "ALM &amp; testing platform for utility client",
+        "proj.card2.sub": "Qualità e stabilità delle applicazioni",
+        "proj.card2.list": "<li><strong>Challenge:</strong> garantire qualità e continuità operativa su un portafoglio applicativo critico per una grande utility.</li><li><strong>Contribution:</strong> configurazione suite Micro Focus (ALM, UFT, LoadRunner), gestione incident e supporto ai cicli di test.</li><li><strong>Outcome:</strong> riduzione delle interruzioni legate a rilasci e maggiore confidenza degli stakeholder nei processi di change.</li>",
+        "proj.card3.title": "Process analysis &amp; reporting automation",
+        "proj.card3.sub": "Supporto decisionale data‑driven",
+        "proj.card3.list": "<li><strong>Challenge:</strong> rendere più veloci e affidabili le analisi a supporto di decisioni di progetto.</li><li><strong>Contribution:</strong> sviluppo di report automatizzati in Excel / VBA e definizione di template standard per KPI e milestone.</li><li><strong>Outcome:</strong> meno attività manuali a basso valore, reporting più coerente e migliore visibilità per PM e sponsor.</li>",
+
+        "skills.label": "Skills",
+        "skills.title": "Technical &amp; consulting skills",
+        "skills.intro": "Una combinazione di capacità consulenziali, strumenti enterprise e basi tecniche che mi permette di lavorare in modo efficace con stakeholder di business, team IT e fornitori.",
+        "skills.tab.hard": "Technical",
+        "skills.tab.soft": "Consulting",
+        "skills.hard1": "<span class=\"skill-dot\"></span> Testing &amp; QA · UFT One, LoadRunner, Mobile Center (hands‑on)",
+        "skills.hard2": "<span class=\"skill-dot\"></span> ALM / Q‑Cent, ecosistema Micro Focus (configuration &amp; support)",
         "skills.hard3": "<span class=\"skill-dot\"></span> Piattaforme xTech / NextHub, recommendation engine basati su IA",
-        "skills.hard4": "<span class=\"skill-dot\"></span> SQL (base), Python (base), VBA per automazioni Office",
-        "skills.hard5": "<span class=\"skill-dot\"></span> Analisi dati con Excel avanzato (tabelle pivot, grafici)",
-        "skills.hard6": "<span class=\"skill-dot\"></span> Jira, Confluence, strumenti di project e knowledge management",
-        "skills.soft1": "<span class=\"skill-dot\"></span> Raccolta requisiti e analisi processi",
-        "skills.soft2": "<span class=\"skill-dot\"></span> Gestione stakeholder e comunicazione con il top management",
-        "skills.soft3": "<span class=\"skill-dot\"></span> Metodologie Agile / Scrum e lavoro cross‑team",
-        "skills.soft4": "<span class=\"skill-dot\"></span> Strutturazione deliverable (one‑pager, slide, executive summary)",
-        "skills.soft5": "<span class=\"skill-dot\"></span> Problem solving strutturato e orientamento al risultato",
-        "skills.soft6": "<span class=\"skill-dot\"></span> Public speaking e facilitazione di workshop",
-        "skills.lang1": "Italiano: madrelingua",
-        "skills.lang2": "Inglese: livello B2 (EF‑SET)",
+        "skills.hard4": "<span class=\"skill-dot\"></span> Data &amp; automation · Excel avanzato, VBA, SQL (base), Python (base)",
+        "skills.hard5": "<span class=\"skill-dot\"></span> Project &amp; work management · Jira, Confluence, MS Office",
+        "skills.hard6": "<span class=\"skill-dot\"></span> Interesse per concetti cloud &amp; DevOps (CI/CD, modern application lifecycle)",
+        "skills.soft1": "<span class=\"skill-dot\"></span> Requirements engineering &amp; analisi processi",
+        "skills.soft2": "<span class=\"skill-dot\"></span> Stakeholder management &amp; comunicazione verso executive",
+        "skills.soft3": "<span class=\"skill-dot\"></span> Lavoro in Agile / Scrum e team cross‑funzionali",
+        "skills.soft4": "<span class=\"skill-dot\"></span> Strutturazione di deliverable decisionali (one‑pager, slide, executive summary)",
+        "skills.soft5": "<span class=\"skill-dot\"></span> Problem solving strutturato &amp; ownership",
+        "skills.soft6": "<span class=\"skill-dot\"></span> Public speaking, facilitazione workshop &amp; training",
+        "skills.lang1": "Italian: madrelingua",
+        "skills.lang2": "English: livello B2 (EF‑SET)",
 
         "edu.label": "Background",
-        "edu.title": "Formazione &amp; certificazioni",
-        "edu.card1.title": "Formazione",
-        "edu.card1.list": "<li>Laurea in Ingegneria Industriale (L‑09) · Università del Salento.</li><li>Diploma Perito Industriale Capotecnico · I.T.I.S. “G. Giorgi”.</li>",
-        "edu.card2.title": "Corsi &amp; certificazioni",
-        "edu.card2.list": "<li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li><li>ALM120 — ALM/QC 15 (Certified Professional).</li><li>LoadRunner Professional 2020 (Certified Professional).</li><li>UFT One v15.x (Certified Professional).</li><li>Corsi su Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>",
+        "edu.title": "Education &amp; certifications",
+        "edu.card1.title": "Education",
+        "edu.card1.list": "<li>Bachelor’s degree in Industrial Engineering (L‑09) · University of Salento.</li><li>Technical high school diploma in Industrial Mechanics · I.T.I.S. “G. Giorgi”.</li>",
+        "edu.card2.title": "Courses &amp; certifications",
+        "edu.card2.list": "<li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li><li>ALM120 — ALM/QC 15 (Certified Professional).</li><li>LoadRunner Professional 2020 (Certified Professional).</li><li>UFT One v15.x (Certified Professional).</li><li>Courses on Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>",
 
         "cta.title": "Parliamo della tua prossima posizione aperta",
-        "cta.text": "Sono interessato a opportunità come Senior Consultant / Manager in ambito consulenza direzionale, IT &amp; digital transformation, preferibilmente in contesti strutturati (Big 4, società di consulenza, corporate o scale‑up tecnologiche).",
-        "cta.btnMail": "📩 Scrivimi su email",
-        "cta.btnLinkedin": "🔗 Profilo LinkedIn",
+        "cta.text": "Sono interessato a opportunità come Senior Consultant / Manager in ambito consulenza direzionale, IT &amp; digital transformation, idealmente in contesti strutturati (Big 4, società di consulenza, corporate o scale‑up tecnologiche), con particolare interesse per energy, industrial e PA.",
+        "cta.btnMail": "📩 Scrivimi via email",
+        "cta.btnLinkedin": "🔗 Vedi profilo LinkedIn",
+        "footer.copy": "© <span id=\"year\"></span> Alessandro Chiri · Digital résumé",
         "footer.lastUpdate": "Ultimo aggiornamento: <span id=\"lastUpdate\">2026</span>"
       },
 
       en: {
         "meta.title": "Alessandro Chiri · Senior Consultant",
-        "meta.description": "Alessandro Chiri, consultant with 8+ years of experience in business & IT roles across Accenture, Micro Focus and Deloitte NextHub.",
+        "meta.description": "Alessandro Chiri, Senior Consultant for digital & data transformation in enterprise and public sector, with experience at Accenture, Micro Focus and Deloitte NextHub.",
         "brand.subtitle": "Consultant · Deloitte NextHub",
+        "brand.linkedin": "View LinkedIn profile",
         "nav.experience": "Experience",
+        "nav.projects": "Projects",
         "nav.skills": "Skills",
         "nav.education": "Education",
         "nav.contact": "Contact",
-        "hero.badge": "Open to new opportunities · Italy / EU",
-        "hero.title": "Consultant with <span>8+ years</span> of experience in business &amp; IT roles.",
-        "hero.subtitle": "Since 2018 I have worked in enterprise environments at Accenture, Micro Focus and now Deloitte NextHub, supporting digital transformation, application management and enterprise platforms at the intersection of business and technology.",
+        "hero.badge": "Open to new opportunities · Italy / EU · Energy &amp; Tech",
+        "hero.title": "Senior consultant for <span>digital &amp; data transformation</span> in enterprise and public sector.",
+        "hero.subtitle": "Since 2018 I have worked in enterprise environments at Accenture, Micro Focus and now Deloitte NextHub, supporting digital transformation, application management and data platforms for corporate, utility and public sector clients.",
         "hero.btnCv": "Download CV",
         "hero.btnCall": "Schedule a call",
-        "hero.metric1.title": "Since 2018",
+        "hero.metric1.title": "8+ years",
         "hero.metric1.text": "Continuous experience in business &amp; IT roles",
-        "hero.metric2.title": "Deloitte NextHub",
-        "hero.metric2.text": "Consultant on open innovation &amp; digital projects",
-        "hero.metric3.title": "Accenture &amp; Micro Focus",
-        "hero.metric3.text": "Business Analyst and Application Specialist Support",
+        "hero.metric2.title": "Enterprise &amp; public sector",
+        "hero.metric2.text": "Corporate, utilities and government clients",
+        "hero.metric3.title": "Digital &amp; data",
+        "hero.metric3.text": "Platforms, processes and analytics",
         "hero.tag.roleLabel": "Current role",
         "hero.tag.roleValue": "Consultant · Deloitte NextHub",
         "hero.tag.locLabel": "Based in",
         "hero.tag.locValue": "Italy · open to remote / hybrid",
+        "hero.target.title": "Target roles &amp; locations",
+        "hero.target.text": "Senior Consultant / Senior Business Analyst / Product Specialist (Digital &amp; IT).<br>Target industries: Energy &amp; Utilities, Industrial, Public Sector, Technology.<br>Based in Italy (Milan / Bari), open to EU, remote and hybrid models.",
 
         "value.label": "Positioning",
-        "value.title": "What I bring to your team",
-        "value.intro": "A hybrid profile across business and technology: I can speak to non‑technical stakeholders, translate needs into clear requirements and support implementation with method and focus on measurable outcomes.",
-        "value.card1.title": "Reliable execution",
+        "value.title": "Impact &amp; strengths for your organisation",
+        "value.intro": "A hybrid profile across business and technology: I bring consulting structure, attention to numbers and the ability to translate business needs into tangible digital solutions, working closely with non‑technical stakeholders, IT teams and vendors.",
+        "value.card1.title": "Reliable end‑to‑end execution",
         "value.card1.sub": "Project delivery in complex environments",
-        "value.card1.list": "<li>End‑to‑end management of project activities, coordinating cross‑functional teams.</li><li>Monitoring of progress, quality and risk KPIs.</li><li>Clear documentation shared with project managers and stakeholders.</li>",
-        "value.card2.title": "Business &amp; technology bridge",
-        "value.card2.sub": "From requirement to live system",
-        "value.card2.list": "<li>Collection, analysis and formalisation of functional and non‑functional requirements.</li><li>Configuration and evolution of enterprise platforms (ALM, testing, xTech, etc.).</li><li>Solution validation, testing, user training and adoption support.</li>",
-        "value.card3.title": "Client relationship",
-        "value.card3.sub": "Trust and transparent communication",
-        "value.card3.list": "<li>Daily interaction with business and IT stakeholders.</li><li>Storytelling through presentations, one‑pagers and C‑level materials.</li><li>Pragmatic approach focused on measurable business results.</li>",
+        "value.card1.list": "<li><strong>Operational ownership:</strong> day‑to‑day management of project activities, coordinating cross‑functional teams.</li><li><strong>Governance:</strong> monitoring progress, quality and risk with KPIs and structured reporting.</li><li><strong>Change management:</strong> supporting go‑lives, user training and feedback management.</li>",
+        "value.card2.title": "Bridge between business &amp; IT",
+        "value.card2.sub": "From requirement to production system",
+        "value.card2.list": "<li><strong>Requirements:</strong> collection and formalisation of functional / non‑functional requirements and user stories.</li><li><strong>Solution design:</strong> configuration and evolution of ALM, testing and xTech platforms.</li><li><strong>Quality:</strong> test case definition, execution, defect management and release validation.</li>",
+        "value.card3.title": "Executive‑ready communication",
+        "value.card3.sub": "Storytelling for decision makers",
+        "value.card3.list": "<li><strong>C‑level materials:</strong> one‑pagers, business cases and concise slide decks focused on decisions.</li><li><strong>Stakeholder management:</strong> continuous alignment between business, IT and vendors.</li><li><strong>Data‑driven:</strong> using data and indicators to support roadmap and prioritisation choices.</li>",
 
         "exp.label": "Experience",
         "exp.title": "Professional journey since 2018",
-        "exp.intro": "I started as a Business Analyst at Accenture, grew as an Application Specialist at Micro Focus and I am now a Consultant at Deloitte NextHub, always working on projects sitting between business processes and IT systems.",
+        "exp.intro": "I started as a Business Analyst at Accenture, grew as an Application Specialist at Micro Focus and I am now a Consultant at Deloitte NextHub, working on innovation, application modernisation and data‑driven decision‑making initiatives for enterprise and public sector clients.",
         "exp.t1.role": "Consultant · Deloitte NextHub",
         "exp.t1.meta": "since 21 October 2024 · Italy · Big 4",
-        "exp.t1.body": "Consultant at Deloitte NextHub, focused on open innovation initiatives, technology transfer and digital transformation projects. I support corporate and public sector clients in defining requirements, evolving xTech platforms and producing decision‑ready deliverables for stakeholders.",
+        "exp.t1.body": "Consultant at Deloitte NextHub, focused on open innovation, technology transfer and digital transformation projects built on the xTech / NextHub platform. I support corporate and public sector clients in defining requirements, prioritising backlogs and producing decision‑ready deliverables (one‑pagers, metrics, reports) for executives and institutional stakeholders.",
         "exp.t2.role": "Application Specialist Support · Micro Focus",
         "exp.t2.meta": "7 October 2019 – 30 September 2024 · Italy",
-        "exp.t2.body": "Application support and evolution of ALM / testing solutions and enterprise platforms. Configuration and customisation of environments, operational monitoring, incident/problem management, release validation, technical documentation and user training.",
+        "exp.t2.body": "Application support and evolution of ALM / testing solutions and enterprise platforms, with a focus on service quality and operational continuity. Configuration and customisation of environments, daily monitoring, incident / problem management, release validation, technical documentation and knowledge sharing towards internal teams and customers.",
         "exp.t3.role": "Business Analyst · Accenture",
         "exp.t3.meta": "5 March 2018 – 31 August 2019 · Italy",
-        "exp.t3.body": "Business Analyst on consulting projects, focusing on requirements gathering, process analysis and support to the design of IT solutions. Involved in functional documentation, user acceptance testing and coordination with development teams and business stakeholders.",
-        "exp.card.title": "Recurring responsibilities across roles",
-        "exp.card.sub": "Short selection of typical accountabilities",
-        "exp.card.list": "<li>Management and evolution of enterprise platforms and solutions for open innovation.</li><li>Production of one‑pagers, reports and presentations for CXOs and institutional stakeholders.</li><li>Process analysis and modelling, backlog definition, support to PMs and Product Owners.</li><li>Monitoring of security, quality and performance of live solutions.</li><li>Requirements gathering with business functions and translation for technical teams.</li>",
+        "exp.t3.body": "Business Analyst on consulting projects for large clients, responsible for requirements gathering, process analysis and redesign, support to IT solution design and preparation of functional documentation and test cases. Worked closely with PMs, SMEs and development teams in Agile environments.",
+        "exp.card.title": "Core responsibilities across roles",
+        "exp.card.sub": "Selection of high‑impact activities",
+        "exp.card.list": "<li><strong>Platform ownership:</strong> management and continuous improvement of enterprise platforms for ALM, testing and open innovation.</li><li><strong>Decision‑ready reporting:</strong> creation of one‑pagers, reports and dashboards for CXOs and institutional stakeholders.</li><li><strong>Process improvement:</strong> process analysis and modelling, support to roadmap and backlog definition.</li><li><strong>Service quality:</strong> monitoring stability, performance and security of live solutions.</li><li><strong>Business‑IT alignment:</strong> constant translation between business needs and technical delivery language.</li>",
+
+        "proj.label": "Selected projects",
+        "proj.title": "Examples of work relevant for global tech &amp; energy",
+        "proj.intro": "A few cases that summarise how I work on digital platforms, innovation and software quality in enterprise and public sector contexts.",
+        "proj.card1.title": "xTech / NextHub – Innovation &amp; startup scouting",
+        "proj.card1.sub": "Open innovation for corporates and public sector",
+        "proj.card1.list": "<li><strong>Challenge:</strong> help clients select the most relevant innovative solutions among many startups.</li><li><strong>Contribution:</strong> configuration and management of the platform, definition of evaluation criteria, creation of one‑pagers and summary materials.</li><li><strong>Outcome:</strong> more structured scouting processes, faster decisions and better traceability of evaluations.</li>",
+        "proj.card2.title": "ALM &amp; testing platform for utility client",
+        "proj.card2.sub": "Application quality and stability",
+        "proj.card2.list": "<li><strong>Challenge:</strong> ensure quality and operational continuity for a critical application portfolio at a major utility.</li><li><strong>Contribution:</strong> configuration of Micro Focus suite (ALM, UFT, LoadRunner), incident management and support to test cycles.</li><li><strong>Outcome:</strong> fewer release‑related disruptions and greater stakeholder confidence in change processes.</li>",
+        "proj.card3.title": "Process analysis &amp; reporting automation",
+        "proj.card3.sub": "Data‑driven decision support",
+        "proj.card3.list": "<li><strong>Challenge:</strong> speed up and standardise analysis activities supporting project decisions.</li><li><strong>Contribution:</strong> development of automated reports in Excel / VBA and definition of standard templates for KPIs and milestones.</li><li><strong>Outcome:</strong> less low‑value manual work, more consistent reporting and better visibility for PMs and sponsors.</li>",
 
         "skills.label": "Skills",
         "skills.title": "Technical &amp; consulting skills",
-        "skills.intro": "A mix of consulting capabilities, enterprise tools and technical foundations that allows me to work effectively with both business stakeholders and IT teams.",
+        "skills.intro": "A mix of consulting capabilities, enterprise tools and technical foundations that allows me to work effectively with business stakeholders, IT teams and vendors.",
         "skills.tab.hard": "Technical",
         "skills.tab.soft": "Consulting",
-        "skills.hard1": "<span class=\"skill-dot\"></span> Testing &amp; QA (UFT One, LoadRunner, Mobile Center)",
-        "skills.hard2": "<span class=\"skill-dot\"></span> ALM / Q‑Cent platforms, Micro Focus ecosystem",
-        "skills.hard3": "<span class=\"skill-dot\"></span> xTech / NextHub platforms, AI‑based recommendation engines",
-        "skills.hard4": "<span class=\"skill-dot\"></span> SQL (basic), Python (basic), VBA for Office automation",
-        "skills.hard5": "<span class=\"skill-dot\"></span> Data analysis with advanced Excel (pivot tables, charts)",
-        "skills.hard6": "<span class=\"skill-dot\"></span> Jira, Confluence and project / knowledge management tools",
-        "skills.soft1": "<span class=\"skill-dot\"></span> Requirements gathering and process analysis",
-        "skills.soft2": "<span class=\"skill-dot\"></span> Stakeholder management and communication with top management",
-        "skills.soft3": "<span class=\"skill-dot\"></span> Agile / Scrum methodologies and cross‑team collaboration",
-        "skills.soft4": "<span class=\"skill-dot\"></span> Structuring deliverables (one‑pagers, slides, executive summaries)",
-        "skills.soft5": "<span class=\"skill-dot\"></span> Structured problem solving and results orientation",
-        "skills.soft6": "<span class=\"skill-dot\"></span> Public speaking and workshop facilitation",
+        "skills.hard1": "<span class=\"skill-dot\"></span> Testing &amp; QA · UFT One, LoadRunner, Mobile Center (hands‑on)",
+        "skills.hard2": "<span class=\"skill-dot\"></span> ALM / Q‑Cent, Micro Focus ecosystem (configuration &amp; support)",
+        "skills.hard3": "<span class=\"skill-dot\"></span> xTech / NextHub innovation platforms, AI‑based recommendation engines",
+        "skills.hard4": "<span class=\"skill-dot\"></span> Data &amp; automation · Advanced Excel, VBA, SQL (basic), Python (basic)",
+        "skills.hard5": "<span class=\"skill-dot\"></span> Project &amp; work management · Jira, Confluence, MS Office suite",
+        "skills.hard6": "<span class=\"skill-dot\"></span> Interest in cloud &amp; DevOps concepts (CI/CD, modern application lifecycle)",
+        "skills.soft1": "<span class=\"skill-dot\"></span> Requirements engineering &amp; process analysis",
+        "skills.soft2": "<span class=\"skill-dot\"></span> Stakeholder management &amp; clear communication with executives",
+        "skills.soft3": "<span class=\"skill-dot\"></span> Working in Agile / Scrum and cross‑functional teams",
+        "skills.soft4": "<span class=\"skill-dot\"></span> Structuring decision‑ready deliverables (one‑pagers, decks, executive summaries)",
+        "skills.soft5": "<span class=\"skill-dot\"></span> Structured problem solving &amp; ownership mindset",
+        "skills.soft6": "<span class=\"skill-dot\"></span> Public speaking and workshop / training facilitation",
         "skills.lang1": "Italian: native speaker",
         "skills.lang2": "English: B2 level (EF‑SET)",
 
@@ -1140,9 +1262,10 @@
         "edu.card2.list": "<li>MC2 — Mobile Center Essentials v2.x (Certified Professional).</li><li>ALM120 — ALM/QC 15 (Certified Professional).</li><li>LoadRunner Professional 2020 (Certified Professional).</li><li>UFT One v15.x (Certified Professional).</li><li>Courses on Agile, Cyber Security, Power BI, public speaking &amp; digital writing.</li>",
 
         "cta.title": "Let’s talk about your open role",
-        "cta.text": "I am interested in opportunities as Senior Consultant / Manager in management consulting, IT &amp; digital transformation, ideally within structured environments (Big 4, consulting firms, corporates or tech scale‑ups).",
+        "cta.text": "I am interested in opportunities as Senior Consultant / Manager in management consulting, IT &amp; digital transformation, ideally within structured environments (Big 4, consulting firms, corporates or tech scale‑ups), with a particular interest in energy, industrial and public sector clients.",
         "cta.btnMail": "📩 Email me",
         "cta.btnLinkedin": "🔗 View LinkedIn profile",
+        "footer.copy": "© <span id=\"year\"></span> Alessandro Chiri · Digital résumé",
         "footer.lastUpdate": "Last updated: <span id=\"lastUpdate\">2026</span>"
       }
     };
