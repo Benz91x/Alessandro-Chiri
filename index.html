@@ -379,6 +379,77 @@
       margin-top: 0.2rem;
     }
 
+    /* ---------- Brand wordmarks (monochrome, text-based) ---------- */
+    .wm {
+      font-family: var(--sans);
+      font-size: var(--wm-size, 1rem);
+      line-height: 1;
+      white-space: nowrap;
+      display: inline-block;
+      color: inherit;
+      user-select: none;
+    }
+    .wm-accenture {
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      padding-top: 0.5em; /* room for the chevron */
+    }
+    .wm-accenture .wm-t { position: relative; }
+    .wm-accenture .wm-t i {
+      position: absolute;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 0.58em;
+      top: -1.12em;
+      left: 50%;
+      transform: translateX(-50%);
+      letter-spacing: 0;
+    }
+    .wm-microfocus {
+      font-weight: 600;
+      font-size: calc(var(--wm-size, 1rem) * 0.82);
+      letter-spacing: 0.15em;
+    }
+    .wm-deloitte { font-weight: 600; letter-spacing: -0.01em; }
+    .wm-deloitte .wm-dot {
+      display: inline-block;
+      width: 0.17em;
+      height: 0.17em;
+      border-radius: 999px;
+      background: #86bc25; /* the one brand colour kept on purpose */
+      margin-left: 0.08em;
+    }
+
+    .hero-brands {
+      --wm-size: 1.04rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.7rem 1.05rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .hero-brands .wm {
+      opacity: 0.75;
+      transition: opacity 250ms ease, color 250ms ease;
+    }
+    .hero-brands .wm:hover { opacity: 1; color: var(--ink); }
+    .hero-brands-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-right: 0.35rem;
+    }
+    .hero-brands .sep {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--bronze);
+    }
+
     /* Portrait */
     .portrait { position: relative; }
     .portrait-frame {
@@ -611,6 +682,21 @@
       border-radius: 999px;
       padding: 0.22rem 0.65rem;
     }
+    .xp-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+    .xp-logo {
+      --wm-size: 1.06rem;
+      color: var(--muted);
+      opacity: 0.65;
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+      transition: opacity 300ms ease, color 300ms ease;
+    }
+    .xp-item:hover .xp-logo { opacity: 1; color: var(--ink-soft); }
     .xp-role {
       font-family: var(--serif);
       font-size: var(--text-lg);
@@ -955,6 +1041,14 @@
               <div class="stat-label" data-i18n="hero.stat4">lingue di lavoro</div>
             </div>
           </div>
+          <div class="hero-brands reveal" style="--d:400ms">
+            <span class="hero-brands-label" data-i18n="hero.brandsLabel">Dove ho lavorato</span>
+            <span class="wm wm-accenture" title="Accenture">accen<span class="wm-t">t<i aria-hidden="true">&gt;</i></span>ure</span>
+            <span class="sep" aria-hidden="true">→</span>
+            <span class="wm wm-microfocus" title="Micro Focus">MICRO&nbsp;FOCUS</span>
+            <span class="sep" aria-hidden="true">→</span>
+            <span class="wm wm-deloitte" title="Deloitte">Deloitte<span class="wm-dot" aria-hidden="true"></span></span>
+          </div>
         </div>
 
         <aside class="portrait reveal" style="--d:200ms">
@@ -1046,8 +1140,13 @@
               <span class="xp-current" data-i18n="exp.current">Ruolo attuale</span>
             </div>
             <div>
-              <h3 class="xp-role">Consultant</h3>
-              <p class="xp-company">Deloitte NextHub</p>
+              <div class="xp-head">
+                <div>
+                  <h3 class="xp-role">Consultant</h3>
+                  <p class="xp-company">Deloitte NextHub</p>
+                </div>
+                <span class="wm wm-deloitte xp-logo" title="Deloitte">Deloitte<span class="wm-dot" aria-hidden="true"></span></span>
+              </div>
               <p class="xp-body" data-i18n="exp.t1.body">
                 Focalizzato su iniziative di open innovation, trasferimento tecnologico e progetti di trasformazione
                 digitale basati sulla piattaforma xTech / NextHub. Supporto clienti corporate e PA nella definizione
@@ -1063,8 +1162,13 @@
               <span data-i18n="exp.t2.meta">7 ottobre 2019 – 30 settembre 2024 · Italia</span>
             </div>
             <div>
-              <h3 class="xp-role">Application Specialist Support</h3>
-              <p class="xp-company">Micro Focus</p>
+              <div class="xp-head">
+                <div>
+                  <h3 class="xp-role">Application Specialist Support</h3>
+                  <p class="xp-company">Micro Focus</p>
+                </div>
+                <span class="wm wm-microfocus xp-logo" title="Micro Focus">MICRO&nbsp;FOCUS</span>
+              </div>
               <p class="xp-body" data-i18n="exp.t2.body">
                 Supporto applicativo ed evoluzione di soluzioni ALM / testing e piattaforme enterprise, con focus su
                 qualità del servizio e continuità operativa. Configurazione e personalizzazione ambienti, monitoraggio
@@ -1080,8 +1184,13 @@
               <span data-i18n="exp.t3.meta">5 marzo 2018 – 31 agosto 2019 · Italia</span>
             </div>
             <div>
-              <h3 class="xp-role">Business Analyst</h3>
-              <p class="xp-company">Accenture</p>
+              <div class="xp-head">
+                <div>
+                  <h3 class="xp-role">Business Analyst</h3>
+                  <p class="xp-company">Accenture</p>
+                </div>
+                <span class="wm wm-accenture xp-logo" title="Accenture">accen<span class="wm-t">t<i aria-hidden="true">&gt;</i></span>ure</span>
+              </div>
               <p class="xp-body" data-i18n="exp.t3.body">
                 Business Analyst in progetti di consulenza per grandi clienti: raccolta requisiti, analisi e ridisegno
                 processi, supporto al disegno di soluzioni IT e preparazione di documentazione funzionale e casi di test.
@@ -1313,6 +1422,7 @@
         "hero.stat2": "realtà enterprise",
         "hero.stat3": "certificazioni professionali",
         "hero.stat4": "lingue di lavoro",
+        "hero.brandsLabel": "Dove ho lavorato",
         "hero.capRole": "Consultant, Deloitte NextHub",
         "hero.capLoc": "Milano / Bari · remote-friendly",
         "value.label": "Profilo",
@@ -1403,6 +1513,7 @@
         "hero.stat2": "enterprise companies",
         "hero.stat3": "professional certifications",
         "hero.stat4": "working languages",
+        "hero.brandsLabel": "Where I've worked",
         "hero.capRole": "Consultant, Deloitte NextHub",
         "hero.capLoc": "Milan / Bari · remote-friendly",
         "value.label": "Profile",
@@ -1524,7 +1635,7 @@
         applyTranslations();
       });
 
-      /* ---- Header state + scroll progress ---- */
+      /* ---- Header scroll + progress bar ---- */
       const header = document.getElementById("siteHeader");
       const progress = document.getElementById("progress");
       let ticking = false;
@@ -1584,7 +1695,7 @@
       }, { rootMargin: "-35% 0px -55% 0px" });
       sections.forEach((s) => spy.observe(s));
 
-      /* ---- Marquee: duplicate track for seamless loop ---- */
+      /* ---- Marquee: duplicate for seamless loop ---- */
       const track = document.getElementById("marqueeTrack");
       if (track) track.innerHTML += track.innerHTML;
     })();
