@@ -18,6 +18,30 @@
   var ARCS = [[0, 1], [1, 2], [0, 2]];
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- card UI (indipendente dal 3D) ---------- */
+  function showCardDOM(i) {
+    var p = PLACES[i], h = "", k;
+    var cc = document.getElementById("fxg-card-city"),
+        cn = document.getElementById("fxg-card-note"),
+        cl = document.getElementById("fxg-card-clients"),
+        dt = document.getElementById("fxg-dots"),
+        cd = document.getElementById("fxg-card");
+    if (!cc) return;
+    cc.textContent = p.city;
+    cn.textContent = p.note;
+    for (k = 0; k < p.clients.length; k++) h += "<li>" + p.clients[k] + "</li>";
+    cl.innerHTML = h;
+    var d = "";
+    for (k = 0; k < PLACES.length; k++) d += '<span class="' + (k === i ? "on" : "") + '"></span>';
+    dt.innerHTML = d;
+    var items = document.querySelectorAll(".fxg-item");
+    for (k = 0; k < items.length; k++) items[k].classList.toggle("on", k === i);
+    cd.classList.remove("fxg-swap");
+    void cd.offsetWidth;
+    cd.classList.add("fxg-swap");
+  }
+  window.__fxgFly = function (i) { showCardDOM(i); };
+
   /* ---------- iniezione sezione ---------- */
   function tryMount(n) {
     var anchor = document.getElementById("contatti");
@@ -50,6 +74,7 @@
         '<ul class="fxg-list">' + items + '</ul>' +
       '</div>';
     anchor.parentNode.insertBefore(sec, anchor);
+    showCardDOM(0);
 
     /* click sulle città -> vola il globo */
     sec.addEventListener("click", function (e) {
@@ -63,8 +88,21 @@
       if (loaded) return; loaded = true;
       var s = document.createElement("script");
       s.src = THREE_URL;
-      s.onload = function () { initGlobe(); };
-      s.onerror = function () { sec.classList.add("fxg-noglobe"); };
+      s.onload = function () {
+        try { initGlobe(); }
+        catch (err) {
+          var c = document.getElementById("fxg-card-city");
+          if (c) c.textContent = "DEBUG";
+          var nn = document.getElementById("fxg-card-note");
+          if (nn) nn.textContent = String(err && err.message || err).slice(0, 120);
+          var ll2 = document.getElementById("fxg-card-clients");
+          if (ll2) ll2.innerHTML = "<li>" + String(err && err.stack || "").split("\n")[1] + "</li>";
+        }
+      };
+      s.onerror = function () {
+        var nn = document.getElementById("fxg-card-note");
+        if (nn) nn.textContent = "DEBUG: three.js non caricato";
+      };
       document.body.appendChild(s);
     }
     if ("IntersectionObserver" in window) {
@@ -244,38 +282,16 @@
 
     /* ---------- tour automatico ---------- */
     var cur = 0, tourT = -1, qFrom = new THREE.Quaternion(), qTo = new THREE.Quaternion();
-    var cardCity = document.getElementById("fxg-card-city"),
-        cardNote = document.getElementById("fxg-card-note"),
-        cardCli = document.getElementById("fxg-card-clients"),
-        dots = document.getElementById("fxg-dots"),
-        card = document.getElementById("fxg-card");
-
-    function showCard(i) {
-      var p = PLACES[i], h = "", k;
-      cardCity.textContent = p.city;
-      cardNote.textContent = p.note;
-      for (k = 0; k < p.clients.length; k++) h += "<li>" + p.clients[k] + "</li>";
-      cardCli.innerHTML = h;
-      var dt = "";
-      for (k = 0; k < PLACES.length; k++) dt += '<span class="' + (k === i ? "on" : "") + '"></span>';
-      dots.innerHTML = dt;
-      var items = document.querySelectorAll(".fxg-item");
-      for (k = 0; k < items.length; k++)
-        items[k].classList.toggle("on", k === i);
-      card.classList.remove("fxg-swap");
-      void card.offsetWidth;
-      card.classList.add("fxg-swap");
-    }
     function fly(i, manual) {
       cur = i;
       qFrom.copy(globe.quaternion);
       qTo.copy(qFor(PLACES[i]));
       tourT = 0;
-      showCard(i);
+      showCardDOM(i);
       if (manual) lastUser = performance.now() - 4000; /* tour riprende presto */
     }
     window.__fxgFly = fly;
-    showCard(0);
+    showCardDOM(0);
 
     /* ---------- zoom da scroll ---------- */
     var sec = document.getElementById("fx-globe-sec"), scrollZ = 3.4;
