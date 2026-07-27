@@ -11,7 +11,18 @@
   <meta name="author" content="Alessandro Chiri">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#07090c">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="canonical" href="https://benz91x.github.io/Alessandro-Chiri/">
+
+  <!-- Resource hints: anticipano DNS/TLS verso i CDN del template e del
+       layer FX (NIENTE CSP bloccante: romperebbe gli inline del template).
+       Il preload di fx.css usa lo stesso ?v= di FXV: bumpare insieme. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://raw.githack.com">
+  <link rel="dns-prefetch" href="https://cdn.statically.io">
+  <link rel="preload" as="style" href="fx/fx.css?v=6">
 
   <!-- Open Graph (LinkedIn, WhatsApp, Facebook, Telegram) -->
   <meta property="og:type" content="profile">
@@ -121,27 +132,47 @@
 </div>
   <div id="__bundler_loading">Unpacking...</div>
 
-  
+
   <!-- ================= LOADER =================
        Carica l'app originale (self-contained) dal commit fissato via CDN
        e inietta il FX layer (fx/fx.css + fx/fx.js + fx/globe-land.js +
        fx/fx-globe.js) dopo il mount.
        I ?v=N forzano il refresh oltre la cache di 10 min di GitHub Pages:
-       incrementa N a ogni modifica degli asset fx.
+       incrementa N a ogni modifica degli asset fx (aggiorna anche il
+       preload fx.css in <head>).
+       RESILIENZA: ogni sorgente ha un timeout di 8s (AbortController);
+       al fallimento si passa alla sorgente successiva (jsDelivr →
+       raw.githubusercontent → raw.githack → statically). Dopo 4s di attesa
+       lo spinner segnala "connessione lenta".
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
-       qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md). -->
+       qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md) e
+       riattiva il pixel noscript /bot-nojs in fondo al body. Finché
+       GC_CODE resta "TUOCODICE" la sostituzione nel template è saltata,
+       lo script gc.zgo.at/count.js viene rimosso dal payload e il pixel
+       noscript NON viene renderizzato. -->
   <script>
   (function () {
     "use strict";
     var GC_CODE = "TUOCODICE"; // <-- il tuo codice GoatCounter (es. "alessandrochiri")
-    var FXV = "5"; // <-- versione asset fx (cache-busting)
+    var GC_ON = GC_CODE !== "TUOCODICE";
+    var FXV = "6"; // <-- versione asset fx (cache-busting)
     var COMMIT  = "d85b4a94e5ef03f3cbcd6301d19963d456c6af6a";
+    var FETCH_TIMEOUT = 8000; // ms per singola sorgente
+    var SLOW_HINT = 4000;     // ms dopo cui segnalare la connessione lenta
     var SOURCES = [
       "https://cdn.jsdelivr.net/gh/Benz91x/Alessandro-Chiri@" + COMMIT + "/index.html",
-      "https://raw.githubusercontent.com/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html"
+      "https://raw.githubusercontent.com/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html",
+      "https://raw.githack.com/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html",
+      "https://cdn.statically.io/gh/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html"
     ];
 
+    if (!GC_ON) {
+      console.info("[loader] GoatCounter non configurato (GC_CODE=\"TUOCODICE\"): " +
+        "analytics disattivata. Imposta GC_CODE per attivarla (ISTRUZIONI-ANALYTICS.md).");
+    }
+
     function fail() {
+      console.error("[loader] tutte le sorgenti fallite");
       var d = document.createElement("div");
       d.style.cssText = "position:fixed;inset:0;display:flex;flex-direction:column;gap:14px;" +
         "align-items:center;justify-content:center;background:#07090c;color:#f4fffd;" +
@@ -152,55 +183,96 @@
       document.body.appendChild(d);
     }
 
+    function fetchWithTimeout(url, ms) {
+      var ctrl = ("AbortController" in window) ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, ms);
+      var p = ctrl ? fetch(url, { signal: ctrl.signal, cache: "no-cache" })
+                   : fetch(url, { cache: "no-cache" });
+      return p.then(function (r) { clearTimeout(t); return r; },
+                    function (e) { clearTimeout(t); throw e; });
+    }
+
     function injectFX() {
-      var tries = 0;
-      var iv = setInterval(function () {
-        if (document.getElementById("ac-root") || ++tries > 60) {
-          clearInterval(iv);
-          var l = document.createElement("link");
-          l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
-          document.head.appendChild(l);
-          /* async=false => esecuzione nell'ordine di inserimento */
-          var s = document.createElement("script");
-          s.src = "fx/fx.js?v=" + FXV; s.async = false;
-          document.body.appendChild(s);
-          var d = document.createElement("script");
-          d.src = "fx/globe-land.js?v=" + FXV; d.async = false;
-          document.body.appendChild(d);
-          var g = document.createElement("script");
-          g.src = "fx/fx-globe.js?v=" + FXV; g.async = false;
-          document.body.appendChild(g);
-        }
-      }, 200);
+      /* fx.css SUBITO (prima degli script): scarica in parallelo a React,
+         niente restyle tardivo dell'hero */
+      var l = document.createElement("link");
+      l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
+      document.head.appendChild(l);
+      var done = false;
+      function go() {
+        if (done) return; done = true;
+        /* async=false => esecuzione nell'ordine di inserimento */
+        var s = document.createElement("script");
+        s.src = "fx/fx.js?v=" + FXV; s.async = false;
+        document.body.appendChild(s);
+        var d = document.createElement("script");
+        d.src = "fx/globe-land.js?v=" + FXV; d.async = false;
+        document.body.appendChild(d);
+        var g = document.createElement("script");
+        g.src = "fx/fx-globe.js?v=" + FXV; g.async = false;
+        document.body.appendChild(g);
+      }
+      if (document.getElementById("ac-root")) { go(); return; }
+      if ("MutationObserver" in window) {
+        var mo = new MutationObserver(function () {
+          if (document.getElementById("ac-root")) { mo.disconnect(); go(); }
+        });
+        mo.observe(document.documentElement, { childList: true, subtree: true });
+        setTimeout(function () {
+          if (!done) { mo.disconnect(); console.warn("[fx] ac-root non trovato, FX non iniettati"); }
+        }, 30000);
+      } else {
+        /* fallback legacy senza MutationObserver: polling breve */
+        var tries = 0;
+        var iv = setInterval(function () {
+          if (document.getElementById("ac-root")) { clearInterval(iv); go(); }
+          else if (++tries > 150) {
+            clearInterval(iv);
+            console.warn("[fx] ac-root non trovato, FX non iniettati");
+          }
+        }, 200);
+      }
     }
 
     function load(i) {
       if (i >= SOURCES.length) { fail(); return; }
-      fetch(SOURCES[i])
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+      var slowT = setTimeout(function () {
+        var el = document.getElementById("__bundler_loading");
+        if (el) el.textContent = "Connessione lenta, ancora qualche secondo…";
+      }, SLOW_HINT);
+      fetchWithTimeout(SOURCES[i], FETCH_TIMEOUT)
+        .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); })
         .then(function (html) {
+          clearTimeout(slowT);
           if (html.indexOf("__bundler/template") === -1) throw new Error("bad payload");
-          html = html.split("TUOCODICE").join(GC_CODE);
+          if (GC_ON) {
+            html = html.split("TUOCODICE").join(GC_CODE);
+          } else {
+            /* analytics non configurata: rimuovi lo script GoatCounter
+               dal payload (evita ping verso dominio inesistente) */
+            html = html.replace(/<script[^>]*gc\.zgo\.at\/count\.js[^>]*><\/script>/, "");
+          }
           document.open();
           document.write(html);
           document.close();
           injectFX();
         })
-        .catch(function () { load(i + 1); });
+        .catch(function () { clearTimeout(slowT); load(i + 1); });
     }
     load(0);
   })();
   </script>
 
 
-  
-  <!-- Canale "senza JS": intercetta crawler e bot di anteprima che non
-       eseguono JavaScript. In dashboard compaiono sotto /bot-nojs.
+
+  <!-- Canale "senza JS" (GoatCounter /bot-nojs): DISATTIVATO finché
+       GC_CODE resta "TUOCODICE" — il pixel punterebbe a un dominio
+       inesistente. Dopo aver configurato GC_CODE, ripristinare qui:
+       <noscript>
+         <img src="https://TUOCODICE.goatcounter.com/count?p=/bot-nojs&t=Bot+senza+JS"
+              alt="" width="1" height="1" style="position:absolute;left:-9999px">
+       </noscript>
        Gli analytics veri stanno nel template (sopravvivono al replaceWith). -->
-  <noscript>
-    <img src="https://TUOCODICE.goatcounter.com/count?p=/bot-nojs&t=Bot+senza+JS"
-         alt="" width="1" height="1" style="position:absolute;left:-9999px">
-  </noscript>
 
 </body>
 </html>
