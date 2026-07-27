@@ -15,14 +15,12 @@
   <link rel="canonical" href="https://benz91x.github.io/Alessandro-Chiri/">
 
   <!-- Resource hints: anticipano DNS/TLS verso i CDN del template e del
-       layer FX (NIENTE CSP bloccante: romperebbe gli inline del template).
-       Il preload di fx.css usa lo stesso ?v= di FXV: bumpare insieme. -->
+       layer FX (NIENTE CSP bloccante: romperebbe gli inline del template). -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="dns-prefetch" href="https://raw.githack.com">
   <link rel="dns-prefetch" href="https://cdn.statically.io">
-  <link rel="preload" as="style" href="fx/fx.css?v=6">
 
   <!-- Open Graph (LinkedIn, WhatsApp, Facebook, Telegram) -->
   <meta property="og:type" content="profile">
@@ -138,12 +136,12 @@
        e inietta il FX layer (fx/fx.css + fx/fx.js + fx/globe-land.js +
        fx/fx-globe.js) dopo il mount.
        I ?v=N forzano il refresh oltre la cache di 10 min di GitHub Pages:
-       incrementa N a ogni modifica degli asset fx (aggiorna anche il
-       preload fx.css in <head>).
+       incrementa N a ogni modifica degli asset fx.
        RESILIENZA: ogni sorgente ha un timeout di 8s (AbortController);
        al fallimento si passa alla sorgente successiva (jsDelivr →
        raw.githubusercontent → raw.githack → statically). Dopo 4s di attesa
-       lo spinner segnala "connessione lenta".
+       lo spinner segnala "connessione lenta". Anche fx.css ha un retry
+       automatico se la prima richiesta fallisce.
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
        qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md) e
        riattiva il pixel noscript /bot-nojs in fondo al body. Finché
@@ -194,9 +192,17 @@
 
     function injectFX() {
       /* fx.css SUBITO (prima degli script): scarica in parallelo a React,
-         niente restyle tardivo dell'hero */
+         niente restyle tardivo dell'hero. Retry automatico se il primo
+         tentativo fallisce (rete flaky / connessione resettata). */
       var l = document.createElement("link");
       l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
+      l.onerror = function () {
+        setTimeout(function () {
+          var l2 = document.createElement("link");
+          l2.rel = "stylesheet"; l2.href = "fx/fx.css?v=" + FXV + "r";
+          document.head.appendChild(l2);
+        }, 1200);
+      };
       document.head.appendChild(l);
       var done = false;
       function go() {
