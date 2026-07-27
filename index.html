@@ -142,6 +142,9 @@
        raw.githubusercontent → raw.githack → statically). Dopo 4s di attesa
        lo spinner segnala "connessione lenta". Anche fx.css ha un retry
        automatico se la prima richiesta fallisce.
+       NOTA: gli asset FX vengono iniettati SOLO dopo che #ac-root esiste:
+       prima di allora l'head del documento scritto non è stabile e un
+       <link> aggiunto verrebbe scartato dal parser.
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
        qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md) e
        riattiva il pixel noscript /bot-nojs in fondo al body. Finché
@@ -191,22 +194,23 @@
     }
 
     function injectFX() {
-      /* fx.css SUBITO (prima degli script): scarica in parallelo a React,
-         niente restyle tardivo dell'hero. Retry automatico se il primo
-         tentativo fallisce (rete flaky / connessione resettata). */
-      var l = document.createElement("link");
-      l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
-      l.onerror = function () {
-        setTimeout(function () {
-          var l2 = document.createElement("link");
-          l2.rel = "stylesheet"; l2.href = "fx/fx.css?v=" + FXV + "r";
-          document.head.appendChild(l2);
-        }, 1200);
-      };
-      document.head.appendChild(l);
       var done = false;
       function go() {
         if (done) return; done = true;
+        /* fx.css per PRIMO, appena #ac-root esiste: prima di allora l'head del
+           documento scritto non è stabile (il parser sostituisce l'head durante
+           il parsing e un link aggiunto prima verrebbe scartato).
+           Retry automatico se il primo tentativo fallisce. */
+        var l = document.createElement("link");
+        l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
+        l.onerror = function () {
+          setTimeout(function () {
+            var l2 = document.createElement("link");
+            l2.rel = "stylesheet"; l2.href = "fx/fx.css?v=" + FXV + "r";
+            document.head.appendChild(l2);
+          }, 1200);
+        };
+        document.head.appendChild(l);
         /* async=false => esecuzione nell'ordine di inserimento */
         var s = document.createElement("script");
         s.src = "fx/fx.js?v=" + FXV; s.async = false;
