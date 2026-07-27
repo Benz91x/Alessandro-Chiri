@@ -124,7 +124,7 @@
   
   <!-- ================= LOADER =================
        Carica l'app originale (self-contained) dal commit fissato via CDN
-       e inietta il FX layer (fx/fx.css + fx/fx.js) dopo il mount.
+       e inietta il FX layer (fx/fx.css + fx/fx.js + fx/fx-globe.js) dopo il mount.
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
        qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md). -->
   <script>
@@ -159,6 +159,9 @@
           var s = document.createElement("script");
           s.src = "fx/fx.js"; s.defer = true;
           document.body.appendChild(s);
+          var g = document.createElement("script");
+          g.src = "fx/fx-globe.js"; g.defer = true;
+          document.body.appendChild(g);
         }
       }, 200);
     }
