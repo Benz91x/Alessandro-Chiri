@@ -16,6 +16,7 @@
   ];
   var ARCS = [[0, 1], [1, 2], [0, 2]];
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var tourPaused = false; /* WCAG 2.2.2: il tour automatico è pausabile */
 
   /* ---------- card UI (indipendente dal 3D) ---------- */
   function showCardDOM(i) {
@@ -34,17 +35,26 @@
     for (k = 0; k < PLACES.length; k++) d += '<span class="' + (k === i ? "on" : "") + '"></span>';
     dt.innerHTML = d;
     var items = document.querySelectorAll(".fxg-item");
-    for (k = 0; k < items.length; k++) items[k].classList.toggle("on", k === i);
+    for (k = 0; k < items.length; k++) {
+      items[k].classList.toggle("on", k === i);
+      items[k].setAttribute("aria-pressed", k === i ? "true" : "false"); /* stato esposto agli SR */
+    }
     cd.classList.remove("fxg-swap");
     void cd.offsetWidth;
     cd.classList.add("fxg-swap");
   }
   window.__fxgFly = function (i) { showCardDOM(i); };
 
-  /* ---------- caricamento three.js (subito, in background) ---------- */
-  var threeReady = false, pendingInit = false;
+  /* ---------- caricamento three.js: idle, fuori dal cammino critico ---------- */
+  var threeReady = false, pendingInit = false, preloading = false;
   function preload() {
-    if (window.THREE) { threeReady = true; return; }
+    if (preloading) return;
+    preloading = true;
+    if (window.THREE) {
+      threeReady = true;
+      if (pendingInit) { pendingInit = false; safeInit(); }
+      return;
+    }
     var s = document.createElement("script");
     s.src = THREE_URL;
     s.onload = function () {
@@ -64,7 +74,15 @@
       if (c) c.style.display = "none";
     }
   }
-  preload();
+  function queuePreload() {
+    if (window.requestIdleCallback) requestIdleCallback(function () { preload(); }, { timeout: 2500 });
+    else setTimeout(preload, 1500);
+  }
+  /* Gli script FX vengono iniettati DOPO document.write: il parsing critico è
+     già passato. Non dipendiamo dall'evento load (se una risorsa del template
+     resta appesa, load non scatta e il globo non partirebbe mai). */
+  queuePreload();
+  addEventListener("load", queuePreload); /* fallback: preload() è idempotente */
 
   /* ---------- iniezione sezione ---------- */
   function tryMount(n) {
@@ -77,28 +95,54 @@
     var items = "", i, p;
     for (i = 0; i < PLACES.length; i++) {
       p = PLACES[i];
-      items += '<li><button type="button" class="fxg-item" data-i="' + i + '">' +
+      items += '<li><button type="button" class="fxg-item" data-i="' + i + '" aria-pressed="false">' +
         '<span class="fxg-city">' + p.city + '</span>' +
         '<span class="fxg-cli">' + p.clients.join(" · ") + '</span></button></li>';
     }
     sec.innerHTML =
       '<div class="fxg-wrap">' +
-        '<div class="fxg-label"><span>◆</span><span class="fxg-rule"></span><span>CLIENTI &amp; TERRITORI</span></div>' +
+        '<div class="fxg-label"><span>◆</span><span class="fxg-rule"></span><span>ESPERIENZE &amp; TERRITORI</span></div>' +
         '<h2 class="fxg-title">Dove ho lavorato.</h2>' +
-        '<p class="fxg-sub">Da Bari a Roma a Milano: trascina il globo, o lascia che sia il tour a portarti sul posto.</p>' +
+        '<p class="fxg-sub">Tre città, tre capitoli: ricerca a Bari, enterprise software a Roma, open innovation a Milano.</p>' +
         '<div class="fxg-stage">' +
-          '<canvas id="fxg-canvas" aria-label="Mappa 3D delle città in cui ha lavorato Alessandro Chiri"></canvas>' +
-          '<div class="fxg-card" id="fxg-card">' +
+          '<canvas id="fxg-canvas" role="img" aria-label="Mappa 3D delle città in cui ha lavorato Alessandro Chiri: Milano, Roma e Bari."></canvas>' +
+          '<p class="fxg-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">' +
+            'Globo decorativo: puoi trascinarlo per ruotarlo. Usa i pulsanti Milano, Roma e Bari qui sotto per esplorare città e clienti; ' +
+            'il pulsante "Metti in pausa il tour" ferma il cambio automatico.</p>' +
+          '<div class="fxg-card" id="fxg-card" aria-live="polite">' +
             '<div class="fxg-card-city" id="fxg-card-city"></div>' +
             '<div class="fxg-card-note" id="fxg-card-note"></div>' +
             '<ul class="fxg-card-clients" id="fxg-card-clients"></ul>' +
-            '<div class="fxg-dots" id="fxg-dots"></div>' +
+            '<div class="fxg-dots" id="fxg-dots" aria-hidden="true"></div>' +
           '</div>' +
         '</div>' +
         '<ul class="fxg-list">' + items + '</ul>' +
+        '<button type="button" id="fxg-tour" aria-pressed="false" style="margin-top:16px;font-family:\'IBM Plex Mono\',monospace;' +
+          'font-size:11px;letter-spacing:.08em;padding:7px 14px;border-radius:999px;border:1px solid var(--line2);' +
+          'background:transparent;color:var(--muted);cursor:pointer;">⏸ Metti in pausa il tour</button>' +
       '</div>';
     anchor.parentNode.insertBefore(sec, anchor);
     showCardDOM(0);
+
+    /* trigger extra: se la sezione si avvicina al viewport, forza il preload
+       (copre il caso in cui requestIdleCallback venga posticipato a lungo) */
+    if ("IntersectionObserver" in window) {
+      var ioPre = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { preload(); ioPre.disconnect(); }
+      }, { rootMargin: "900px 0px" });
+      ioPre.observe(sec);
+    }
+
+    /* pausa/riprendi il tour automatico (WCAG 2.2.2) */
+    var tb = document.getElementById("fxg-tour");
+    if (tb) {
+      if (reduced) tb.style.display = "none"; /* in reduced-motion il tour non parte mai */
+      tb.addEventListener("click", function () {
+        tourPaused = !tourPaused;
+        tb.setAttribute("aria-pressed", String(tourPaused));
+        tb.textContent = tourPaused ? "▶ Riprendi il tour" : "⏸ Metti in pausa il tour";
+      });
+    }
 
     /* click sulle città -> vola il globo */
     sec.addEventListener("click", function (e) {
@@ -121,7 +165,7 @@
     try {
       renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     } catch (err) { canvas.style.display = "none"; return; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5)); /* cap: costo GPU contenuto su mobile */
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -129,6 +173,7 @@
     var globe = new THREE.Group();
     scene.add(globe);
     var R = 1;
+    var AXY = new THREE.Vector3(0, 1, 0), AXX = new THREE.Vector3(1, 0, 0);
 
     function accent() {
       var v = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
@@ -249,32 +294,54 @@
     }
     globe.quaternion.copy(qFor({ lat: 42.6, lon: 12.4 }));
 
-    /* ---------- interazione: drag + autorotazione ---------- */
-    var dragging = false, px = 0, py = 0, lastUser = 0;
+    /* ---------- interazione: drag (con soglia intent touch) + inerzia leggera ---------- */
+    var dragging = false, pendingDrag = false, isTouch = false;
+    var sx = 0, sy = 0, px = 0, py = 0, lastUser = 0, vx = 0, vy = 0;
     canvas.style.touchAction = "pan-y";
     canvas.addEventListener("pointerdown", function (e) {
-      dragging = true; px = e.clientX; py = e.clientY; lastUser = performance.now();
-      canvas.setPointerCapture && canvas.setPointerCapture(e.pointerId);
+      isTouch = e.pointerType === "touch";
+      pendingDrag = true;
+      dragging = !isTouch; /* mouse: drag immediato; touch: prima soglia intent (niente tilt durante lo scroll) */
+      sx = px = e.clientX; sy = py = e.clientY;
+      vx = vy = 0;
+      lastUser = performance.now();
+      if (dragging && canvas.setPointerCapture) { try { canvas.setPointerCapture(e.pointerId); } catch (err) {} }
     });
     canvas.addEventListener("pointermove", function (e) {
-      if (!dragging) return;
+      if (!pendingDrag && !dragging) return;
       var dx = e.clientX - px, dy = e.clientY - py; px = e.clientX; py = e.clientY;
-      var qy = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), dx * 0.005);
-      var qx = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), dy * 0.003);
+      if (!dragging) { /* touch: decide l'intent solo dopo 9px di movimento */
+        var tdx = e.clientX - sx, tdy = e.clientY - sy;
+        if (tdx * tdx + tdy * tdy < 81) return;
+        if (Math.abs(tdy) > Math.abs(tdx) * 1.2) { pendingDrag = false; return; } /* scroll verticale: lascia scorrere */
+        dragging = true;
+        if (canvas.setPointerCapture) { try { canvas.setPointerCapture(e.pointerId); } catch (err) {} }
+        dx = tdx; dy = tdy;
+      }
+      vx = dx * 0.005; vy = dy * 0.003;
+      var qy = new THREE.Quaternion().setFromAxisAngle(AXY, vx);
+      var qx = new THREE.Quaternion().setFromAxisAngle(AXX, vy);
       globe.quaternion.premultiply(qy).premultiply(qx);
       lastUser = performance.now();
+      if (reduced) schedule(); /* render-on-demand */
     });
     ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) {
-      canvas.addEventListener(ev, function () { dragging = false; lastUser = performance.now(); });
+      canvas.addEventListener(ev, function () {
+        dragging = false; pendingDrag = false;
+        lastUser = performance.now();
+        if (reduced) { vx = vy = 0; schedule(); } /* niente inerzia in reduced-motion */
+      });
     });
 
-    /* ---------- tour automatico ---------- */
-    var cur = 0, tourT = -1, qFrom = new THREE.Quaternion(), qTo = new THREE.Quaternion();
+    /* ---------- tour automatico (delta-time: durata identica a ogni refresh rate) ---------- */
+    var cur = 0, tourT = -1, flyStart = -1, FLY_MS = 1300;
+    var qFrom = new THREE.Quaternion(), qTo = new THREE.Quaternion();
     function fly(i, manual) {
       cur = i;
       qFrom.copy(globe.quaternion);
       qTo.copy(qFor(PLACES[i]));
       tourT = 0;
+      flyStart = performance.now();
       showCardDOM(i);
       if (manual) lastUser = performance.now() - 4000; /* tour riprende presto */
     }
@@ -284,12 +351,21 @@
     /* ---------- zoom da scroll ---------- */
     var sec = document.getElementById("fx-globe-sec"), scrollZ = 3.4;
     function onScroll() {
+      if (!sec) return;
       var r = sec.getBoundingClientRect(), vh = innerHeight;
       var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
       scrollZ = 3.45 - p * 1.25;
+      if (reduced) schedule();
     }
     addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
+    /* pausa del rendering quando la sezione è fuori viewport */
+    var inView = true;
+    if ("IntersectionObserver" in window && sec) {
+      new IntersectionObserver(function (es) { inView = !!es[0].isIntersecting; },
+        { rootMargin: "120px 0px" }).observe(sec);
+    }
 
     /* ---------- resize ---------- */
     function resize() {
@@ -297,9 +373,22 @@
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      if (reduced) schedule();
     }
     addEventListener("resize", resize, { passive: true });
     resize();
+
+    /* ---------- render-on-demand (reduced-motion): nessun loop infinito ---------- */
+    var rafPend = false;
+    function renderFrame() {
+      camera.position.z = scrollZ;
+      renderer.render(scene, camera);
+    }
+    function schedule() {
+      if (rafPend) return;
+      rafPend = true;
+      requestAnimationFrame(function () { rafPend = false; renderFrame(); });
+    }
 
     /* ---------- tema ---------- */
     function recolor() {
@@ -308,26 +397,35 @@
       atm.material.uniforms.uColor.value = a;
       occ.material.color = new THREE.Color(bgColor());
       markers.forEach(function (m) { m.material.map = glowTexture(); m.material.needsUpdate = true; });
+      if (reduced) schedule();
     }
     new MutationObserver(recolor).observe(document.documentElement,
       { subtree: true, attributes: true, attributeFilter: ["data-theme"] });
 
-    /* ---------- loop ---------- */
-    var t0 = performance.now();
+    /* ---------- loop (solo motion pieno; frame-rate independent) ---------- */
+    var t0 = performance.now(), lastT = t0;
     function frame(now) {
-      var t = (now - t0) / 1000;
+      if (reduced) return;
+      var dt = Math.min(50, now - lastT); lastT = now;
+      if (!inView) { requestAnimationFrame(frame); return; } /* offscreen: loop a costo ~0 */
+      var t = (now - t0) / 1000, st = dt / 16.7;
       /* autorotazione lenta quando inattivo */
-      if (!dragging && !reduced && now - lastUser > 5000 && tourT < 0) {
-        globe.quaternion.premultiply(
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), 0.0011));
+      if (!dragging && now - lastUser > 5000 && tourT < 0) {
+        globe.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(AXY, 0.0011 * st));
+      }
+      /* inerzia dopo il rilascio del drag, con damping esponenziale */
+      if (!dragging && (Math.abs(vx) > 0.00005 || Math.abs(vy) > 0.00005)) {
+        globe.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(AXY, vx * st));
+        globe.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(AXX, vy * st));
+        var dmp = Math.pow(0.94, st); vx *= dmp; vy *= dmp;
       }
       /* tween tour */
       if (tourT >= 0) {
-        tourT = Math.min(1, tourT + 0.016);
+        tourT = Math.min(1, (now - flyStart) / FLY_MS);
         var e2 = tourT < 0.5 ? 4 * tourT * tourT * tourT : 1 - Math.pow(-2 * tourT + 2, 3) / 2;
         globe.quaternion.slerpQuaternions(qFrom, qTo, e2);
         if (tourT >= 1) tourT = -1;
-      } else if (!reduced && !dragging && now - lastUser > 6500) {
+      } else if (!dragging && !tourPaused && now - lastUser > 6500) {
         /* prossima tappa */
         if (!frame.next || now > frame.next) { frame.next = now + 5500; fly((cur + 1) % PLACES.length); }
       }
@@ -336,11 +434,22 @@
         var s = (i === cur ? 0.19 : 0.13) + Math.sin(t * 2.4 + i * 2) * 0.02;
         markers[i].scale.set(s, s, 1);
       }
-      camera.position.z += ((scrollZ * (tourT >= 0 ? 0.94 : 1)) - camera.position.z) * 0.06;
+      var k = 1 - Math.pow(0.94, st); /* lerp zoom normalizzato sul dt */
+      camera.position.z += ((scrollZ * (tourT >= 0 ? 0.94 : 1)) - camera.position.z) * k;
       renderer.render(scene, camera);
-      if (!reduced) requestAnimationFrame(frame);
+      requestAnimationFrame(frame);
     }
-    if (reduced) { renderer.render(scene, camera); recolor(); renderer.render(scene, camera); }
-    else requestAnimationFrame(frame);
+    if (reduced) {
+      /* statico di default, reattivo ai gesti espliciti: il "volo" è uno snap immediato */
+      var flyAnim = fly;
+      window.__fxgFly = fly = function (i, m) {
+        flyAnim(i, m);
+        globe.quaternion.copy(qTo); tourT = -1;
+        schedule();
+      };
+      renderFrame(); recolor(); renderFrame();
+    } else {
+      requestAnimationFrame(frame);
+    }
   }
 })();
