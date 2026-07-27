@@ -1,33 +1,69 @@
 /* ===== FX LAYER — effetti grafici avanzati (additivi, non toccano il layout) ===== */
+
+/* Motion token condivisi (stessa lingua del template: easeOutQuint) */
+:root{
+  --fx-ease-out:cubic-bezier(.22,1,.36,1);   /* reveal, entrata elementi */
+  --fx-ease-io:cubic-bezier(.65,0,.35,1);    /* spostamenti di scena */
+  --fx-ease-spring:cubic-bezier(.34,1.4,.64,1); /* press/stato attivo */
+  --fx-d-micro:140ms;--fx-d-ui:280ms;--fx-d-scene:600ms;
+}
+
+/* A11Y: accent AA nel tema chiaro (4.99:1 testo, 5.36:1 CTA) — dark invariato */
+#ac-root[data-theme="light"]{--accent:#0f766e;--glow:rgba(15,118,110,.25)}
+
+/* Aurora: famiglia teal, SENZA filter:blur (il gradiente radiale è già soft) */
 #fx-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-#fx-aurora .fx-blob{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.5;mix-blend-mode:screen;will-change:transform}
-body[fx-theme="light"] #fx-aurora .fx-blob{opacity:.28;mix-blend-mode:multiply}
-.fx-blob-1{background:radial-gradient(circle at 30% 30%, var(--accent,#2dd4bf), transparent 65%);top:-12vmax;left:-10vmax;animation:fx-drift1 26s ease-in-out infinite alternate}
-.fx-blob-2{background:radial-gradient(circle at 60% 40%, #7c8cf8, transparent 65%);top:30vh;right:-16vmax;animation:fx-drift2 32s ease-in-out infinite alternate}
-.fx-blob-3{background:radial-gradient(circle at 50% 60%, #c9a24b, transparent 68%);bottom:-18vmax;left:22vw;animation:fx-drift3 38s ease-in-out infinite alternate;opacity:.35}
+#fx-aurora .fx-blob{position:absolute;width:46vmax;height:46vmax;border-radius:50%;opacity:.4;mix-blend-mode:screen;will-change:transform;transform:translateZ(0)}
+body[fx-theme="light"] #fx-aurora .fx-blob{opacity:.22;mix-blend-mode:multiply}
+.fx-blob-1{background:radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent,#2dd4bf) 85%, transparent), transparent 65%);top:-12vmax;left:-10vmax;animation:fx-drift1 26s ease-in-out infinite alternate}
+.fx-blob-2{background:radial-gradient(circle at 60% 40%, color-mix(in srgb, var(--accent,#2dd4bf) 55%, #06231f), transparent 65%);top:30vh;right:-16vmax;animation:fx-drift2 32s ease-in-out infinite alternate}  /* teal profondo, non violetto */
+.fx-blob-3{background:radial-gradient(circle at 50% 60%, #8a7a4e, transparent 68%);bottom:-18vmax;left:22vw;animation:fx-drift3 38s ease-in-out infinite alternate;opacity:.16}  /* caldo appena accennato */
 @keyframes fx-drift1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(9vw,6vh) scale(1.15)}100%{transform:translate(-5vw,10vh) scale(.92)}}
 @keyframes fx-drift2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-10vw,-7vh) scale(1.12)}100%{transform:translate(6vw,-12vh) scale(.95)}}
 @keyframes fx-drift3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,-6vh) scale(1.18)}100%{transform:translate(-7vw,5vh) scale(.9)}}
 #fx-stars{position:fixed;inset:0;z-index:1;pointer-events:none}
+
 /* Spotlight che segue il mouse sulle card */
 [data-tilt]{position:relative;overflow:hidden}
 [data-tilt]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s ease;
   background:radial-gradient(340px circle at var(--fxmx,50%) var(--fxmy,50%), color-mix(in srgb, var(--accent,#2dd4bf) 16%, transparent), transparent 65%)}
 [data-tilt]:hover::after{opacity:1}
-/* Shimmer sul nome hero */
-.fx-shine{background:linear-gradient(105deg, var(--fx-ink,#e8f1ef) 30%, var(--accent,#2dd4bf) 48%, var(--fx-ink,#e8f1ef) 62%);
-  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;
-  animation:fx-shine 5.5s ease-in-out infinite}
-@keyframes fx-shine{0%,15%{background-position:120% 0}55%,100%{background-position:-120% 0}}
+/* Card: bordo che si accende (stessa timing del reveal inline → non lo rompe) */
+[data-tilt]{transition:opacity .8s var(--fx-ease-out),transform .8s var(--fx-ease-out),border-color .3s var(--fx-ease-out)!important}
+[data-tilt]:hover{border-color:color-mix(in srgb, var(--accent,#2dd4bf) 45%, transparent)!important}
+
+/* Shimmer sul nome hero: sweep in transform (compositato), non più background-position */
+.fx-shine{position:relative;color:var(--fx-ink,var(--ink,#e8f1ef))!important;overflow:hidden}
+.fx-shine::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg, transparent 42%, color-mix(in srgb, var(--accent,#2dd4bf) 70%, transparent) 50%, transparent 58%);
+  mix-blend-mode:screen;transform:translateX(-130%);will-change:transform;
+  animation:fx-shine-x 9s var(--fx-ease-io) infinite}
+@keyframes fx-shine-x{0%,72%{transform:translateX(-130%)}88%,100%{transform:translateX(130%)}}
+body[fx-theme="light"] .fx-shine::after{mix-blend-mode:multiply;
+  background:linear-gradient(105deg, transparent 42%, color-mix(in srgb, var(--accent,#0f766e) 45%, transparent) 50%, transparent 58%)}
+
 /* Titoli di sezione: leggero bagliore dopo lo scramble */
 h2.fx-scrambled{text-shadow:0 0 0 transparent;animation:fx-glowin 1.6s ease-out 1}
 @keyframes fx-glowin{0%{text-shadow:0 0 24px color-mix(in srgb, var(--accent,#2dd4bf) 55%, transparent)}100%{text-shadow:0 0 0 transparent}}
-/* Badge contatore visite nel footer */
-#fx-visits{display:inline-flex;align-items:center;gap:7px;color:var(--muted)}
+
+/* Badge contatore visite nel footer: stile sobrio (la visibilità per soglia è gestita da fx.js) */
+#fx-visits{display:inline-flex;align-items:center;gap:7px;color:var(--muted);opacity:.55;font-size:11px;letter-spacing:.08em;transition:opacity .3s var(--fx-ease-out)}
+#fx-visits:hover{opacity:.9}
 #fx-visits .fx-eye{color:var(--accent,#2dd4bf)}
+#fx-visits.fx-hit .fx-eye{animation:fx-eye .6s var(--fx-ease-out) 1}
+@keyframes fx-eye{0%{opacity:.2}100%{opacity:1}}
+
+/* Reduced-motion: effetti FX + override delle animazioni inline del template */
 @media (prefers-reduced-motion: reduce){
-  .fx-blob-1,.fx-blob-2,.fx-blob-3,.fx-shine{animation:none!important}
+  .fx-blob-1,.fx-blob-2,.fx-blob-3{animation:none!important}
+  .fx-shine::after{animation:none!important}
+  #fx-visits.fx-hit .fx-eye{animation:none!important}
+  [style*="acFloat"],[style*="acPulse"],[style*="acMarquee"]{animation:none!important}
+  [data-tilt]::after{transition:none}
+  body.ac-nocursor,body.ac-nocursor a,body.ac-nocursor button{cursor:auto}
 }
+/* Marquee: pausabile al passaggio/focus (WCAG 2.2.2) */
+[style*="acMarquee"]:hover,[style*="acMarquee"]:focus-within{animation-play-state:paused!important}
 
 /* ===== FX GLOBE — sezione "Dove ho lavorato" ===== */
 #fx-globe-sec{position:relative;z-index:2;padding:clamp(80px,10vw,140px) clamp(16px,4vw,40px)}
@@ -47,22 +83,103 @@ h2.fx-scrambled{text-shadow:0 0 0 transparent;animation:fx-glowin 1.6s ease-out 
 .fxg-card-note{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);margin:4px 0 10px}
 .fxg-card-clients{list-style:none;margin:0;padding:0;font-size:14px;line-height:1.75}
 .fxg-card-clients li::before{content:"▸ ";color:var(--accent)}
+/* Dots tour: lo stato attivo morfa a pill */
 .fxg-dots{display:flex;gap:6px;margin-top:12px}
-.fxg-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .3s}
-.fxg-dots span.on{background:var(--accent)}
-.fxg-swap{animation:fxg-swap .45s ease-out 1}
-@keyframes fxg-swap{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+.fxg-dots span{width:6px;height:6px;border-radius:99px;background:var(--line);
+  transition:width .35s var(--fx-ease-spring),background .3s var(--fx-ease-out)}
+.fxg-dots span.on{width:18px;background:var(--accent)}
+.fxg-swap{animation:fxg-swap .5s var(--fx-ease-out) 1}
+@keyframes fxg-swap{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
 .fxg-list{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0;padding:0}
 .fxg-item{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;
   padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:transparent;
-  cursor:pointer;transition:border-color .25s,background .25s;font-family:inherit;color:inherit}
+  cursor:pointer;font-family:inherit;color:inherit;
+  transition:border-color .28s var(--fx-ease-out),background .28s var(--fx-ease-out),transform var(--fx-d-micro) var(--fx-ease-out)}
 .fxg-item:hover{border-color:var(--accent)}
-.fxg-item.on{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 10%, transparent)}
+.fxg-item:active{transform:scale(.97)}
+.fxg-item.on{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 10%, transparent);
+  transition:border-color .28s var(--fx-ease-spring),background .28s var(--fx-ease-out),transform var(--fx-d-micro) var(--fx-ease-out)}
 .fxg-city{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
 .fxg-cli{font-size:12px;color:var(--muted)}
 .fxg-noglobe #fxg-canvas{display:none}
+/* Utility visually-hidden (usata da fx.js / fx-globe.js per testi solo screen reader) */
+.fxg-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:640px){
   #fxg-canvas{height:min(58vh,440px)}
   .fxg-card{position:static;max-width:none;margin-top:14px;pointer-events:auto}
 }
+@media (max-width:920px) and (orientation:landscape){
+  #fxg-canvas{height:78vh}
+}
 @media (prefers-reduced-motion: reduce){ .fxg-swap{animation:none} }
+
+/* ===== Cuciture sezioni: bande traslucide, griglia discreta, card con elevazione ===== */
+#percorso,#skill,#contatti{background:color-mix(in srgb, var(--bg2) 86%, transparent)!important}
+#ac-grid{opacity:.28!important}
+body[fx-theme="light"] #ac-grid{opacity:.5!important}  /* sul chiaro --line è quasi invisibile */
+#profilo article,#progetti article,#formazione article{
+  border-radius:16px!important;
+  border-color:color-mix(in srgb, var(--accent) 14%, var(--line))!important;
+  box-shadow:var(--shadow);
+  height:100%;
+  transition:opacity .8s var(--fx-ease-out),transform .8s var(--fx-ease-out),
+    border-color .3s var(--fx-ease-out),box-shadow .35s var(--fx-ease-out)!important}
+@media (hover:hover){
+  #profilo article:hover,#progetti article:hover,#formazione article:hover{
+    transform:translateY(-4px)!important;
+    border-color:color-mix(in srgb, var(--accent) 45%, var(--line))!important}
+}
+@media (prefers-reduced-motion:reduce){
+  #profilo article,#progetti article,#formazione article{transition:none!important}
+}
+/* Skill bar: via il glow ripetuto, resta la barra piena e pulita */
+#skill [style*="box-shadow: 0 0 8px"]{box-shadow:none!important}
+
+/* ===== Hover states: nav underline sweep, CTA glow lift, focus visibile ===== */
+#ac-header nav a{position:relative;transition:color var(--fx-d-ui) var(--fx-ease-out)}
+#ac-header nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform 260ms var(--fx-ease-out)}
+#ac-header nav a:hover{color:var(--ink)}
+#ac-header nav a:hover::after{transform:scaleX(1)}
+#ac-header a[data-t="nav.cta"]{
+  transition:transform .2s ease-out, box-shadow .35s var(--fx-ease-out)!important}
+#ac-header a[data-t="nav.cta"]:hover{box-shadow:0 12px 36px -8px var(--glow)}
+.fxg-item:focus-visible,#ac-header a:focus-visible,#ac-header button:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+
+/* ===== Mobile & touch ===== */
+html,body{overflow-x:hidden}
+/* Cursore custom: niente artefatto fisso su touch */
+@media (pointer:coarse){
+  #ac-cur-ring,#ac-cur-dot{display:none!important}
+}
+/* Hero: niente salto della barra URL mobile (100dvh dove supportato) */
+@supports (height:100dvh){
+  #top>section:first-of-type{min-height:100svh!important;min-height:100dvh!important}
+}
+/* Safe-area (notch / home indicator); no-op finché manca viewport-fit=cover */
+#ac-header>div{padding-left:max(clamp(16px,4vw,40px),env(safe-area-inset-left))!important;
+  padding-right:max(clamp(16px,4vw,40px),env(safe-area-inset-right))!important}
+#ac-root footer{padding-bottom:calc(26px + env(safe-area-inset-bottom))!important}
+/* Header: nav su riga propria, scrollabile; controlli e CTA sempre in viewport; touch target ≥44px */
+@media (max-width:860px){
+  #ac-header>div{flex-wrap:wrap;row-gap:6px}
+  #ac-header nav{order:3;flex:1 1 100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;justify-content:flex-start;padding-bottom:2px}
+  #ac-header nav::-webkit-scrollbar{display:none}
+  #ac-header nav a{display:inline-block;padding:12px 6px}
+  #ac-header button,#ac-header a[data-magnetic]{padding:12px 14px;min-height:44px;
+    display:inline-flex;align-items:center}
+}
+@media (max-width:640px){
+  /* H1: il nome non si spezza più a metà parola (lettere inline-block) */
+  #top h1{font-size:clamp(30px,10vw,44px)!important;line-height:1.02!important;letter-spacing:-.04em!important}
+  /* Aurora più leggera su GPU mobile */
+  #fx-aurora .fx-blob{will-change:auto}
+  .fx-blob-3{display:none}
+}
+@media (max-width:600px){
+  #ac-header [data-t="brand.role"]{display:none!important}   /* "// SENIOR CONSULTANT" */
+  #ac-header>div{padding:12px max(16px,env(safe-area-inset-right)) 12px max(16px,env(safe-area-inset-left))!important;gap:10px!important}
+}
