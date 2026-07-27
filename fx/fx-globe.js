@@ -2,7 +2,6 @@
 (function () {
   "use strict";
   var THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
-  var MAP_URL = "https://cdn.jsdelivr.net/npm/three-globe@2.31.0/example/img/earth-topology.png";
 
   var PLACES = [
     { city: "MILANO", lat: 45.4642, lon: 9.1900,
@@ -91,18 +90,11 @@
       s.onload = function () {
         try { initGlobe(); }
         catch (err) {
-          var c = document.getElementById("fxg-card-city");
-          if (c) c.textContent = "DEBUG";
-          var nn = document.getElementById("fxg-card-note");
-          if (nn) nn.textContent = String(err && err.message || err).slice(0, 120);
-          var ll2 = document.getElementById("fxg-card-clients");
-          if (ll2) ll2.innerHTML = "<li>" + String(err && err.stack || "").split("\n")[1] + "</li>";
+          var c = document.getElementById("fxg-canvas");
+          if (c) c.style.display = "none";
         }
       };
-      s.onerror = function () {
-        var nn = document.getElementById("fxg-card-note");
-        if (nn) nn.textContent = "DEBUG: three.js non caricato";
-      };
+      s.onerror = function () { sec.classList.add("fxg-noglobe"); };
       document.body.appendChild(s);
     }
     if ("IntersectionObserver" in window) {
@@ -168,7 +160,7 @@
       return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(th), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(th));
     }
 
-    /* punti terra */
+    /* punti terra (continenti veri, da fx/globe-land.js) */
     var landPts = null, landMat = new THREE.PointsMaterial({
       color: new THREE.Color(accent()), size: 0.016, transparent: true,
       opacity: 0.75, blending: THREE.AdditiveBlending, depthWrite: false
@@ -190,36 +182,25 @@
       }
       buildPoints(arr);
     }
-    var img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = function () {
+    (function landFromData() {
       try {
-        var W = 360, H = 180, c = document.createElement("canvas");
-        c.width = W; c.height = H;
-        var x2 = c.getContext("2d");
-        x2.drawImage(img, 0, 0, W, H);
-        var d = x2.getImageData(0, 0, W, H).data, arr = [], i, la, lo, v;
-        for (var y = 0; y < H; y += 2) for (var x = 0; x < W; x += 2) {
-          i = (y * W + x) * 4;
-          if (d[i] + d[i + 1] + d[i + 2] > 200) {
-            la = 90 - (y / H) * 180; lo = (x / W) * 360 - 180;
-            if (la < -62) continue;
-            v = ll(la, lo, R); arr.push(v.x, v.y, v.z);
-          }
+        var step = window.__FXG_LAND_STEP || 2.5;
+        var bin = atob(window.__FXG_LAND || ""), arr = [], i, la, lo, v;
+        for (i = 0; i + 1 < bin.length; i += 2) {
+          la = bin.charCodeAt(i) * step - 90;
+          lo = bin.charCodeAt(i + 1) * step - 180;
+          v = ll(la, lo, R); arr.push(v.x, v.y, v.z);
         }
-        if (arr.length > 3000) buildPoints(arr); else fallbackGrid();
+        if (arr.length > 1500) buildPoints(arr); else fallbackGrid();
       } catch (e) { fallbackGrid(); }
-    };
-    img.onerror = fallbackGrid;
-    img.src = MAP_URL;
-    fallbackGrid(); /* intanto qualcosa si vede */
+    })();
 
     /* marker */
     function glowTexture() {
       var c = document.createElement("canvas"); c.width = c.height = 64;
       var x = c.getContext("2d"), g = x.createRadialGradient(32, 32, 2, 32, 32, 30);
-      g.addColorStop(0, "rgba(255,255,255,1)");
-      g.addColorStop(0.25, accent());
+      g.addColorStop(0, "rgba(255,255,255,0.85)");
+      g.addColorStop(0.22, accent());
       g.addColorStop(1, "rgba(0,0,0,0)");
       x.fillStyle = g; x.fillRect(0, 0, 64, 64);
       return new THREE.CanvasTexture(c);
@@ -231,7 +212,7 @@
         blending: THREE.AdditiveBlending
       }));
       sp.position.copy(ll(p.lat, p.lon, R * 1.01));
-      sp.scale.set(0.22, 0.22, 1);
+      sp.scale.set(0.13, 0.13, 1);
       globe.add(sp);
       markers.push(sp);
     });
@@ -345,7 +326,7 @@
       }
       /* pulsazione marker */
       for (var i = 0; i < markers.length; i++) {
-        var s = (i === cur ? 0.26 : 0.18) + Math.sin(t * 2.4 + i * 2) * 0.035;
+        var s = (i === cur ? 0.19 : 0.13) + Math.sin(t * 2.4 + i * 2) * 0.02;
         markers[i].scale.set(s, s, 1);
       }
       camera.position.z += ((scrollZ * (tourT >= 0 ? 0.94 : 1)) - camera.position.z) * 0.06;
