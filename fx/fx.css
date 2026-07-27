@@ -1,0 +1,30 @@
+/* ===== FX LAYER — effetti grafici avanzati (additivi, non toccano il layout) ===== */
+#fx-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#fx-aurora .fx-blob{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.5;mix-blend-mode:screen;will-change:transform}
+body[fx-theme="light"] #fx-aurora .fx-blob{opacity:.28;mix-blend-mode:multiply}
+.fx-blob-1{background:radial-gradient(circle at 30% 30%, var(--accent,#2dd4bf), transparent 65%);top:-12vmax;left:-10vmax;animation:fx-drift1 26s ease-in-out infinite alternate}
+.fx-blob-2{background:radial-gradient(circle at 60% 40%, #7c8cf8, transparent 65%);top:30vh;right:-16vmax;animation:fx-drift2 32s ease-in-out infinite alternate}
+.fx-blob-3{background:radial-gradient(circle at 50% 60%, #c9a24b, transparent 68%);bottom:-18vmax;left:22vw;animation:fx-drift3 38s ease-in-out infinite alternate;opacity:.35}
+@keyframes fx-drift1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(9vw,6vh) scale(1.15)}100%{transform:translate(-5vw,10vh) scale(.92)}}
+@keyframes fx-drift2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-10vw,-7vh) scale(1.12)}100%{transform:translate(6vw,-12vh) scale(.95)}}
+@keyframes fx-drift3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,-6vh) scale(1.18)}100%{transform:translate(-7vw,5vh) scale(.9)}}
+#fx-stars{position:fixed;inset:0;z-index:1;pointer-events:none}
+/* Spotlight che segue il mouse sulle card */
+[data-tilt]{position:relative;overflow:hidden}
+[data-tilt]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s ease;
+  background:radial-gradient(340px circle at var(--fxmx,50%) var(--fxmy,50%), color-mix(in srgb, var(--accent,#2dd4bf) 16%, transparent), transparent 65%)}
+[data-tilt]:hover::after{opacity:1}
+/* Shimmer sul nome hero */
+.fx-shine{background:linear-gradient(105deg, var(--fx-ink,#e8f1ef) 30%, var(--accent,#2dd4bf) 48%, var(--fx-ink,#e8f1ef) 62%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;
+  animation:fx-shine 5.5s ease-in-out infinite}
+@keyframes fx-shine{0%,15%{background-position:120% 0}55%,100%{background-position:-120% 0}}
+/* Titoli di sezione: leggero bagliore dopo lo scramble */
+h2.fx-scrambled{text-shadow:0 0 0 transparent;animation:fx-glowin 1.6s ease-out 1}
+@keyframes fx-glowin{0%{text-shadow:0 0 24px color-mix(in srgb, var(--accent,#2dd4bf) 55%, transparent)}100%{text-shadow:0 0 0 transparent}}
+/* Badge contatore visite nel footer */
+#fx-visits{display:inline-flex;align-items:center;gap:7px;color:var(--muted)}
+#fx-visits .fx-eye{color:var(--accent,#2dd4bf)}
+@media (prefers-reduced-motion: reduce){
+  .fx-blob-1,.fx-blob-2,.fx-blob-3,.fx-shine{animation:none!important}
+}
