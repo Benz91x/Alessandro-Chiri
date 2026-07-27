@@ -125,12 +125,15 @@
   <!-- ================= LOADER =================
        Carica l'app originale (self-contained) dal commit fissato via CDN
        e inietta il FX layer (fx/fx.css + fx/fx.js + fx/fx-globe.js) dopo il mount.
+       I ?v=N forzano il refresh oltre la cache di 10 min di GitHub Pages:
+       incrementa N a ogni modifica degli asset fx.
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
        qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md). -->
   <script>
   (function () {
     "use strict";
     var GC_CODE = "TUOCODICE"; // <-- il tuo codice GoatCounter (es. "alessandrochiri")
+    var FXV = "3"; // <-- versione asset fx (cache-busting)
     var COMMIT  = "d85b4a94e5ef03f3cbcd6301d19963d456c6af6a";
     var SOURCES = [
       "https://cdn.jsdelivr.net/gh/Benz91x/Alessandro-Chiri@" + COMMIT + "/index.html",
@@ -154,13 +157,13 @@
         if (document.getElementById("ac-root") || ++tries > 60) {
           clearInterval(iv);
           var l = document.createElement("link");
-          l.rel = "stylesheet"; l.href = "fx/fx.css";
+          l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
           document.head.appendChild(l);
           var s = document.createElement("script");
-          s.src = "fx/fx.js"; s.defer = true;
+          s.src = "fx/fx.js?v=" + FXV; s.defer = true;
           document.body.appendChild(s);
           var g = document.createElement("script");
-          g.src = "fx/fx-globe.js"; g.defer = true;
+          g.src = "fx/fx-globe.js?v=" + FXV; g.defer = true;
           document.body.appendChild(g);
         }
       }, 200);
