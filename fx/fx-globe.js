@@ -41,6 +41,31 @@
   }
   window.__fxgFly = function (i) { showCardDOM(i); };
 
+  /* ---------- caricamento three.js (subito, in background) ---------- */
+  var threeReady = false, pendingInit = false;
+  function preload() {
+    if (window.THREE) { threeReady = true; return; }
+    var s = document.createElement("script");
+    s.src = THREE_URL;
+    s.onload = function () {
+      threeReady = true;
+      if (pendingInit) { pendingInit = false; safeInit(); }
+    };
+    s.onerror = function () {
+      var sec = document.getElementById("fx-globe-sec");
+      if (sec) sec.classList.add("fxg-noglobe");
+    };
+    document.body.appendChild(s);
+  }
+  function safeInit() {
+    try { initGlobe(); }
+    catch (err) {
+      var c = document.getElementById("fxg-canvas");
+      if (c) c.style.display = "none";
+    }
+  }
+  preload();
+
   /* ---------- iniezione sezione ---------- */
   function tryMount(n) {
     var anchor = document.getElementById("contatti");
@@ -81,28 +106,8 @@
       if (b && window.__fxgFly) window.__fxgFly(+b.getAttribute("data-i"), true);
     });
 
-    /* lazy-load three.js quando la sezione si avvicina */
-    var loaded = false;
-    function preload() {
-      if (loaded) return; loaded = true;
-      var s = document.createElement("script");
-      s.src = THREE_URL;
-      s.onload = function () {
-        try { initGlobe(); }
-        catch (err) {
-          var c = document.getElementById("fxg-canvas");
-          if (c) c.style.display = "none";
-        }
-      };
-      s.onerror = function () { sec.classList.add("fxg-noglobe"); };
-      document.body.appendChild(s);
-    }
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (en) { if (en.isIntersecting) { io.disconnect(); preload(); } });
-      }, { rootMargin: "700px" });
-      io.observe(sec);
-    } else preload();
+    /* init appena three.js è pronto (o subito se già caricato) */
+    if (threeReady || window.THREE) safeInit(); else pendingInit = true;
   }
   tryMount(0);
 
@@ -110,6 +115,8 @@
   function initGlobe() {
     var canvas = document.getElementById("fxg-canvas");
     if (!canvas || !window.THREE) return;
+    if (canvas.dataset.fxInit) return;
+    canvas.dataset.fxInit = "1";
     var renderer;
     try {
       renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
