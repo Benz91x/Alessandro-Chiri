@@ -29,18 +29,31 @@ conforme GDPR senza banner). Traccia già questi eventi:
 1. Vai su **https://www.goatcounter.com/signup** e crea l'account gratuito.
    Come *site code* scegli ad esempio `alessandrochiri`
    (diventerà `alessandrochiri.goatcounter.com`).
-2. In `index.html` cerca **`TUOCODICE`** (compare 2 volte: nel template, vicino a
-   `data-goatcounter=`, e nel pixel `<noscript>` in fondo) e sostituiscilo con il
-   tuo code, es. `alessandrochiri`.
-3. Commit → la dashboard su **https://alessandrochiri.goatcounter.com** inizia a
+2. Apri `index.html` e sostituisci il valore di **`GC_CODE`** (in cima allo
+   script loader, ora `"TUOCODICE"`) con il tuo code, es. `"alessandrochiri"`.
+3. Sempre in `index.html`, nel pixel `<noscript>` in fondo, sostituisci
+   **`TUOCODICE`** nell'URL `https://TUOCODICE.goatcounter.com/count?p=/bot-nojs...`
+   con lo stesso code.
+4. Commit → la dashboard su **https://<tuocode>.goatcounter.com** inizia a
    popolarsi entro pochi minuti.
 
-> Nota: nessun sistema di analytics serio mostra l'identità dei singoli visitatori
-> (nome/email) senza il loro consenso — per motivi di privacy e GDPR. GoatCounter ti
-> mostra tutto il resto: paese, dispositivo, pagine, referrer, durata e profondità di lettura.
+> Nota privacy: nessun sistema di analytics serio mostra l'identità dei singoli
+> visitatori (nome/email) senza il loro consenso — è il GDPR. GoatCounter ti mostra
+> tutto il resto: paese, dispositivo, pagine, referrer, durata e profondità di lettura.
 
-## Alternativa: Google Analytics 4
+## Come funziona l'architettura (nota tecnica)
 
-Se preferisci GA4: crea una proprietà su https://analytics.google.com, prendi il
-`Measurement ID` (G-XXXXXXXXXX) e incolla lo snippet `gtag.js` nel template di
-`index.html`, subito prima dello script GoatCounter.
+- `index.html` è un **loader leggero** (~10 KB) con tutti i meta tag SEO/social
+  nell'HTML statico (crawler e anteprime LinkedIn/WhatsApp funzionano come prima).
+- L'app completa viene caricata dal commit `d85b4a9` via CDN jsDelivr
+  (fallback: raw.githubusercontent.com) e gli effetti grafici (`fx/fx.css`,
+  `fx/fx.js`) vengono iniettati dopo il mount.
+- Per modificare gli effetti: edita `fx/fx.css` / `fx/fx.js` (file piccoli,
+  editabili anche dal web editor di GitHub). Il template dell'app è fissato al
+  commit: per cambiare i contenuti della pagina serve rigenerare il bundle.
+
+## Alternative a GoatCounter
+
+- **Google Analytics 4**: crea una proprietà su https://analytics.google.com,
+  prendi il `Measurement ID` (G-XXXXXXXXXX) e incolla lo snippet `gtag.js` nello
+  script loader di `index.html` (prima della fetch).
