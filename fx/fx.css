@@ -28,3 +28,41 @@ h2.fx-scrambled{text-shadow:0 0 0 transparent;animation:fx-glowin 1.6s ease-out 
 @media (prefers-reduced-motion: reduce){
   .fx-blob-1,.fx-blob-2,.fx-blob-3,.fx-shine{animation:none!important}
 }
+
+/* ===== FX GLOBE — sezione "Dove ho lavorato" ===== */
+#fx-globe-sec{position:relative;z-index:2;padding:clamp(80px,10vw,140px) clamp(16px,4vw,40px)}
+.fxg-wrap{max-width:1240px;margin:0 auto}
+.fxg-label{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--accent);margin-bottom:18px}
+.fxg-rule{width:44px;height:1px;background:var(--accent)}
+.fxg-title{margin:0 0 14px;font-size:clamp(30px,4.6vw,52px);font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.fxg-sub{margin:0 0 34px;max-width:640px;color:var(--muted);font-size:clamp(15px,1.6vw,17px)}
+.fxg-stage{position:relative}
+#fxg-canvas{display:block;width:100%;height:min(62vh,560px);cursor:grab}
+#fxg-canvas:active{cursor:grabbing}
+.fxg-card{position:absolute;left:clamp(8px,2vw,28px);bottom:clamp(8px,2vw,28px);max-width:330px;
+  padding:16px 20px;border:1px solid var(--line);border-radius:14px;
+  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);pointer-events:none}
+.fxg-card-city{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;letter-spacing:.12em;color:var(--accent)}
+.fxg-card-note{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);margin:4px 0 10px}
+.fxg-card-clients{list-style:none;margin:0;padding:0;font-size:14px;line-height:1.75}
+.fxg-card-clients li::before{content:"▸ ";color:var(--accent)}
+.fxg-dots{display:flex;gap:6px;margin-top:12px}
+.fxg-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .3s}
+.fxg-dots span.on{background:var(--accent)}
+.fxg-swap{animation:fxg-swap .45s ease-out 1}
+@keyframes fxg-swap{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+.fxg-list{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0;padding:0}
+.fxg-item{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;
+  padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:transparent;
+  cursor:pointer;transition:border-color .25s,background .25s;font-family:inherit;color:inherit}
+.fxg-item:hover{border-color:var(--accent)}
+.fxg-item.on{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 10%, transparent)}
+.fxg-city{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+.fxg-cli{font-size:12px;color:var(--muted)}
+.fxg-noglobe #fxg-canvas{display:none}
+@media (max-width:640px){
+  #fxg-canvas{height:min(58vh,440px)}
+  .fxg-card{position:static;max-width:none;margin-top:14px;pointer-events:auto}
+}
+@media (prefers-reduced-motion: reduce){ .fxg-swap{animation:none} }
