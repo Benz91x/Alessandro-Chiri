@@ -45,7 +45,7 @@
   }
   window.__fxgFly = function (i) { showCardDOM(i); };
 
-  /* ---------- caricamento three.js: idle, fuori dal cammino critico ---------- */
+  /* ---------- caricamento three.js: DOPO window load + idle (fuori dal cammino critico) ---------- */
   var threeReady = false, pendingInit = false, preloading = false;
   function preload() {
     if (preloading) return;
@@ -57,6 +57,10 @@
     }
     var s = document.createElement("script");
     s.src = THREE_URL;
+    /* CDN secondario, già schedulato a idle: priorità bassa per non rubare
+       banda al template. fetchPriority è ignorata dove non supportata. */
+    try { s.fetchPriority = "low"; if (s.fetchPriority !== "low") s.setAttribute("fetchpriority", "low"); }
+    catch (e) { try { s.setAttribute("fetchpriority", "low"); } catch (e2) {} }
     s.onload = function () {
       threeReady = true;
       if (pendingInit) { pendingInit = false; safeInit(); }
@@ -213,6 +217,7 @@
     }
 
     /* punti terra (continenti veri, da fx/globe-land.js) */
+    var borderMat = null; /* confini nazioni: valorizzato da bordersFromData() */
     var landPts = null, landMat = new THREE.PointsMaterial({
       color: new THREE.Color(accent()), size: 0.016, transparent: true,
       opacity: 0.75, blending: THREE.AdditiveBlending, depthWrite: false
@@ -246,6 +251,65 @@
         if (arr.length > 1500) buildPoints(arr); else fallbackGrid();
       } catch (e) { fallbackGrid(); }
     })();
+
+    /* confini nazioni. Due percorsi: (a) dati embedded window.__FXG_BORDERS
+       (segmenti uint16 LE, lat=(v/65534)*180-90, lon=(v/65535)*360-180,
+       separatore lat=0xFFFF); (b) runtime: topojson-client da CDN +
+       world-atlas 110m. Fallback silenzioso: senza bordi il resto resta. */
+    function buildBorders(pos) {
+      if (pos.length < 100) return;
+      var g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      borderMat = new THREE.LineBasicMaterial({ color: new THREE.Color(accent()), transparent: true, opacity: 0.30, depthWrite: false });
+      globe.add(new THREE.LineSegments(g, borderMat));
+      if (reduced) schedule(); /* render-on-demand: ridisegna quando arrivano */
+    }
+    function bordersFromData() {
+      try {
+        var bin = atob(window.__FXG_BORDERS || "");
+        var pos = [], i = 0, n = bin.length;
+        function u16(o) { return bin.charCodeAt(o) | (bin.charCodeAt(o + 1) << 8); }
+        var prev = null;
+        while (i + 1 < n) {
+          var la = u16(i); i += 2;
+          if (la === 0xFFFF) { prev = null; continue; }
+          var lo = u16(i); i += 2;
+          var lat = la / 65534 * 180 - 90, lon = lo / 65535 * 360 - 180;
+          var v = ll(lat, lon, R * 1.003);
+          if (prev) pos.push(prev.x, prev.y, prev.z, v.x, v.y, v.z);
+          prev = v;
+        }
+        buildBorders(pos);
+      } catch (e) { /* niente bordi */ }
+    }
+    function bordersFromCDN() {
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js";
+      s.onload = function () {
+        fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+          .then(function (r) { if (!r.ok) throw new Error("http"); return r.json(); })
+          .then(function (topo) {
+            try {
+              var mesh = window.topojson.mesh(topo, topo.objects.countries);
+              var pos = [];
+              mesh.coordinates.forEach(function (line) {
+                for (var i = 1; i < line.length; i++) {
+                  var a = line[i - 1], b = line[i];
+                  if (a[1] < -60 && b[1] < -60) continue; /* Antartide: coerente coi punti terra */
+                  if (Math.abs(a[0] - b[0]) > 180) continue; /* salto antimeridiano */
+                  var va = ll(a[1], a[0], R * 1.003), vb = ll(b[1], b[0], R * 1.003);
+                  pos.push(va.x, va.y, va.z, vb.x, vb.y, vb.z);
+                }
+              });
+              buildBorders(pos);
+            } catch (e) { /* niente bordi */ }
+          })
+          .catch(function () { /* niente bordi */ });
+      };
+      s.onerror = function () { /* niente bordi */ };
+      document.body.appendChild(s);
+    }
+    if (window.__FXG_BORDERS) bordersFromData(); else bordersFromCDN();
 
     /* marker */
     function glowTexture() {
@@ -394,6 +458,7 @@
     function recolor() {
       var a = new THREE.Color(accent());
       landMat.color = a; arcMat.color = a;
+      if (borderMat) borderMat.color = a;
       atm.material.uniforms.uColor.value = a;
       occ.material.color = new THREE.Color(bgColor());
       markers.forEach(function (m) { m.material.map = glowTexture(); m.material.needsUpdate = true; });
