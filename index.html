@@ -142,17 +142,13 @@
   <!-- ================= LOADER =================
        Carica l'app originale (self-contained) dal commit fissato via CDN
        e inietta il FX layer (fx/fx.css + fx/fx.js + fx/globe-land.js +
-       fx/fx-globe.js + fx/fx-audio.js) dopo il mount.
+       fx/fx-globe.js) dopo il mount.
        I ?v=N forzano il refresh oltre la cache di 10 min di GitHub Pages:
        incrementa N a ogni modifica degli asset fx.
-       RESILIENZA: ogni sorgente ha un timeout di 10s (AbortController);
+       RESILIENZA: ogni sorgente ha un timeout di 8s (AbortController);
        al fallimento si passa alla sorgente successiva (jsDelivr →
        raw.githubusercontent → raw.githack → statically). Dopo 4s di attesa
-       lo spinner segnala "connessione lenta". Anche fx.css ha un retry
-       automatico se la prima richiesta fallisce.
-       MUSICA: fx-audio.js riproduce fx/epilogue-theme.mp3 in loop; parte
-       al primo gesto dell'utente (autoplay policy) o dal pulsante. Se il
-       file manca, il pulsante si nasconde da solo.
+       lo spinner segnala "connessione lenta".
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
        qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md) e
        riattiva il pixel noscript /bot-nojs in fondo al body. Finché
@@ -164,7 +160,7 @@
     "use strict";
     var GC_CODE = "TUOCODICE"; // <-- il tuo codice GoatCounter (es. "alessandrochiri")
     var GC_ON = GC_CODE !== "TUOCODICE";
-    var FXV = "8"; // <-- versione asset fx (cache-busting)
+    var FXV = "9"; // <-- versione asset fx (cache-busting)
     var COMMIT  = "d85b4a94e5ef03f3cbcd6301d19963d456c6af6a";
     var FETCH_TIMEOUT = 10000; // ms per singola sorgente
     var SLOW_HINT = 4000;     // ms dopo cui segnalare la connessione lenta
@@ -192,7 +188,7 @@
       document.body.appendChild(d);
     }
 
-    /* Timeout via AbortController (10s per sorgente). priority:"high": è la
+    /* Timeout via AbortController (8s per sorgente). priority:"high": è la
        risorsa critica della pagina. NIENTE cache:"no-cache": le sorgenti sono
        commit-pinnate (= immutabili) e no-cache invaliderebbe il preload
        as=fetch dichiarato in <head>. */
