@@ -47,6 +47,12 @@
   "use strict";
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine    = matchMedia("(pointer:fine)").matches;
+  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+  var saveData = !!conn.saveData || /(^|-)2g/.test(conn.effectiveType || "");
+  /* utenti che chiedono risparmio risorse: niente decorazioni continue */
+  if (saveData) reduced = true; /* riusa tutti i gate esistenti: aurora,
+     constellation, scramble e count-up vengono saltati/ridotti; globo,
+     spotlight e contenuti restano pienamente funzionali */
   function accent() { var v = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim(); return v || "#2dd4bf"; }
 
   /* ---------- tema (mirror di data-theme su body + cache colore per il rAF) ---------- */
@@ -62,6 +68,43 @@
   }
   syncTheme();
   new MutationObserver(syncTheme).observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ["data-theme"] });
+
+  /* ---------- 1b) VIEW TRANSITION: reveal circolare sul cambio tema ---------- */
+  (function () {
+    if (!("startViewTransition" in document)) return; /* fallback: taglio netto (Chrome<111, Firefox, Safari<18) */
+    if (reduced) return;                              /* prefers-reduced-motion: niente transizione, swap istantaneo */
+    var reentry = false;                              /* guardia anti-loop sul click sintetico */
+    document.addEventListener("click", function (e) {
+      if (reentry) return;                            /* click ri-dispacciato da noi: lascia fluire */
+      var b = e.target && e.target.closest ? e.target.closest('#ac-header button[aria-label]') : null;
+      if (!b) return;
+      var label = b.getAttribute("aria-label") || "";
+      if (!/tema/i.test(label)) return;               /* solo il toggle tema, non lingua */
+      e.preventDefault();
+      e.stopImmediatePropagation();                   /* il click originale NON raggiunge React né il listener a11y §7 */
+      /* coordinate dell'onda: click reale, altrimenti centro del bottone (tastiera: clientX/Y = 0) */
+      var r = b.getBoundingClientRect();
+      var x = e.clientX || (r.left + r.width / 2);
+      var y = e.clientY || (r.top + r.height / 2);
+      document.documentElement.style.setProperty("--fx-vt-x", x + "px");
+      document.documentElement.style.setProperty("--fx-vt-y", y + "px");
+      var vt = document.startViewTransition(function () {
+        return new Promise(function (resolve) {
+          var root = document.getElementById("ac-root"), done = false;
+          function fin() { if (!done) { done = true; if (mo) mo.disconnect(); resolve(); } }
+          var mo = null;
+          if (root) mo = new MutationObserver(fin),
+            mo.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+          setTimeout(fin, 700);                       /* rete di sicurezza se setState non muta l'attributo */
+          reentry = true;
+          b.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+          reentry = false;                            /* dispatchEvent è sincrono: React riceve il click */
+          /* il listener §7 (bubble) gira normalmente su questo click sintetico: aria-pressed e live region ok */
+        });
+      });
+      vt.finished.catch(function () {});              /* skip/abort: silenzioso */
+    }, true);                                         /* capture: prima di React e del listener §7 */
+  })();
 
   /* ---------- 1) AURORA: blob di luce che derivano dietro i contenuti ---------- */
   if (!reduced) {
@@ -253,7 +296,19 @@
     if (f && !f.hasAttribute("role")) f.setAttribute("role", "contentinfo");
   }
   function domPatches() { patchTexts(); injectCV(); a11yFixes(); }
-  domPatches(); setTimeout(domPatches, 1500); setTimeout(domPatches, 4000);
+  /* Boot chunkato a priorità background: il primo input vince sempre.
+     Fallback: requestIdleCallback → setTimeout (comportamento attuale). */
+  var fxBg = (window.scheduler && scheduler.postTask)
+    ? function (fn) { scheduler.postTask(fn, { priority: "background" }); }
+    : function (fn) { (window.requestIdleCallback || function (f) { setTimeout(f, 16); })(fn); };
+  function domPatchesChunked() {
+    fxBg(patchTexts);
+    fxBg(injectCV);
+    fxBg(a11yFixes);
+  }
+  domPatchesChunked();
+  setTimeout(domPatchesChunked, 1500);
+  setTimeout(domPatchesChunked, 4000);
 
   /* ---------- 8) CONTATORE VISITE: soglia 1000, count-up, timeout 5s, defer idle ---------- */
   (function () {
