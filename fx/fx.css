@@ -183,3 +183,138 @@ html,body{overflow-x:hidden}
   #ac-header [data-t="brand.role"]{display:none!important}   /* "// SENIOR CONSULTANT" */
   #ac-header>div{padding:12px max(16px,env(safe-area-inset-right)) 12px max(16px,env(safe-area-inset-left))!important;gap:10px!important}
 }
+
+/* ===== SOTA 2026 ===== */
+
+/* ===== SOTA: ritmo di riga — text-wrap balance/pretty ===== */
+@supports (text-wrap:balance){
+  #top h1,
+  #ac-root h2[data-b],
+  .fxg-title,
+  #profilo article h3,#progetti article h3,#formazione article h3{
+    text-wrap:balance}
+}
+@supports (text-wrap:pretty){
+  #top [data-screen-label] p,
+  .fxg-sub,
+  #profilo article p,#progetti article p,#formazione article p,
+  #contatti p{
+    text-wrap:pretty}
+}
+
+/* ===== SOTA: focus di gruppo via :has() — le sorelle si attenuano ===== */
+/* Estende la transition esistente col canale filter: stessa lista + filter */
+#profilo article,#progetti article,#formazione article{
+  transition:opacity .8s var(--fx-ease-out),transform .8s var(--fx-ease-out),
+    border-color .3s var(--fx-ease-out),box-shadow .35s var(--fx-ease-out),
+    filter .35s var(--fx-ease-out)!important}
+@media (prefers-reduced-motion:reduce){   /* replica dopo, così vince sul !important sopra */
+  #profilo article,#progetti article,#formazione article{transition:none!important}
+}
+@supports selector(:has(a)){
+  @media (hover:hover) and (pointer:fine){
+    #profilo div:has(> article[data-tilt]:is(:hover,:focus-within)) > article[data-tilt]:not(:hover):not(:focus-within),
+    #progetti div:has(> article[data-tilt]:is(:hover,:focus-within)) > article[data-tilt]:not(:hover):not(:focus-within),
+    #formazione div:has(> article[data-tilt]:is(:hover,:focus-within)) > article[data-tilt]:not(:hover):not(:focus-within){
+      filter:brightness(.74) saturate(.88)}
+    body[fx-theme="light"] #profilo div:has(> article[data-tilt]:is(:hover,:focus-within)) > article[data-tilt]:not(:hover):not(:focus-within),
+    body[fx-theme="light"] #progetti div:has(> article[data-tilt]:is(:hover,:focus-within)) > article[data-tilt]:not(:hover):not(:focus-within),
+    body[fx-theme="light"] #formazione div:has(> article[data-tilt]:is(:hover,:focus-within)) > article[data-tilt]:not(:hover):not(:focus-within){
+      filter:brightness(.94) saturate(.96)}
+  }
+}
+
+/* ===== SOTA: sillabazione italiana su card strette ===== */
+@media (max-width:640px){
+  #profilo article p,#progetti article p,#formazione article p{
+    -webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:8 4 4}
+}
+
+/* ===== SOTA: selection accent coerente coi token di tema ===== */
+#ac-root ::selection{background:var(--accent);color:#06110f;text-shadow:none}
+#ac-root[data-theme="light"] ::selection{background:var(--accent);color:#f4fbfa}
+
+/* ===== SOTA: rendering differito delle sezioni lunghe sotto la piega ===== */
+/* NO #fx-globe-sec: ha gating proprio e misura clientWidth/Height del canvas.
+   Fallback nativo: browser che non la supportano ignorano le due proprietà. */
+#percorso,#progetti,#skill,#formazione{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 1400px; /* "auto" = dopo il 1° render il browser
+     ricorda l'altezza reale; 1400px è solo il placeholder iniziale */
+}
+
+/* ===== SOTA: View Transition — reveal circolare del cambio tema dal punto di click ===== */
+@supports (view-transition-name: none) {            /* gate: browser senza VT non vedono nulla */
+  ::view-transition-old(root){ animation:none; mix-blend-mode:normal }
+  ::view-transition-new(root){
+    animation:fx-theme-reveal 560ms var(--fx-ease-io) both;
+    clip-path:circle(0% at var(--fx-vt-x,50%) var(--fx-vt-y,0%));
+    mix-blend-mode:normal;
+  }
+  @keyframes fx-theme-reveal{
+    to{ clip-path:circle(142% at var(--fx-vt-x,50%) var(--fx-vt-y,0%)) }
+    /* 142% copre la diagonale del viewport da qualunque punto di origine */
+  }
+}
+@media (prefers-reduced-motion: reduce){            /* doppia rete: anche se il JS fosse bypassato */
+  ::view-transition-old(root),::view-transition-new(root){ animation:none!important; clip-path:none!important }
+}
+
+/* ===== SOTA: scroll progress — hairline accent in cima, scroll-driven (zero JS) ===== */
+@supports (animation-timeline: scroll(root)) {      /* Chrome/Edge 115+, Safari 26+, Firefox flag */
+  body::after{
+    content:""; position:fixed; top:0; left:0; right:0; height:2px; z-index:2147483647;
+    background:linear-gradient(90deg, var(--accent,#2dd4bf), color-mix(in srgb, var(--accent,#2dd4bf) 55%, #8a7a4e));
+    transform:scaleX(0); transform-origin:0 50%;
+    animation:fx-scroll-progress linear both;
+    animation-timeline:scroll(root);
+    pointer-events:none;
+  }
+  @keyframes fx-scroll-progress{ to{ transform:scaleX(1) } }
+  @media (prefers-reduced-motion: reduce){
+    body::after{ animation:none; transform:scaleX(1); opacity:.3 } /* barra statica piena, attenuata */
+  }
+}
+
+/* ===== A11Y SOTA: l'utente chiede più contrasto → bordi, badge e accent rafforzati ===== */
+@media (prefers-contrast: more){
+  #ac-root[data-theme="dark"]{--line:#7d9098;--line2:#93a7ae}   /* 5.99:1 / 7.95:1 su #07090c */
+  #ac-root[data-theme="light"]{--line:#54666d;--line2:#54666d;  /* 5.47:1 su #f1f5f7, 6.0:1 su #fff */
+    --accent:#0b5f59}                                          /* 6.85:1 testo, 7.36:1 CTA */
+  #fx-visits{opacity:1}
+  #fxg-tour,.fx-cv{border-width:2px!important}                 /* battono lo style inline */
+  .fxg-item{border-width:2px}
+  .fxg-dots span{background:var(--muted)}
+  #ac-root a:focus-visible,#ac-root button:focus-visible{outline-width:3px}
+}
+
+/* ===== A11Y SOTA: niente vetro/trasparenze se l'utente le riduce a livello di OS ===== */
+@media (prefers-reduced-transparency: reduce){
+  .fxg-card{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
+  #percorso,#skill,#contatti{background:var(--bg2)!important}
+  [data-tilt]::after{display:none}
+}
+
+/* ===== A11Y SOTA: Temi a contrasto Windows (forced-colors) — stati e leggibilità garantiti ===== */
+@media (forced-colors: active){
+  #fx-aurora,#fx-stars,.fx-shine::after,[data-tilt]::after{display:none!important}
+  .fxg-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+    background:Canvas!important;border:1px solid CanvasText}
+  .fxg-item{border-color:ButtonBorder}
+  .fxg-item.on{background:Highlight;color:HighlightText;border-color:Highlight}
+  .fxg-dots span{background:CanvasText}
+  .fxg-dots span.on{background:Highlight}
+  .fxg-card-clients li::before{color:inherit}
+  #fxg-tour{border-color:ButtonBorder!important}
+}
+
+/* ===== A11Y SOTA: focus visibile uniforme su TUTTI gli interattivi, template + FX ===== */
+#ac-root a:focus-visible,#ac-root button:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+
+/* ===== A11Y SOTA: hit area >=24px sui link piccoli SENZA spostare il layout ===== */
+#ac-root footer a{display:inline-block;padding:5px 2px;margin:-5px -2px}
+#fx-visits{padding:5px 2px;margin:-5px -2px}
+/* 1.4.12: nessuna altezza fissa che tagli il testo con override di spaziatura */
+.fxg-card{max-height:none;overflow:visible}
+[data-t]{overflow-wrap:break-word}
