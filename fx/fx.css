@@ -318,3 +318,28 @@ html,body{overflow-x:hidden}
 /* 1.4.12: nessuna altezza fissa che tagli il testo con override di spaziatura */
 .fxg-card{max-height:none;overflow:visible}
 [data-t]{overflow-wrap:break-word}
+
+/* ===== FX AUDIO: pulsante musica flottante con equalizzatore ===== */
+#fx-audio-btn{position:fixed;right:max(16px,env(safe-area-inset-right));
+  bottom:max(16px,env(safe-area-inset-bottom));z-index:9990;
+  display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;
+  border:1px solid var(--line2);cursor:pointer;
+  background:color-mix(in srgb, var(--bg) 70%, transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;
+  transition:border-color .3s var(--fx-ease-out),color .3s var(--fx-ease-out),transform var(--fx-d-micro) var(--fx-ease-out)}
+#fx-audio-btn:hover{border-color:var(--accent);color:var(--ink)}
+#fx-audio-btn:active{transform:scale(.96)}
+#fx-audio-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#fx-audio-btn.on{border-color:var(--accent);color:var(--accent)}
+.fxa-eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.fxa-eq i{width:2px;height:4px;background:currentColor;border-radius:1px}
+#fx-audio-btn.on .fxa-eq i{animation:fxa-eq 1s ease-in-out infinite}
+#fx-audio-btn.on .fxa-eq i:nth-child(2){animation-delay:.18s}
+#fx-audio-btn.on .fxa-eq i:nth-child(3){animation-delay:.36s}
+@keyframes fxa-eq{0%,100%{height:4px}50%{height:12px}}
+@media (prefers-reduced-motion:reduce){#fx-audio-btn.on .fxa-eq i{animation:none;height:9px}}
+@media (prefers-reduced-transparency:reduce){#fx-audio-btn{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}}
+@media (forced-colors:active){#fx-audio-btn{background:Canvas;border-color:ButtonBorder}
+  #fx-audio-btn.on{background:Highlight;color:HighlightText}}
+@media (max-width:480px){#fx-audio-btn .fxa-label{display:none}#fx-audio-btn{padding:12px}}
