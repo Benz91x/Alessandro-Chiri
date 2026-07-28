@@ -22,6 +22,14 @@
   <link rel="dns-prefetch" href="https://raw.githack.com">
   <link rel="dns-prefetch" href="https://cdn.statically.io">
 
+  <!-- Preload del template (sorgente primaria, commit-pinnata = immutabile):
+       lo preload scanner avvia il download al primo byte dell'HTML, con
+       priorità alta; il fetch del loader la riusa (niente cache:"no-cache").
+       L'URL deve restare identico a SOURCES[0]: se cambia COMMIT nel loader,
+       aggiornare anche qui. -->
+  <link rel="preload" as="fetch" crossorigin fetchpriority="high"
+        href="https://cdn.jsdelivr.net/gh/Benz91x/Alessandro-Chiri@d85b4a94e5ef03f3cbcd6301d19963d456c6af6a/index.html">
+
   <!-- Open Graph (LinkedIn, WhatsApp, Facebook, Telegram) -->
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Alessandro Chiri">
@@ -137,14 +145,11 @@
        fx/fx-globe.js) dopo il mount.
        I ?v=N forzano il refresh oltre la cache di 10 min di GitHub Pages:
        incrementa N a ogni modifica degli asset fx.
-       RESILIENZA: ogni sorgente ha un timeout di 8s (AbortController);
+       RESILIENZA: ogni sorgente ha un timeout di 10s (AbortController);
        al fallimento si passa alla sorgente successiva (jsDelivr →
        raw.githubusercontent → raw.githack → statically). Dopo 4s di attesa
        lo spinner segnala "connessione lenta". Anche fx.css ha un retry
        automatico se la prima richiesta fallisce.
-       NOTA: gli asset FX vengono iniettati SOLO dopo che #ac-root esiste:
-       prima di allora l'head del documento scritto non è stabile e un
-       <link> aggiunto verrebbe scartato dal parser.
        ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
        qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md) e
        riattiva il pixel noscript /bot-nojs in fondo al body. Finché
@@ -156,9 +161,9 @@
     "use strict";
     var GC_CODE = "TUOCODICE"; // <-- il tuo codice GoatCounter (es. "alessandrochiri")
     var GC_ON = GC_CODE !== "TUOCODICE";
-    var FXV = "6"; // <-- versione asset fx (cache-busting)
+    var FXV = "7"; // <-- versione asset fx (cache-busting)
     var COMMIT  = "d85b4a94e5ef03f3cbcd6301d19963d456c6af6a";
-    var FETCH_TIMEOUT = 8000; // ms per singola sorgente
+    var FETCH_TIMEOUT = 10000; // ms per singola sorgente
     var SLOW_HINT = 4000;     // ms dopo cui segnalare la connessione lenta
     var SOURCES = [
       "https://cdn.jsdelivr.net/gh/Benz91x/Alessandro-Chiri@" + COMMIT + "/index.html",
@@ -184,13 +189,17 @@
       document.body.appendChild(d);
     }
 
+    /* Timeout via AbortController (10s per sorgente). priority:"high": è la
+       risorsa critica della pagina. NIENTE cache:"no-cache": le sorgenti sono
+       commit-pinnate (= immutabili) e no-cache invaliderebbe il preload
+       as=fetch dichiarato in <head>. */
     function fetchWithTimeout(url, ms) {
       var ctrl = ("AbortController" in window) ? new AbortController() : null;
       var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, ms);
-      var p = ctrl ? fetch(url, { signal: ctrl.signal, cache: "no-cache" })
-                   : fetch(url, { cache: "no-cache" });
-      return p.then(function (r) { clearTimeout(t); return r; },
-                    function (e) { clearTimeout(t); throw e; });
+      var opt = { priority: "high" };
+      if (ctrl) opt.signal = ctrl.signal;
+      return fetch(url, opt).then(function (r) { clearTimeout(t); return r; },
+                                  function (e) { clearTimeout(t); throw e; });
     }
 
     function injectFX() {
@@ -218,6 +227,8 @@
         var d = document.createElement("script");
         d.src = "fx/globe-land.js?v=" + FXV; d.async = false;
         document.body.appendChild(d);
+        /* confini nazioni: caricati a runtime da fx-globe.js via CDN
+           (topojson-client + world-atlas), niente file dati da ospitare */
         var g = document.createElement("script");
         g.src = "fx/fx-globe.js?v=" + FXV; g.async = false;
         document.body.appendChild(g);
