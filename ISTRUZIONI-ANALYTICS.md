@@ -4,10 +4,11 @@ La pagina ha **due livelli di analytics**, già integrati nel codice:
 
 ---
 
-## 1) Contatore visite live — già attivo, zero configurazione
+## 1) Contatore visite — già attivo, zero configurazione
 
-In fondo alla pagina (footer) compare il badge **◎ VISITE: N**, aggiornato a ogni
-apertura della pagina. Non richiede account né configurazione.
+In fondo alla pagina (footer) compare **Visite: N**, aggiornato a ogni apertura.
+Il numero appare solo quando supera le 1.000 visite. Non richiede account né
+configurazione (servizio: counterapi.dev, codice in `assets/js/site.js`).
 
 ## 2) GoatCounter — dashboard completa (visite, lettura, click, provenienza)
 
@@ -29,11 +30,12 @@ conforme GDPR senza banner). Traccia già questi eventi:
 1. Vai su **https://www.goatcounter.com/signup** e crea l'account gratuito.
    Come *site code* scegli ad esempio `alessandrochiri`
    (diventerà `alessandrochiri.goatcounter.com`).
-2. Apri `index.html` e sostituisci il valore di **`GC_CODE`** (in cima allo
-   script loader, ora `"TUOCODICE"`) con il tuo code, es. `"alessandrochiri"`.
-3. Sempre in `index.html`, nel pixel `<noscript>` in fondo, sostituisci
-   **`TUOCODICE`** nell'URL `https://TUOCODICE.goatcounter.com/count?p=/bot-nojs...`
-   con lo stesso code.
+2. Apri **`assets/js/site.js`** e, nelle prime righe, sostituisci il valore di
+   **`GC_CODE`** (ora `"TUOCODICE"`) con il tuo code, es. `"alessandrochiri"`.
+3. *(Facoltativo, per contare anche i bot senza JavaScript)* In fondo a
+   **`index.html`**, prima di `</body>`, trovi il pixel `<noscript>` commentato:
+   sostituisci **`TUOCODICE`** con lo stesso code e togli i segni di commento
+   `<!--` e `-->`.
 4. Commit → la dashboard su **https://<tuocode>.goatcounter.com** inizia a
    popolarsi entro pochi minuti.
 
@@ -41,19 +43,23 @@ conforme GDPR senza banner). Traccia già questi eventi:
 > visitatori (nome/email) senza il loro consenso — è il GDPR. GoatCounter ti mostra
 > tutto il resto: paese, dispositivo, pagine, referrer, durata e profondità di lettura.
 
-## Come funziona l'architettura (nota tecnica)
+## Come è fatto il sito (nota tecnica, v4)
 
-- `index.html` è un **loader leggero** (~10 KB) con tutti i meta tag SEO/social
-  nell'HTML statico (crawler e anteprime LinkedIn/WhatsApp funzionano come prima).
-- L'app completa viene caricata dal commit `d85b4a9` via CDN jsDelivr
-  (fallback: raw.githubusercontent.com) e gli effetti grafici (`fx/fx.css`,
-  `fx/fx.js`) vengono iniettati dopo il mount.
-- Per modificare gli effetti: edita `fx/fx.css` / `fx/fx.js` (file piccoli,
-  editabili anche dal web editor di GitHub). Il template dell'app è fissato al
-  commit: per cambiare i contenuti della pagina serve rigenerare il bundle.
+- `index.html` è una **pagina statica completa**: tutti i contenuti (in italiano)
+  e i meta tag SEO/social sono nell'HTML, leggibili anche senza JavaScript.
+- `assets/css/site.css` — design system: colori, tipografia, layout, tema chiaro/scuro.
+- `assets/js/site.js` — lingua IT/EN (i **testi inglesi** sono nel dizionario `EN`
+  in cima al file), tema, menu, animazioni allo scroll, galleria, analytics.
+- `assets/js/globe.js` — il globo di "Dove ho lavorato" (dati delle terre inclusi).
+  Città e clienti visibili sono nelle schede in `index.html`, sezione `#dove`.
+- `assets/img/` ritratti e immagine per le anteprime social · `assets/icons/` icone ·
+  `assets/fonts/` Inter (licenza OFL), usato solo dove il font di sistema Apple non c'è.
+- **Per cambiare un testo**: modifica l'italiano in `index.html` e, se serve, la
+  traduzione con la stessa chiave `data-i18n` nel dizionario `EN` di `site.js`.
 
 ## Alternative a GoatCounter
 
 - **Google Analytics 4**: crea una proprietà su https://analytics.google.com,
-  prendi il `Measurement ID` (G-XXXXXXXXXX) e incolla lo snippet `gtag.js` nello
-  script loader di `index.html` (prima della fetch).
+  prendi il `Measurement ID` (G-XXXXXXXXXX) e incolla lo snippet `gtag.js` nel
+  `<head>` di `index.html`. Attenzione: GA4 usa cookie, quindi in UE serve un
+  banner di consenso.

@@ -1,78 +1,76 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="no-js">
 <head>
   <meta charset="utf-8">
-
-  <!-- ===== SEO / social: STATICI nell'HTML grezzo, visibili ai crawler
-       e ai bot di anteprima (LinkedIn, WhatsApp, Telegram, Slack) che
-       NON eseguono JavaScript. ===== -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Otto anni di consulenza enterprise — Accenture, Micro Focus, Deloitte NextHub. Senior Consultant in digital &amp; data transformation, disponibile per nuove opportunità.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Alessandro Chiri — Consultant · Digital &amp; Data Transformation</title>
+  <meta name="description" content="Otto anni di consulenza enterprise tra Accenture, Micro Focus e Deloitte NextHub. Consultant in digital &amp; data transformation, disponibile per nuove opportunità.">
   <meta name="author" content="Alessandro Chiri">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#07090c">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="canonical" href="https://benz91x.github.io/Alessandro-Chiri/">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- Resource hints: anticipano DNS/TLS verso i CDN del template e del
-       layer FX (NIENTE CSP bloccante: romperebbe gli inline del template). -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link rel="dns-prefetch" href="https://raw.githack.com">
-  <link rel="dns-prefetch" href="https://cdn.statically.io">
-
-  <!-- Preload del template (sorgente primaria, commit-pinnata = immutabile):
-       lo preload scanner avvia il download al primo byte dell'HTML, con
-       priorità alta; il fetch del loader la riusa (niente cache:"no-cache").
-       L'URL deve restare identico a SOURCES[0]: se cambia COMMIT nel loader,
-       aggiornare anche qui. -->
-  <link rel="preload" as="fetch" crossorigin fetchpriority="high"
-        href="https://cdn.jsdelivr.net/gh/Benz91x/Alessandro-Chiri@d85b4a94e5ef03f3cbcd6301d19963d456c6af6a/index.html">
-
-  <!-- Open Graph (LinkedIn, WhatsApp, Facebook, Telegram) -->
+  <!-- Open Graph / social -->
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Alessandro Chiri">
   <meta property="og:locale" content="it_IT">
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:url" content="https://benz91x.github.io/Alessandro-Chiri/">
-  <meta property="og:title" content="Alessandro Chiri — Senior Consultant">
-  <meta property="og:description" content="Otto anni di consulenza enterprise — Accenture, Micro Focus, Deloitte NextHub. Il tuo prossimo senior hire, operativo dal giorno uno.">
-  <meta property="og:image" content="https://benz91x.github.io/Alessandro-Chiri/og-image.png">
-  <meta property="og:image:secure_url" content="https://benz91x.github.io/Alessandro-Chiri/og-image.png">
+  <meta property="og:title" content="Alessandro Chiri — Consultant">
+  <meta property="og:description" content="Otto anni di consulenza enterprise — Accenture, Micro Focus, Deloitte NextHub. Business e tecnologia, nella stessa lingua.">
+  <meta property="og:image" content="https://benz91x.github.io/Alessandro-Chiri/assets/img/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Alessandro Chiri — Senior Consultant, Digital &amp; Data Transformation">
+  <meta property="og:image:alt" content="Alessandro Chiri — Consultant, Digital &amp; Data Transformation">
   <meta property="profile:first_name" content="Alessandro">
   <meta property="profile:last_name" content="Chiri">
-
-  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Alessandro Chiri — Senior Consultant">
-  <meta name="twitter:description" content="Otto anni di consulenza enterprise — Accenture, Micro Focus, Deloitte NextHub. Il tuo prossimo senior hire, operativo dal giorno uno.">
-  <meta name="twitter:image" content="https://benz91x.github.io/Alessandro-Chiri/og-image.png">
-  <meta name="twitter:image:alt" content="Alessandro Chiri — Senior Consultant">
+  <meta name="twitter:title" content="Alessandro Chiri — Consultant">
+  <meta name="twitter:description" content="Otto anni di consulenza enterprise — Accenture, Micro Focus, Deloitte NextHub.">
+  <meta name="twitter:image" content="https://benz91x.github.io/Alessandro-Chiri/assets/img/og-image.png">
 
-  <!-- Icone: puntano ai file REALI della repo (nel template puntavano
-       ad asset base64 del bundler, invisibili fuori dal runtime JS) -->
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/site.webmanifest">
 
-  <!-- Dati strutturati: consente a Google di mostrare il knowledge panel
-       e collega la pagina al profilo LinkedIn -->
+  <script>
+    /* Prima del paint: classe js, tema salvato, font di sistema Apple, lingua */
+    (function (d) {
+      var h = d.documentElement;
+      h.className = h.className.replace("no-js", "js");
+      try {
+        var t = localStorage.getItem("ac-theme");
+        if (t === "light" || t === "dark") h.setAttribute("data-theme", t);
+      } catch (e) {}
+      var p = navigator.platform || "", u = navigator.userAgent || "";
+      if (/Mac|iPhone|iPad|iPod/.test(p) || /Macintosh|iPhone|iPad/.test(u)) h.classList.add("sf");
+      try {
+        var q = new URLSearchParams(location.search).get("lang");
+        var l = q || localStorage.getItem("ac-lang");
+        if (l === "en") h.setAttribute("data-lang", "en");
+      } catch (e) {}
+    })(document);
+  </script>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/globe.js" defer></script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Alessandro Chiri",
-    "jobTitle": "Senior Consultant",
-    "description": "Senior Consultant in digital & data transformation. Otto anni di consulenza enterprise tra Accenture, Micro Focus e Deloitte NextHub.",
+    "jobTitle": "Consultant",
+    "worksFor": { "@type": "Organization", "name": "Deloitte NextHub" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Università del Salento" },
+    "description": "Consultant in digital & data transformation. Otto anni di consulenza enterprise tra Accenture, Micro Focus e Deloitte NextHub.",
     "url": "https://benz91x.github.io/Alessandro-Chiri/",
-    "image": "https://benz91x.github.io/Alessandro-Chiri/og-image.png",
+    "image": "https://benz91x.github.io/Alessandro-Chiri/assets/img/portrait-800.jpg",
     "email": "mailto:alexch@hotmail.it",
     "knowsLanguage": ["it", "en"],
     "sameAs": [
@@ -81,223 +79,425 @@
     ]
   }
   </script>
-  <title>Alessandro Chiri — Senior Consultant · Digital &amp; Data Transformation</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #07090c; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
-    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #07090c; z-index: 9999; }
-    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
-    #__bundler_placeholder { color: #999; font-size: 14px; }
-  </style>
-  <noscript>
-    <style>#__bundler_loading { display: none; }</style>
-    <div style="position:fixed;bottom:12px;left:12px;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;color:#999;background:rgba(255,255,255,0.9);padding:6px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);z-index:10000;">
-      This page requires JavaScript to display.
-    </div>
-  </noscript>
 </head>
 <body>
-  <noscript>
-    <style>
-      #__bundler_thumbnail, #__bundler_loading { display: none !important; }
-      body { display: block !important; }
-      .ns-fb { max-width: 720px; margin: 0 auto; padding: 64px 24px;
-               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-               color: #f4fffd; line-height: 1.6; }
-      .ns-fb h1 { font-size: 34px; letter-spacing: .04em; margin-bottom: 4px; }
-      .ns-fb .role { color: #2dd4bf; font-size: 17px; margin-bottom: 24px; }
-      .ns-fb p { color: #b7c2c4; margin-bottom: 16px; }
-      .ns-fb a { color: #2dd4bf; }
-      .ns-fb hr { border: 0; border-top: 1px solid #1b2226; margin: 28px 0; }
-      .ns-fb .note { color: #6b767a; font-size: 14px; }
-    </style>
-    <div class="ns-fb">
-      <h1>Alessandro Chiri</h1>
-      <div class="role">Senior Consultant · Digital &amp; Data Transformation</div>
-      <p>Otto anni di consulenza enterprise tra Accenture, Micro Focus e Deloitte
-         NextHub. Business development, open innovation e gestione di programmi
-         di finanza agevolata; background in ingegneria industriale.</p>
-      <p>
-        <a href="Alessandro_Chiri_CV.pdf">Scarica il CV in PDF</a> ·
-        <a href="https://www.linkedin.com/in/alessandro-chiri">LinkedIn</a> ·
-        <a href="mailto:alexch@hotmail.it">alexch@hotmail.it</a>
-      </p>
-      <hr>
-      <p class="note">La versione completa e interattiva di questa pagina
-         richiede JavaScript.</p>
+  <a class="skip" href="#main" data-i18n="a11y.skip">Vai al contenuto</a>
+
+  <!-- ============ NAV (vetro, livello di navigazione) ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__bar">
+      <a class="nav__brand" href="#top">Alessandro Chiri</a>
+      <nav class="nav__links" aria-label="Sezioni" data-i18n-attr="aria-label:a11y.sections">
+        <a href="#profilo" data-i18n="nav.profile">Profilo</a>
+        <a href="#percorso" data-i18n="nav.journey">Percorso</a>
+        <a href="#progetti" data-i18n="nav.projects">Progetti</a>
+        <a href="#dove" data-i18n="nav.where">Dove</a>
+        <a href="#competenze" data-i18n="nav.skills">Competenze</a>
+        <a href="#contatti" data-i18n="nav.contact">Contatti</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="nav__icon" type="button" data-action="lang" aria-label="Switch to English" data-i18n-attr="aria-label:a11y.lang">
+          <span class="nav__lang" data-i18n="nav.lang">EN</span>
+        </button>
+        <button class="nav__icon" type="button" data-action="theme" aria-label="Cambia tema chiaro/scuro" data-i18n-attr="aria-label:a11y.theme">
+          <svg viewBox="0 0 20 20" width="17" height="17" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg>
+        </button>
+        <a class="btn btn--small" href="#contatti" data-i18n="nav.cta">Contattami</a>
+        <button class="nav__menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu" data-i18n-attr="aria-label:a11y.menuOpen">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
+    <div class="menu" id="menu" hidden>
+      <nav aria-label="Menu" class="menu__links">
+        <a href="#profilo" data-i18n="nav.profile">Profilo</a>
+        <a href="#percorso" data-i18n="nav.journey">Percorso</a>
+        <a href="#progetti" data-i18n="nav.projects">Progetti</a>
+        <a href="#dove" data-i18n="nav.where">Dove</a>
+        <a href="#competenze" data-i18n="nav.skills">Competenze</a>
+        <a href="#contatti" data-i18n="nav.contact">Contatti</a>
+      </nav>
+      <div class="menu__foot">
+        <button class="pill-toggle" type="button" data-action="lang"><span data-i18n="menu.lang">English</span></button>
+        <button class="pill-toggle" type="button" data-action="theme"><span data-i18n="menu.theme">Tema chiaro / scuro</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <p class="badge hero__in" style="--d:0"><span class="badge__dot" aria-hidden="true"></span><span data-i18n="hero.badge">Disponibile · Italia, EU, remote</span></p>
+        <p class="eyebrow hero__in" style="--d:1">Consultant · Digital &amp; Data Transformation</p>
+        <h1 class="hero__title hero__in" id="hero-title" style="--d:2">Alessandro Chiri.</h1>
+        <p class="hero__sub hero__in" style="--d:3" data-i18n="hero.sub">Traduco esigenze di business in piattaforme che funzionano. E in decisioni più rapide.</p>
+        <div class="hero__ctas hero__in" style="--d:4">
+          <a class="btn btn--primary" href="#contatti" data-i18n="hero.cta1">Parliamo del ruolo</a>
+          <a class="link-more" href="Alessandro_Chiri_CV.pdf" download><span data-i18n="hero.cta2">Scarica il CV</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.25 2.5 7.75 6l-3.5 3.5"/></svg></a>
+        </div>
+      </div>
+      <div class="hero__media" data-scene="enter">
+        <figure class="portrait">
+          <picture>
+            <source type="image/avif" srcset="assets/img/portrait-480.avif 480w, assets/img/portrait-800.avif 800w, assets/img/portrait-1200.avif 1200w" sizes="(min-width: 628px) 560px, calc(100vw - 44px)">
+            <source type="image/webp" srcset="assets/img/portrait-480.webp 480w, assets/img/portrait-800.webp 800w, assets/img/portrait-1200.webp 1200w" sizes="(min-width: 628px) 560px, calc(100vw - 44px)">
+            <img class="portrait__img" src="assets/img/portrait-800.jpg" srcset="assets/img/portrait-480.jpg 480w, assets/img/portrait-800.jpg 800w, assets/img/portrait-1200.jpg 1200w" sizes="(min-width: 628px) 560px, calc(100vw - 44px)" width="1638" height="2140" alt="Ritratto di Alessandro Chiri" data-i18n-attr="alt:hero.alt" fetchpriority="high" decoding="async">
+          </picture>
+          <figcaption class="portrait__cap" data-i18n="hero.cap">Milano / Bari · 2026</figcaption>
+        </figure>
+        <ul class="callouts">
+          <li class="callout callout--l reveal" style="--d:1; --top:18%"><strong data-i18n="hero.k1">Dal 2018</strong><span data-i18n="hero.k1s">delivery enterprise ininterrotta</span></li>
+          <li class="callout callout--l reveal" style="--d:3; --top:58%"><strong data-i18n="hero.k2">Big 4 · utility · PA</strong><span data-i18n="hero.k2s">i contesti in cui lavoro</span></li>
+          <li class="callout callout--r reveal" style="--d:2; --top:30%"><strong>Business + IT</strong><span data-i18n="hero.k3s">requisiti, piattaforme, rilasci</span></li>
+          <li class="callout callout--r reveal" style="--d:4; --top:70%"><strong data-i18n="hero.k4">Italia · EU · remote</strong><span data-i18n="hero.k4s">disponibile per nuovi ruoli</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROFILO: testo che si accende allo scroll ============ -->
+    <section class="statement" id="profilo" aria-labelledby="profilo-title">
+      <div class="statement__pin" data-scene="pin">
+        <div class="statement__sticky">
+          <h2 class="eyebrow eyebrow--muted" id="profilo-title" data-i18n="st.eyebrow">Profilo</h2>
+          <p class="statement__text" data-words data-i18n="st.text">Otto anni nel cuore della consulenza enterprise. Accenture, Micro Focus, oggi Deloitte NextHub. Parlo la lingua degli stakeholder e quella dei sistemi — e traduco in entrambe le direzioni.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NUMERI ============ -->
+    <section class="numbers" aria-label="In numeri" data-i18n-attr="aria-label:a11y.numbers">
+      <ul class="numbers__grid">
+        <li class="stat reveal" style="--d:0">
+          <span class="stat__value"><span data-count="8">8</span><span class="stat__unit">+</span></span>
+          <span class="stat__label" data-i18n="n.1">anni di consulenza enterprise</span>
+        </li>
+        <li class="stat reveal" style="--d:1">
+          <span class="stat__value"><span data-count="3">3</span></span>
+          <span class="stat__label" data-i18n="n.2">aziende: Accenture, Micro Focus, Deloitte</span>
+        </li>
+        <li class="stat reveal" style="--d:2">
+          <span class="stat__value"><span data-count="4">4</span></span>
+          <span class="stat__label" data-i18n="n.3">certificazioni professionali Micro Focus</span>
+        </li>
+        <li class="stat reveal" style="--d:3">
+          <span class="stat__value"><span data-count="2">2</span></span>
+          <span class="stat__label" data-i18n="n.4">lingue di lavoro: italiano e inglese</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ PERCHÉ ASSUMERMI ============ -->
+    <section class="section" id="perche" aria-labelledby="perche-title">
+      <header class="section__head reveal">
+        <p class="eyebrow" data-i18n="p.label">Perché assumermi</p>
+        <h2 class="section__title" id="perche-title" data-i18n="p.title">Tre motivi per fermare la ricerca qui.</h2>
+        <p class="section__intro" data-i18n="p.intro">Profilo ibrido business + tecnologia: struttura consulenziale, attenzione ai numeri e la capacità di far parlare stakeholder non tecnici, team IT e fornitori.</p>
+      </header>
+      <div class="bento">
+        <article class="tile tile--wide reveal">
+          <div class="tile__text">
+            <p class="tile__eyebrow" data-i18n="p.c1.s">Ownership end-to-end</p>
+            <h3 class="tile__title" data-i18n="p.c1.t">Delivery che arriva in fondo.</h3>
+            <p class="tile__body" data-i18n="p.c1.b">Gestione day-by-day di progetti complessi, team cross-funzionali coordinati, KPI e reporting che tengono tutto sotto controllo. Zero sorprese al go-live.</p>
+          </div>
+          <div class="tile__art tile__art--flow" aria-hidden="true">
+            <svg viewBox="0 0 320 200" class="flow">
+              <path class="flow__line" d="M20 150 C 80 150, 90 60, 160 60 S 250 110, 300 40"/>
+              <circle class="flow__node" cx="20" cy="150" r="7"/>
+              <circle class="flow__node" cx="160" cy="60" r="7"/>
+              <circle class="flow__node flow__node--end" cx="300" cy="40" r="10"/>
+              <path class="flow__check" d="M295 40.5l3.5 3.5 6.5-7"/>
+            </svg>
+          </div>
+        </article>
+        <article class="tile reveal" style="--d:1">
+          <div class="tile__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><circle cx="9" cy="20" r="5"/><circle cx="31" cy="20" r="5"/><path d="M14 17h12m-3-3 3 3-3 3M26 23H14m3-3-3 3 3 3"/></svg>
+          </div>
+          <p class="tile__eyebrow" data-i18n="p.c2.s">Dal requisito alla produzione</p>
+          <h3 class="tile__title" data-i18n="p.c2.t">Ponte tra business e IT.</h3>
+          <p class="tile__body" data-i18n="p.c2.b">Requisiti formalizzati, piattaforme configurate, rilasci validati. Parlo la lingua degli stakeholder e quella dei sistemi — e traduco in entrambe le direzioni.</p>
+        </article>
+        <article class="tile reveal" style="--d:2">
+          <div class="tile__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><path d="M8 31V21m8 10V15m8 16v-8m8 8V9"/><path d="M6 34h28"/></svg>
+          </div>
+          <p class="tile__eyebrow" data-i18n="p.c3.s">Decisioni più rapide</p>
+          <h3 class="tile__title" data-i18n="p.c3.t">Comunicazione executive-ready.</h3>
+          <p class="tile__body" data-i18n="p.c3.b">One-pager, business case e dashboard che i C-level leggono davvero. Ogni numero al posto giusto, ogni slide orientata all'azione.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PERCORSO ============ -->
+    <section class="section section--alt" id="percorso" aria-labelledby="percorso-title">
+      <header class="section__head reveal">
+        <p class="eyebrow" data-i18n="x.label">Percorso</p>
+        <h2 class="section__title" id="percorso-title" data-i18n="x.title">Dal 2018 a oggi. Ogni ruolo, un livello in più.</h2>
+        <p class="section__intro" data-i18n="x.intro">Da Business Analyst in Accenture ad Application Specialist in Micro Focus, fino alla consulenza in Deloitte NextHub. Una traiettoria coerente, sempre in salita.</p>
+      </header>
+      <div class="journey">
+        <div class="journey__rail" aria-hidden="true">
+          <div class="journey__years">
+            <span class="journey__year is-active" data-year="2024">2024</span>
+            <span class="journey__year" data-year="2019">2019</span>
+            <span class="journey__year" data-year="2018">2018</span>
+          </div>
+        </div>
+        <ol class="journey__list" data-scene="center">
+          <li class="role reveal" data-year="2024">
+            <p class="role__period"><span data-i18n="x.1.p">2024 — oggi</span><span class="role__tag" data-i18n="x.cur">Ruolo attuale</span></p>
+            <h3 class="role__title">Consultant<span class="role__at">Deloitte NextHub</span></h3>
+            <p class="role__body" data-i18n="x.1.b">Open innovation e trasferimento tecnologico sulla piattaforma xTech / NextHub. Requisiti, prioritizzazione backlog e deliverable decisionali per executive corporate e stakeholder PA.</p>
+            <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>xTech</li><li>Open innovation</li><li>Big 4</li></ul>
+          </li>
+          <li class="role reveal" data-year="2019">
+            <p class="role__period"><span>2019 — 2024</span><span class="role__tag role__tag--plain" data-i18n="x.2.m">5 anni · enterprise software</span></p>
+            <h3 class="role__title">Application Specialist<span class="role__at">Micro Focus</span></h3>
+            <p class="role__body" data-i18n="x.2.b">Cinque anni di qualità del servizio su soluzioni ALM e testing enterprise: configurazione ambienti, incident e problem management, validazione rilasci, documentazione e knowledge sharing verso team e clienti.</p>
+            <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>ALM / QC</li><li>UFT One</li><li>LoadRunner</li></ul>
+          </li>
+          <li class="role reveal" data-year="2018">
+            <p class="role__period"><span>2018 — 2019</span><span class="role__tag role__tag--plain" data-i18n="x.3.m">Dove tutto è iniziato</span></p>
+            <h3 class="role__title">Business Analyst<span class="role__at">Accenture</span></h3>
+            <p class="role__body" data-i18n="x.3.b">Raccolta requisiti, analisi e ridisegno processi, documentazione funzionale e casi di test in progetti Agile per grandi clienti. Il metodo che applico ancora ogni giorno.</p>
+            <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>Requirements</li><li>Agile</li><li>Process design</li></ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ PROGETTI (capitolo scuro) ============ -->
+    <section class="section section--dark" id="progetti" aria-labelledby="progetti-title">
+      <header class="section__head reveal">
+        <p class="eyebrow" data-i18n="j.label">Progetti selezionati</p>
+        <h2 class="section__title" id="progetti-title" data-i18n="j.title">Come lavoro, in pratica.</h2>
+      </header>
+      <div class="gallery" data-gallery>
+        <ul class="gallery__track" tabindex="0" aria-label="Progetti: scorri in orizzontale" data-i18n-attr="aria-label:a11y.gallery">
+          <li class="gcard gcard--blue">
+            <div class="gcard__art" aria-hidden="true"></div>
+            <p class="gcard__tag"><span data-i18n="j.c1.tag">Open innovation</span><span class="gcard__num">01</span></p>
+            <h3 class="gcard__title" data-i18n="j.c1.t">xTech / NextHub — startup scouting per corporate e PA</h3>
+            <dl class="gcard__facts">
+              <div><dt data-i18n="j.k1">Sfida</dt><dd data-i18n="j.c1.v1">Scegliere le soluzioni giuste tra decine di startup candidate.</dd></div>
+              <div><dt data-i18n="j.k2">Contributo</dt><dd data-i18n="j.c1.v2">Piattaforma configurata e gestita, criteri di valutazione definiti, one-pager decisionali per gli executive.</dd></div>
+              <div><dt data-i18n="j.k3">Risultato</dt><dd data-i18n="j.c1.v3">Scouting strutturato, decisioni più rapide, valutazioni tracciabili.</dd></div>
+            </dl>
+          </li>
+          <li class="gcard gcard--mint">
+            <div class="gcard__art" aria-hidden="true"></div>
+            <p class="gcard__tag"><span data-i18n="j.c2.tag">Software quality</span><span class="gcard__num">02</span></p>
+            <h3 class="gcard__title" data-i18n="j.c2.t">Piattaforma ALM &amp; testing per una grande utility</h3>
+            <dl class="gcard__facts">
+              <div><dt data-i18n="j.k1">Sfida</dt><dd data-i18n="j.c2.v1">Qualità e continuità operativa su un portafoglio applicativo critico.</dd></div>
+              <div><dt data-i18n="j.k2">Contributo</dt><dd data-i18n="j.c2.v2">Suite Micro Focus configurata (ALM, UFT, LoadRunner), incident gestiti, cicli di test supportati.</dd></div>
+              <div><dt data-i18n="j.k3">Risultato</dt><dd data-i18n="j.c2.v3">Meno interruzioni ai rilasci, più fiducia degli stakeholder nel change.</dd></div>
+            </dl>
+          </li>
+          <li class="gcard gcard--orange">
+            <div class="gcard__art" aria-hidden="true"></div>
+            <p class="gcard__tag"><span data-i18n="j.c3.tag">Data &amp; automation</span><span class="gcard__num">03</span></p>
+            <h3 class="gcard__title" data-i18n="j.c3.t">Automazione del reporting di progetto</h3>
+            <dl class="gcard__facts">
+              <div><dt data-i18n="j.k1">Sfida</dt><dd data-i18n="j.c3.v1">Analisi lente e manuali a supporto delle decisioni di progetto.</dd></div>
+              <div><dt data-i18n="j.k2">Contributo</dt><dd data-i18n="j.c3.v2">Report automatizzati in Excel / VBA, template standard per KPI e milestone.</dd></div>
+              <div><dt data-i18n="j.k3">Risultato</dt><dd data-i18n="j.c3.v3">Meno lavoro manuale, reporting coerente, più visibilità per PM e sponsor.</dd></div>
+            </dl>
+          </li>
+        </ul>
+        <div class="gallery__controls">
+          <div class="gallery__dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
+          <div class="gallery__paddles">
+            <button class="paddle" type="button" data-dir="-1" aria-label="Progetto precedente" data-i18n-attr="aria-label:a11y.prev">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 4.5 6.5 10l5.5 5.5"/></svg>
+            </button>
+            <button class="paddle" type="button" data-dir="1" aria-label="Progetto successivo" data-i18n-attr="aria-label:a11y.next">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4.5 13.5 10 8 15.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DOVE HO LAVORATO (globo guidato dallo scroll) ============ -->
+    <section class="where section--dark" id="dove" aria-labelledby="dove-title">
+      <div class="where__scroller" data-scene="pin">
+        <div class="where__sticky">
+          <canvas class="where__canvas" aria-hidden="true"></canvas>
+          <header class="where__head">
+            <p class="eyebrow" data-i18n="g.label">Esperienze e territori</p>
+            <h2 class="section__title" id="dove-title" data-i18n="g.title">Dove ho lavorato.</h2>
+            <p class="section__intro" data-i18n="g.sub">Tre città, tre capitoli: open innovation a Milano, enterprise software a Roma, ricerca a Bari.</p>
+          </header>
+          <div class="where__ui">
+            <div class="segmented" role="group" aria-label="Scegli una città" data-i18n-attr="aria-label:a11y.cities">
+              <button type="button" data-city="0" aria-pressed="false" data-i18n="g.c0">Milano</button>
+              <button type="button" data-city="1" aria-pressed="false" data-i18n="g.c1">Roma</button>
+              <button type="button" data-city="2" aria-pressed="false">Bari</button>
+            </div>
+            <ol class="where__cards">
+              <li class="city" data-city="0">
+                <h3 class="city__name" data-i18n="g.c0">Milano</h3>
+                <p class="city__note" data-i18n="g.n0">Open innovation · Ventures</p>
+                <p class="city__label" data-i18n="g.cl">Clienti principali</p>
+                <ul class="city__clients"><li>Deloitte Innovation &amp; Ventures</li></ul>
+              </li>
+              <li class="city" data-city="1">
+                <h3 class="city__name" data-i18n="g.c1">Roma</h3>
+                <p class="city__note" data-i18n="g.n1">Utility · Energia · Finanza agevolata</p>
+                <p class="city__label" data-i18n="g.cl">Clienti principali</p>
+                <ul class="city__clients"><li>OpenFiber</li><li>Enel</li><li>MicroCyber × Ente Nazionale del Microcredito</li></ul>
+              </li>
+              <li class="city" data-city="2">
+                <h3 class="city__name">Bari</h3>
+                <p class="city__note" data-i18n="g.n2">Ricerca · Trasferimento tecnologico</p>
+                <p class="city__label" data-i18n="g.cl">Clienti principali</p>
+                <ul class="city__clients"><li>Politecnico di Bari</li></ul>
+              </li>
+            </ol>
+          </div>
+          <p class="where__hint" aria-hidden="true"><span data-i18n="g.hint">Scorri per esplorare</span><svg viewBox="0 0 12 12"><path d="M2.5 4.25 6 7.75l3.5-3.5"/></svg></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPETENZE ============ -->
+    <section class="section" id="competenze" aria-labelledby="competenze-title">
+      <header class="section__head reveal">
+        <p class="eyebrow" data-i18n="s.label">Competenze</p>
+        <h2 class="section__title" id="competenze-title" data-i18n="s.title">Strumenti enterprise, metodo consulenziale.</h2>
+      </header>
+      <div class="duo">
+        <article class="tile tile--list reveal">
+          <h3 class="tile__title" data-i18n="s.h">Competenze tecniche</h3>
+          <p class="tile__eyebrow tile__eyebrow--muted" data-i18n="s.h.note">Piattaforme, dati, qualità del software</p>
+          <dl class="specs">
+            <div><dt>Testing &amp; QA</dt><dd>UFT One, LoadRunner, Mobile Center</dd></div>
+            <div><dt>ALM / Quality Center</dt><dd data-i18n="s.t2">Configurazione e supporto</dd></div>
+            <div><dt>xTech / NextHub</dt><dd data-i18n="s.t3">Piattaforme di innovazione, reco engine IA</dd></div>
+            <div><dt>Data &amp; automation</dt><dd data-i18n="s.t4">Excel avanzato, VBA, SQL, Python</dd></div>
+            <div><dt>Project &amp; work mgmt</dt><dd>Jira, Confluence, MS Office</dd></div>
+          </dl>
+        </article>
+        <article class="tile tile--list reveal" style="--d:1">
+          <h3 class="tile__title" data-i18n="s.c">Consulenza</h3>
+          <p class="tile__eyebrow tile__eyebrow--muted" data-i18n="s.c.note">Metodo, relazione, comunicazione</p>
+          <dl class="specs">
+            <div><dt>Requirements engineering</dt><dd data-i18n="s.c1">E analisi dei processi</dd></div>
+            <div><dt>Stakeholder management</dt><dd data-i18n="s.c2">Comunicazione con gli executive</dd></div>
+            <div><dt>Agile / Scrum</dt><dd data-i18n="s.c3">Team cross-funzionali</dd></div>
+            <div><dt data-i18n="s.c4t">Deliverable decisionali</dt><dd data-i18n="s.c4">One-pager, slide, executive summary</dd></div>
+            <div><dt>Public speaking</dt><dd data-i18n="s.c5">Workshop e training</dd></div>
+          </dl>
+        </article>
+      </div>
+      <ul class="langs reveal" aria-label="Lingue" data-i18n-attr="aria-label:a11y.langs">
+        <li><span class="langs__k" data-i18n="s.l1k">Italiano</span><span class="langs__v" data-i18n="s.l1v">Madrelingua</span></li>
+        <li><span class="langs__k" data-i18n="s.l2k">Inglese</span><span class="langs__v">B2 · EF SET</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ FORMAZIONE ============ -->
+    <section class="section section--alt" id="formazione" aria-labelledby="formazione-title">
+      <header class="section__head reveal">
+        <p class="eyebrow" data-i18n="e.label">Formazione</p>
+        <h2 class="section__title" id="formazione-title" data-i18n="e.title">Studi e certificazioni.</h2>
+      </header>
+      <div class="duo">
+        <article class="tile tile--card reveal">
+          <p class="tile__eyebrow tile__eyebrow--muted" data-i18n="e.c1.k">Studi</p>
+          <ul class="degrees">
+            <li><h3 class="degrees__t" data-i18n="e.c1.a">Laurea in Ingegneria Industriale (L-9)</h3><p class="degrees__s">Università del Salento</p></li>
+            <li><h3 class="degrees__t" data-i18n="e.c1.b">Diploma di perito meccanico industriale</h3><p class="degrees__s">I.T.I.S. “G. Giorgi”</p></li>
+          </ul>
+        </article>
+        <article class="tile tile--card reveal" style="--d:1">
+          <p class="tile__eyebrow tile__eyebrow--muted">Micro Focus Certified Professional</p>
+          <ul class="certs">
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25"/><path d="m6.5 10.25 2.4 2.4 4.6-5"/></svg>UFT One v15.x</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25"/><path d="m6.5 10.25 2.4 2.4 4.6-5"/></svg>LoadRunner Professional 2020</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25"/><path d="m6.5 10.25 2.4 2.4 4.6-5"/></svg>ALM120 — ALM / Quality Center 15</li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25"/><path d="m6.5 10.25 2.4 2.4 4.6-5"/></svg>MC2 — Mobile Center Essentials v2.x</li>
+          </ul>
+          <p class="tile__foot" data-i18n="e.c2.x">Più corsi su Agile, Cyber Security, Power BI, public speaking e digital writing.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CONTATTI ============ -->
+    <section class="contact" id="contatti" aria-labelledby="contatti-title">
+      <div class="contact__inner reveal">
+        <p class="eyebrow" data-i18n="c.label">Contatti</p>
+        <h2 class="contact__title" id="contatti-title" data-i18n="c.title">Il candidato che cercavi ha già una pagina web.</h2>
+        <p class="contact__text" data-i18n="c.text">Cerco ruoli da Senior Consultant / Manager in consulenza direzionale e digital transformation — Big 4, corporate o scale-up. Energy, industrial e PA sono i terreni dove rendo di più. Scrivimi: rispondo in giornata.</p>
+        <div class="contact__ctas">
+          <a class="btn btn--primary btn--large" href="mailto:alexch@hotmail.it" data-i18n="c.b1">Scrivimi via email</a>
+          <a class="link-more" href="https://www.linkedin.com/in/alessandro-chiri" rel="noopener" target="_blank">LinkedIn<svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.25 2.5 7.75 6l-3.5 3.5"/></svg></a>
+          <a class="link-more" href="Alessandro_Chiri_CV.pdf" download><span data-i18n="c.cv">CV in PDF</span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.25 2.5 7.75 6l-3.5 3.5"/></svg></a>
+        </div>
+        <p class="contact__mail"><a href="mailto:alexch@hotmail.it">alexch@hotmail.it</a></p>
+      </div>
+      <dl class="wants reveal">
+        <div><dt data-i18n="c.a.1k">Ruoli</dt><dd>Senior Consultant · Senior Business Analyst · Product Specialist (Digital &amp; IT)</dd></div>
+        <div><dt data-i18n="c.a.2k">Settori</dt><dd>Energy &amp; Utilities · Industrial · Public Sector · Technology</dd></div>
+        <div><dt data-i18n="c.a.3k">Sede</dt><dd data-i18n="c.a.3v">Italia (Milano / Bari) · aperto a EU, remote e ibrido</dd></div>
+      </dl>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <nav class="footer__crumbs" aria-label="Breadcrumb">
+        <a href="#top">Alessandro Chiri</a>
+        <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.25 2.5 7.75 6l-3.5 3.5"/></svg>
+        <span>Digital résumé</span>
+      </nav>
+      <div class="footer__cols">
+        <div>
+          <h2 class="footer__h" data-i18n="f.h1">Sezioni</h2>
+          <ul>
+            <li><a href="#profilo" data-i18n="nav.profile">Profilo</a></li>
+            <li><a href="#percorso" data-i18n="nav.journey">Percorso</a></li>
+            <li><a href="#progetti" data-i18n="nav.projects">Progetti</a></li>
+            <li><a href="#dove" data-i18n="nav.where">Dove</a></li>
+            <li><a href="#competenze" data-i18n="nav.skills">Competenze</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__h" data-i18n="f.h2">Contatti</h2>
+          <ul>
+            <li><a href="mailto:alexch@hotmail.it">Email</a></li>
+            <li><a href="https://www.linkedin.com/in/alessandro-chiri" rel="noopener" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/Benz91x" rel="noopener" target="_blank">GitHub</a></li>
+            <li><a href="Alessandro_Chiri_CV.pdf" download data-i18n="f.cv">CV (PDF)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__h" data-i18n="f.h3">Oggi</h2>
+          <ul>
+            <li>Consultant · Deloitte NextHub</li>
+            <li data-i18n="f.where">Italia · EU · remote</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <p>© 2026 Alessandro Chiri. <span data-i18n="f.ver">Digital résumé v4.0 — aggiornato a settembre 2026.</span></p>
+        <p class="footer__right"><span class="visits" hidden></span><a href="#top" data-i18n="f.top">Torna su</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GoatCounter per crawler e anteprime senza JavaScript (/bot-nojs):
+       DISATTIVATO finché non imposti il tuo codice (vedi ISTRUZIONI-ANALYTICS.md).
+       Per attivarlo sostituisci TUOCODICE e togli i segni di commento:
+  <noscript>
+    <img src="https://TUOCODICE.goatcounter.com/count?p=/bot-nojs&amp;t=Bot+senza+JS"
+         alt="" width="1" height="1" style="position:absolute;left:-9999px">
   </noscript>
-
-  <div id="__bundler_thumbnail">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="800" fill="#07090c"></rect>
-    <circle cx="600" cy="400" r="130" fill="none" stroke="#2dd4bf" stroke-width="6" stroke-dasharray="14 10"></circle>
-    <text x="600" y="448" text-anchor="middle" font-family="monospace" font-size="130" font-weight="bold" fill="#2dd4bf">AC</text>
-  </svg>
-</div>
-  <div id="__bundler_loading">Unpacking...</div>
-
-
-  <!-- ================= LOADER =================
-       Carica l'app originale (self-contained) dal commit fissato via CDN
-       e inietta il FX layer (fx/fx.css + fx/fx.js + fx/globe-land.js +
-       fx/fx-globe.js) dopo il mount.
-       I ?v=N forzano il refresh oltre la cache di 10 min di GitHub Pages:
-       incrementa N a ogni modifica degli asset fx.
-       RESILIENZA: ogni sorgente ha un timeout di 8s (AbortController);
-       al fallimento si passa alla sorgente successiva (jsDelivr →
-       raw.githubusercontent → raw.githack → statically). Dopo 4s di attesa
-       lo spinner segnala "connessione lenta".
-       ANALYTICS: per attivare GoatCounter sostituisci il valore di GC_CODE
-       qui sotto con il tuo site code (vedi ISTRUZIONI-ANALYTICS.md) e
-       riattiva il pixel noscript /bot-nojs in fondo al body. Finché
-       GC_CODE resta "TUOCODICE" la sostituzione nel template è saltata,
-       lo script gc.zgo.at/count.js viene rimosso dal payload e il pixel
-       noscript NON viene renderizzato. -->
-  <script>
-  (function () {
-    "use strict";
-    var GC_CODE = "TUOCODICE"; // <-- il tuo codice GoatCounter (es. "alessandrochiri")
-    var GC_ON = GC_CODE !== "TUOCODICE";
-    var FXV = "9"; // <-- versione asset fx (cache-busting)
-    var COMMIT  = "d85b4a94e5ef03f3cbcd6301d19963d456c6af6a";
-    var FETCH_TIMEOUT = 10000; // ms per singola sorgente
-    var SLOW_HINT = 4000;     // ms dopo cui segnalare la connessione lenta
-    var SOURCES = [
-      "https://cdn.jsdelivr.net/gh/Benz91x/Alessandro-Chiri@" + COMMIT + "/index.html",
-      "https://raw.githubusercontent.com/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html",
-      "https://raw.githack.com/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html",
-      "https://cdn.statically.io/gh/Benz91x/Alessandro-Chiri/" + COMMIT + "/index.html"
-    ];
-
-    if (!GC_ON) {
-      console.info("[loader] GoatCounter non configurato (GC_CODE=\"TUOCODICE\"): " +
-        "analytics disattivata. Imposta GC_CODE per attivarla (ISTRUZIONI-ANALYTICS.md).");
-    }
-
-    function fail() {
-      console.error("[loader] tutte le sorgenti fallite");
-      var d = document.createElement("div");
-      d.style.cssText = "position:fixed;inset:0;display:flex;flex-direction:column;gap:14px;" +
-        "align-items:center;justify-content:center;background:#07090c;color:#f4fffd;" +
-        "font-family:system-ui,sans-serif;z-index:99999;text-align:center;padding:24px";
-      d.innerHTML = '<div style="font-size:18px">Impossibile caricare la pagina.</div>' +
-        '<button onclick="location.reload()" style="padding:10px 22px;border-radius:8px;' +
-        'border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:15px;cursor:pointer">Riprova</button>';
-      document.body.appendChild(d);
-    }
-
-    /* Timeout via AbortController (8s per sorgente). priority:"high": è la
-       risorsa critica della pagina. NIENTE cache:"no-cache": le sorgenti sono
-       commit-pinnate (= immutabili) e no-cache invaliderebbe il preload
-       as=fetch dichiarato in <head>. */
-    function fetchWithTimeout(url, ms) {
-      var ctrl = ("AbortController" in window) ? new AbortController() : null;
-      var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, ms);
-      var opt = { priority: "high" };
-      if (ctrl) opt.signal = ctrl.signal;
-      return fetch(url, opt).then(function (r) { clearTimeout(t); return r; },
-                                  function (e) { clearTimeout(t); throw e; });
-    }
-
-    function injectFX() {
-      var done = false;
-      function go() {
-        if (done) return; done = true;
-        /* fx.css per PRIMO, appena #ac-root esiste: prima di allora l'head del
-           documento scritto non è stabile (il parser sostituisce l'head durante
-           il parsing e un link aggiunto prima verrebbe scartato).
-           Retry automatico se il primo tentativo fallisce. */
-        var l = document.createElement("link");
-        l.rel = "stylesheet"; l.href = "fx/fx.css?v=" + FXV;
-        l.onerror = function () {
-          setTimeout(function () {
-            var l2 = document.createElement("link");
-            l2.rel = "stylesheet"; l2.href = "fx/fx.css?v=" + FXV + "r";
-            document.head.appendChild(l2);
-          }, 1200);
-        };
-        document.head.appendChild(l);
-        /* async=false => esecuzione nell'ordine di inserimento */
-        var s = document.createElement("script");
-        s.src = "fx/fx.js?v=" + FXV; s.async = false;
-        document.body.appendChild(s);
-        var d = document.createElement("script");
-        d.src = "fx/globe-land.js?v=" + FXV; d.async = false;
-        document.body.appendChild(d);
-        /* confini nazioni: caricati a runtime da fx-globe.js via CDN
-           (topojson-client + world-atlas), niente file dati da ospitare */
-        var g = document.createElement("script");
-        g.src = "fx/fx-globe.js?v=" + FXV; g.async = false;
-        document.body.appendChild(g);
-        /* musica di sottofondo (fx/epilogue-theme.mp3): parte al primo gesto
-           o dal pulsante; se il file manca il pulsante si nasconde */
-        var a = document.createElement("script");
-        a.src = "fx/fx-audio.js?v=" + FXV; a.async = false;
-        document.body.appendChild(a);
-      }
-      if (document.getElementById("ac-root")) { go(); return; }
-      if ("MutationObserver" in window) {
-        var mo = new MutationObserver(function () {
-          if (document.getElementById("ac-root")) { mo.disconnect(); go(); }
-        });
-        mo.observe(document.documentElement, { childList: true, subtree: true });
-        setTimeout(function () {
-          if (!done) { mo.disconnect(); console.warn("[fx] ac-root non trovato, FX non iniettati"); }
-        }, 30000);
-      } else {
-        /* fallback legacy senza MutationObserver: polling breve */
-        var tries = 0;
-        var iv = setInterval(function () {
-          if (document.getElementById("ac-root")) { clearInterval(iv); go(); }
-          else if (++tries > 150) {
-            clearInterval(iv);
-            console.warn("[fx] ac-root non trovato, FX non iniettati");
-          }
-        }, 200);
-      }
-    }
-
-    function load(i) {
-      if (i >= SOURCES.length) { fail(); return; }
-      var slowT = setTimeout(function () {
-        var el = document.getElementById("__bundler_loading");
-        if (el) el.textContent = "Connessione lenta, ancora qualche secondo…";
-      }, SLOW_HINT);
-      fetchWithTimeout(SOURCES[i], FETCH_TIMEOUT)
-        .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); })
-        .then(function (html) {
-          clearTimeout(slowT);
-          if (html.indexOf("__bundler/template") === -1) throw new Error("bad payload");
-          if (GC_ON) {
-            html = html.split("TUOCODICE").join(GC_CODE);
-          } else {
-            /* analytics non configurata: rimuovi lo script GoatCounter
-               dal payload (evita ping verso dominio inesistente) */
-            html = html.replace(/<script[^>]*gc\.zgo\.at\/count\.js[^>]*><\/script>/, "");
-          }
-          document.open();
-          document.write(html);
-          document.close();
-          injectFX();
-        })
-        .catch(function () { clearTimeout(slowT); load(i + 1); });
-    }
-    load(0);
-  })();
-  </script>
-
-
-
-  <!-- Canale "senza JS" (GoatCounter /bot-nojs): DISATTIVATO finché
-       GC_CODE resta "TUOCODICE" — il pixel punterebbe a un dominio
-       inesistente. Dopo aver configurato GC_CODE, ripristinare qui:
-       <noscript>
-         <img src="https://TUOCODICE.goatcounter.com/count?p=/bot-nojs&t=Bot+senza+JS"
-              alt="" width="1" height="1" style="position:absolute;left:-9999px">
-       </noscript>
-       Gli analytics veri stanno nel template (sopravvivono al replaceWith). -->
-
+  -->
 </body>
 </html>
