@@ -189,6 +189,8 @@
       });
     });
     splitWords();
+    if (root.__title === undefined) root.__title = document.title;
+    document.title = l === "en" ? "Alessandro Chiri — Consultant in digital transformation" : root.__title;
     var mb = $(".nav__menu");
     if (mb) mb.setAttribute("aria-label", t(mb.getAttribute("aria-expanded") === "true" ? "menuClose" : "menuOpen"));
     emit("lang");

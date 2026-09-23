@@ -1,8 +1,8 @@
 {
   "name": "Alessandro Chiri — Digital résumé",
   "short_name": "A. Chiri",
-  "start_url": "/Alessandro-Chiri/",
-  "scope": "/Alessandro-Chiri/",
+  "start_url": "../",
+  "scope": "../",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
