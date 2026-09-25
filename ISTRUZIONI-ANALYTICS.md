@@ -22,7 +22,7 @@ conforme GDPR senza banner). Traccia già questi eventi:
 | `tempo-15s/30s/1min/3min` | quanto tempo restano a leggere |
 | `download-cv` | chi scarica il CV in PDF |
 | `click-email` / `click-linkedin` / `click-github` | quali contatti usano |
-| `fonte-<nome>` | provenienza campagne: aggiungi `?ref=linkedin` (o `?ref=cv`, `?ref=email`…) al link che condividi, es. `https://benz91x.github.io/Alessandro-Chiri/?ref=linkedin` |
+| `fonte-<nome>` | provenienza campagne: aggiungi `?ref=linkedin` (o `?ref=cv`, `?ref=email`…) al link che condividi, es. `https://benz91x.github.io/?ref=linkedin` |
 | `/bot-nojs` | crawler e bot di anteprima (LinkedIn, WhatsApp…) |
 
 ### Attivazione
