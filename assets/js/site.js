@@ -35,7 +35,7 @@
     "a11y.langs": "Languages",
     "a11y.areas": "Areas",
     "nav.profile": "Profile", "nav.journey": "Experience", "nav.projects": "Projects",
-    "nav.where": "Cities", "nav.skills": "Skills", "nav.contact": "Contact",
+    "nav.where": "Cities", "nav.pubs": "Publications", "nav.skills": "Skills", "nav.contact": "Contact",
     "nav.cta": "Get in touch", "nav.lang": "IT",
     "menu.lang": "Italiano", "menu.theme": "Light / dark theme",
     "hero.badge": "Open to new opportunities",
@@ -106,6 +106,24 @@
     "g.n2": "Research · Technology transfer",
     "g.cl": "Organizations",
     "g.hint": "Scroll to explore",
+    "u.label": "Publications",
+    "u.title": "Research and writing.",
+    "u.intro": "A scientific article on the platform I work on, and a book written out of passion.",
+    "u.p.type": "Scientific article · Open access",
+    "u.p.meta": "<cite>Information</cite> (MDPI), vol. 17, issue 10, art. 950 · published on 25 September 2026",
+    "u.p.body": "The article presents NextHub, the open innovation platform that uses artificial intelligence to match corporate initiatives with the most relevant innovative solutions, through a semantic, multilingual recommendation engine.",
+    "u.p.mine": "My contribution",
+    "u.p.s1t": "Performance testing.",
+    "u.p.s1": "Frontend measured with Google Lighthouse across eight user journeys and backend with Apache JMeter: all 1,794 HTTP requests passed, with mean response times under 2 seconds.",
+    "u.p.s3t": "Cross-lingual stability.",
+    "u.p.s3": "Checking that recommendations stay consistent when descriptions are written in different languages: the analysis confirms high semantic consistency across multilingual datasets.",
+    "u.p.link": "Read the article",
+    "u.b.type": "Book · Ebook",
+    "u.b.body": "My first book, written out of passion: seventy years of video game history, from the beginnings to today.",
+    "u.b.k1": "Format", "u.b.v1": "Kindle ebook",
+    "u.b.k2": "Language", "u.b.v2": "Italian",
+    "u.b.k3": "Available on",
+    "u.b.link": "View on Amazon",
     "s.label": "Skills",
     "s.title": "Technical and consulting skills.",
     "s.h": "Technology",
@@ -305,7 +323,7 @@
 
     if (!("IntersectionObserver" in window)) return;
     var map = { top: null, profilo: "profilo", perche: "profilo", percorso: "percorso", progetti: "progetti",
-                dove: "dove", competenze: "competenze", formazione: "competenze", contatti: "contatti" };
+                dove: "dove", pubblicazioni: "pubblicazioni", competenze: "competenze", formazione: "competenze", contatti: "contatti" };
     var links = $$(".nav__links a");
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
@@ -453,6 +471,8 @@
       else if (h.indexOf("mailto:") === 0) ev("click-email", "Click Email");
       else if (h.indexOf("linkedin.") > -1) ev("click-linkedin", "Click LinkedIn");
       else if (h.indexOf("github.") > -1) ev("click-github", "Click GitHub");
+      else if (h.indexOf("amazon.") > -1) ev("click-libro", "Click libro su Amazon");
+      else if (h.indexOf("mdpi.com") > -1 || h.indexOf("doi.org") > -1) ev("click-articolo", "Click articolo MDPI");
     }, true);
     try {
       var sp = new URLSearchParams(location.search), src = sp.get("ref") || sp.get("utm_source");

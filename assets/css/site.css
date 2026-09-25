@@ -332,12 +332,12 @@ p, dd, li { text-wrap: pretty; }
 }
 @keyframes menuIn { from { opacity: 0; transform: translateY(-10px); } }
 
-@media (max-width: 833px) {
+@media (max-width: 1023px) {
   .nav__links, .nav__icon { display: none; }
   .nav__menu { display: block; }
   .nav__actions { margin-left: 0; gap: 0.5rem; }
 }
-@media (min-width: 834px) { .menu { display: none !important; } }
+@media (min-width: 1024px) { .menu { display: none !important; } }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -737,6 +737,64 @@ p, dd, li { text-wrap: pretty; }
 .where.is-static .where__ui { order: 2; width: 100%; }
 .where.is-live .where__ui { pointer-events: none; }
 .where.is-live.ui-on .where__ui { pointer-events: auto; }
+
+/* ---------- Pubblicazioni ---------- */
+.pubs {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 1.25rem;
+  align-items: start;
+}
+@media (min-width: 834px) {
+  .pub--book { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+}
+.pub { gap: 0; }
+.pub__head { display: flex; align-items: center; gap: 0.75rem; }
+.pub__icon {
+  width: 40px; height: 40px; flex: none; border-radius: 12px;
+  display: grid; place-items: center;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-text);
+}
+.pub__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pub__type { font-size: 0.875rem; font-weight: 600; letter-spacing: var(--ls-small); color: var(--label-2); }
+.pub__title {
+  margin-top: 1.25rem;
+  font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.75rem); line-height: 1.18; letter-spacing: var(--ls-h3);
+}
+.pub__meta { margin-top: 0.6rem; font-size: 0.875rem; line-height: 1.43; color: var(--label-2); letter-spacing: var(--ls-small); }
+.pub__meta cite { font-style: italic; }
+.pub__authors { margin-top: 0.35rem; font-size: 0.875rem; line-height: 1.43; color: var(--label-2); letter-spacing: var(--ls-small); }
+.pub__authors strong { color: var(--label); font-weight: 600; }
+.pub__body { margin-top: 1rem; color: var(--label-2); }
+.pub__label { margin-top: 1.5rem; font-size: 0.875rem; font-weight: 600; letter-spacing: var(--ls-small); }
+.pub__parts { margin-top: 0.5rem; }
+.pub__parts > div {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.9rem; align-items: start;
+  padding-block: 0.85rem; border-top: 1px solid var(--sep);
+}
+.pub__parts dt {
+  min-width: 2.75rem; text-align: center;
+  padding: 0.15rem 0.5rem; border-radius: 980px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-text);
+  font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.pub__parts dd { margin: 0; color: var(--label-2); }
+.pub__parts dd strong { color: var(--label); font-weight: 600; }
+.pub__specs { margin-top: 1.5rem; }
+.pub__specs > div {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding-block: 0.8rem; border-top: 1px solid var(--sep);
+}
+.pub__specs dt { color: var(--label-2); }
+.pub__specs dd { margin: 0; font-weight: 600; text-align: right; }
+.pub__links {
+  margin-top: auto; padding-top: 1.5rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.5rem;
+}
+.pub__doi { font-size: 0.875rem; color: var(--label-2); letter-spacing: var(--ls-small); }
+.pub__doi:hover { color: var(--label); text-decoration: underline; text-underline-offset: 0.18em; }
+@media (max-width: 833px) {
+  .pubs { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ---------- Competenze & formazione ---------- */
 .duo {
