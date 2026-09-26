@@ -55,11 +55,18 @@
         var l = q || localStorage.getItem("ac-lang");
         if (l === "en") h.setAttribute("data-lang", "en");
       } catch (e) {}
+      /* animazioni guidate dallo scroll eseguite dal browser (compositore) */
+      try {
+        var s = function (x) { return CSS.supports(x); };
+        if (s("animation-timeline: view()") && s("view-timeline: --t block") && s("view-timeline-inset: 0px") &&
+            s("animation-range: cover 0% cover 85vh") && s("animation-range: cover 45vh cover calc(100% - 55vh)") &&
+            s("animation-range: contain 10% contain 20%") && !matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("sda");
+      } catch (e) {}
     })(document);
   </script>
-  <link rel="stylesheet" href="assets/css/site.css">
-  <script src="assets/js/site.js" defer></script>
-  <script src="assets/js/globe.js" defer></script>
+  <link rel="stylesheet" href="assets/css/site.css?v=20260926">
+  <script src="assets/js/site.js?v=20260926" defer></script>
+  <script src="assets/js/globe.js?v=20260926" defer></script>
 
   <script type="application/ld+json">
   {
@@ -311,26 +318,29 @@
             <span class="journey__year" data-year="2018">2018</span>
           </div>
         </div>
-        <ol class="journey__list" data-scene="center">
-          <li class="role reveal" data-year="2024">
-            <p class="role__period"><span data-i18n="x.1.p">2024 — oggi</span><span class="role__tag" data-i18n="x.cur">Ruolo attuale</span></p>
-            <h3 class="role__title">Consultant<span class="role__at">Deloitte NextHub</span></h3>
-            <p class="role__body" data-i18n="x.1.b">Progetti di open innovation e trasferimento tecnologico sulla piattaforma xTech / NextHub, basata su un motore di raccomandazione con intelligenza artificiale: scouting di soluzioni innovative, matchmaking con le esigenze dei clienti, one-pager e analisi per il management. Supporto alle attività di business development e finanza agevolata.</p>
-            <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>Open innovation</li><li data-i18n="x.1.c2">Scouting e matchmaking</li><li data-i18n="x.1.c3">Finanza agevolata</li></ul>
-          </li>
-          <li class="role reveal" data-year="2019">
-            <p class="role__period"><span>2019 — 2024</span><span class="role__tag role__tag--plain" data-i18n="x.2.m">Software enterprise</span></p>
-            <h3 class="role__title">Application Support Specialist<span class="role__at" data-i18n="x.2.at">Micro Focus · tramite Experis Italia</span></h3>
-            <p class="role__body" data-i18n="x.2.b">Supporto specialistico sulle soluzioni ADM di Micro Focus (ALM, UFT One, UFT Mobile), anche sulla piattaforma custom Spring Q-Cent in Enel: configurazione e personalizzazione, risoluzione di problemi tecnici, test e validazione dei rilasci, documentazione e formazione degli utenti.</p>
-            <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>ALM</li><li>UFT One</li><li>UFT Mobile</li></ul>
-          </li>
-          <li class="role reveal" data-year="2018">
-            <p class="role__period"><span>2018 — 2019</span><span class="role__tag role__tag--plain" data-i18n="x.3.m">Consulenza</span></p>
-            <h3 class="role__title">Business Analyst<span class="role__at">Accenture</span></h3>
-            <p class="role__body" data-i18n="x.3.b">Analisi delle esigenze degli utenti e traduzione in requisiti funzionali, modellazione dei processi, analisi dei KPI e coordinamento con sviluppatori, project manager ed esperti di dominio in progetti Agile per grandi clienti.</p>
-            <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li data-i18n="x.3.c1">Analisi dei requisiti</li><li>Agile</li><li data-i18n="x.3.c3">Modellazione dei processi</li></ul>
-          </li>
-        </ol>
+        <div class="journey__track" data-scene="center">
+          <span class="journey__line" aria-hidden="true"></span>
+          <ol class="journey__list">
+            <li class="role reveal" data-year="2024">
+              <p class="role__period"><span data-i18n="x.1.p">2024 — oggi</span><span class="role__tag" data-i18n="x.cur">Ruolo attuale</span></p>
+              <h3 class="role__title">Consultant<span class="role__at">Deloitte NextHub</span></h3>
+              <p class="role__body" data-i18n="x.1.b">Progetti di open innovation e trasferimento tecnologico sulla piattaforma xTech / NextHub, basata su un motore di raccomandazione con intelligenza artificiale: scouting di soluzioni innovative, matchmaking con le esigenze dei clienti, one-pager e analisi per il management. Supporto alle attività di business development e finanza agevolata.</p>
+              <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>Open innovation</li><li data-i18n="x.1.c2">Scouting e matchmaking</li><li data-i18n="x.1.c3">Finanza agevolata</li></ul>
+            </li>
+            <li class="role reveal" data-year="2019">
+              <p class="role__period"><span>2019 — 2024</span><span class="role__tag role__tag--plain" data-i18n="x.2.m">Software enterprise</span></p>
+              <h3 class="role__title">Application Support Specialist<span class="role__at" data-i18n="x.2.at">Micro Focus · tramite Experis Italia</span></h3>
+              <p class="role__body" data-i18n="x.2.b">Supporto specialistico sulle soluzioni ADM di Micro Focus (ALM, UFT One, UFT Mobile), anche sulla piattaforma custom Spring Q-Cent in Enel: configurazione e personalizzazione, risoluzione di problemi tecnici, test e validazione dei rilasci, documentazione e formazione degli utenti.</p>
+              <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li>ALM</li><li>UFT One</li><li>UFT Mobile</li></ul>
+            </li>
+            <li class="role reveal" data-year="2018">
+              <p class="role__period"><span>2018 — 2019</span><span class="role__tag role__tag--plain" data-i18n="x.3.m">Consulenza</span></p>
+              <h3 class="role__title">Business Analyst<span class="role__at">Accenture</span></h3>
+              <p class="role__body" data-i18n="x.3.b">Analisi delle esigenze degli utenti e traduzione in requisiti funzionali, modellazione dei processi, analisi dei KPI e coordinamento con sviluppatori, project manager ed esperti di dominio in progetti Agile per grandi clienti.</p>
+              <ul class="chips" aria-label="Ambiti" data-i18n-attr="aria-label:a11y.areas"><li data-i18n="x.3.c1">Analisi dei requisiti</li><li>Agile</li><li data-i18n="x.3.c3">Modellazione dei processi</li></ul>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
@@ -391,7 +401,7 @@
     <section class="where section--dark" id="dove" aria-labelledby="dove-title">
       <div class="where__scroller" data-scene="pin">
         <div class="where__sticky">
-          <canvas class="where__canvas" aria-hidden="true"></canvas>
+          <div class="where__viz" aria-hidden="true"><canvas class="where__canvas"></canvas><canvas class="where__overlay"></canvas></div>
           <header class="where__head">
             <p class="eyebrow" data-i18n="g.label">Sedi e progetti</p>
             <h2 class="section__title" id="dove-title" data-i18n="g.title">Dove ho lavorato.</h2>

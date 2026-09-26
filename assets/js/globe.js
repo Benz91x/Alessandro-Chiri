@@ -1,9 +1,13 @@
 /* =====================================================================
    Alessandro Chiri — "Dove ho lavorato"
-   Globo a punti su canvas 2D (proiezione ortografica), guidato dallo
-   scroll: rotazione verso l'Italia → zoom → Milano, Roma, Bari.
-   Dati terre: Natural Earth via world-atlas (pubblico dominio),
-   pre-calcolati come maschere di bit (sfera di Fibonacci + griglia Italia).
+   Globo a punti guidato dallo scroll: rotazione verso l'Italia → zoom →
+   Milano, Roma, Bari. Il globo è disegnato dalla GPU (WebGL): i punti
+   restano in memoria video e la proiezione ortografica avviene nello
+   shader, così ogni fotogramma costa pochi decimi di millisecondo.
+   Archi, città ed etichette stanno su un canvas 2D sovrapposto.
+   Senza WebGL si usa il canvas 2D. Dati terre: Natural Earth via
+   world-atlas (pubblico dominio), pre-calcolati come maschere di bit
+   (sfera di Fibonacci + griglia Italia).
    Con "Riduci movimento" mostra una mappa statica; senza JS restano le schede.
    ===================================================================== */
 (function () {
@@ -12,10 +16,12 @@
 
   var sec = document.getElementById("dove");
   if (!sec || !DATA) return;
+  var viz = sec.querySelector(".where__viz");
   var canvas = sec.querySelector(".where__canvas");
+  var over = sec.querySelector(".where__overlay");
   var scroller = sec.querySelector(".where__scroller");
-  var ctx = canvas && canvas.getContext ? canvas.getContext("2d") : null;
-  if (!ctx) return;
+  var octx = over && over.getContext ? over.getContext("2d") : null;
+  if (!viz || !canvas || !octx) return;
 
   var AC = window.AC || null;
   var reduced = AC ? AC.reduced() : matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -25,6 +31,9 @@
   var D2R = Math.PI / 180;
   var cards = Array.prototype.slice.call(sec.querySelectorAll(".city"));
   var chips = Array.prototype.slice.call(sec.querySelectorAll(".segmented button"));
+  var headEl = sec.querySelector(".where__head");
+  var uiEl = sec.querySelector(".where__ui");
+  var hintEl = sec.querySelector(".where__hint");
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
 
@@ -36,39 +45,41 @@
   }
   function bit(u, i) { return (u[i >> 3] >> (i & 7)) & 1; }
 
-  /* sfera di Fibonacci: stessi calcoli dello script di generazione */
-  var N = DATA.N, GA = Math.PI * (3 - Math.sqrt(5)), gm = bytes(DATA.g), gc = 0, i;
-  for (i = 0; i < N; i++) if (bit(gm, i)) gc++;
-  var gSP = new Float32Array(gc), gCP = new Float32Array(gc), gSL = new Float32Array(gc), gCL = new Float32Array(gc);
-  for (i = 0, gc = 0; i < N; i++) {
+  /* sfera di Fibonacci (stessi calcoli dello script di generazione).
+     Ogni punto è già nella forma usata dalla GPU: sin φ, cos φ, sin λ, cos λ */
+  var N = DATA.N, GA = Math.PI * (3 - Math.sqrt(5)), gm = bytes(DATA.g), gN = 0, i, k;
+  for (i = 0; i < N; i++) if (bit(gm, i)) gN++;
+  var GP = new Float32Array(gN * 4);
+  for (i = 0, k = 0; i < N; i++) {
     if (!bit(gm, i)) continue;
     var y = 1 - 2 * (i + 0.5) / N, lon = (i * GA) % (2 * Math.PI);
     if (lon > Math.PI) lon -= 2 * Math.PI;
-    gSP[gc] = y; gCP[gc] = Math.sqrt(1 - y * y); gSL[gc] = Math.sin(lon); gCL[gc] = Math.cos(lon); gc++;
+    GP[k++] = y; GP[k++] = Math.sqrt(1 - y * y); GP[k++] = Math.sin(lon); GP[k++] = Math.cos(lon);
   }
 
-  /* griglia esagonale di dettaglio sull'Italia */
-  var d = DATA.d, lm = bytes(d.land), im = bytes(d.italy);
-  var dList = [], idx = 0, j = 0, la = d.lat0;
-  while (la <= d.lat1 + 1e-9) {
-    var step = d.step / Math.cos(la * D2R), off = (j % 2) ? step / 2 : 0;
-    var n = Math.floor((d.lon1 - d.lon0 - off) / step) + 1;
-    for (var k = 0; k < n; k++, idx++) {
+  /* griglia esagonale di dettaglio sull'Italia; quinto valore: livello
+     (0-3 = terre vicine, sfumate verso i bordi della regione; 4 = Italia) */
+  var dd = DATA.d, lm = bytes(dd.land), im = bytes(dd.italy);
+  var dl = [], idx = 0, row = 0, la = dd.lat0;
+  while (la <= dd.lat1 + 1e-9) {
+    var step = dd.step / Math.cos(la * D2R), off = (row % 2) ? step / 2 : 0;
+    var n = Math.floor((dd.lon1 - dd.lon0 - off) / step) + 1;
+    for (var c = 0; c < n; c++, idx++) {
       if (bit(lm, idx)) {
-        var lo = d.lon0 + off + k * step, cl = Math.cos(la * D2R);
-        var ed = Math.min(la - d.lat0, d.lat1 - la, (lo - d.lon0) * cl, (d.lon1 - lo) * cl);
-        dList.push(la, lo, bit(im, idx) ? 4 : Math.min(3, Math.floor(clamp(ed / 4, 0, 1) * 3.999)));
+        var lo = dd.lon0 + off + c * step, cl = Math.cos(la * D2R);
+        var ed = Math.min(la - dd.lat0, dd.lat1 - la, (lo - dd.lon0) * cl, (dd.lon1 - lo) * cl);
+        dl.push(la, lo, bit(im, idx) ? 4 : Math.min(3, Math.floor(clamp(ed / 4, 0, 1) * 3.999)));
       }
     }
-    j++; la = d.lat0 + j * d.step;
+    row++; la = dd.lat0 + row * dd.step;
   }
-  var dc = dList.length / 3;
-  var dSP = new Float32Array(dc), dCP = new Float32Array(dc), dSL = new Float32Array(dc), dCL = new Float32Array(dc), dIT = new Uint8Array(dc);
-  for (i = 0; i < dc; i++) {
-    var p0 = dList[i * 3] * D2R, l0 = dList[i * 3 + 1] * D2R;
-    dSP[i] = Math.sin(p0); dCP[i] = Math.cos(p0); dSL[i] = Math.sin(l0); dCL[i] = Math.cos(l0); dIT[i] = dList[i * 3 + 2];
+  var dN = dl.length / 3, DP = new Float32Array(dN * 5);
+  for (i = 0; i < dN; i++) {
+    var p0 = dl[i * 3] * D2R, l0 = dl[i * 3 + 1] * D2R;
+    DP[i * 5] = Math.sin(p0); DP[i * 5 + 1] = Math.cos(p0);
+    DP[i * 5 + 2] = Math.sin(l0); DP[i * 5 + 3] = Math.cos(l0); DP[i * 5 + 4] = dl[i * 3 + 2];
   }
-  dList = null;
+  dl = null;
 
   /* ---------- luoghi ---------- */
   var CITIES = [
@@ -76,11 +87,15 @@
     { lat: 41.9028, lon: 12.4964 },/* Roma */
     { lat: 41.1171, lon: 16.8719 } /* Bari */
   ];
+  CITIES.forEach(function (ct) {
+    ct.sp = Math.sin(ct.lat * D2R); ct.cp = Math.cos(ct.lat * D2R);
+    ct.sl = Math.sin(ct.lon * D2R); ct.cl = Math.cos(ct.lon * D2R);
+  });
   var ARCS = [[0, 1], [1, 2], [2, 0]];
   var ITALY = { lat: 42.2, lon: 12.4 };
   var START = { lat: 22, lon: -38 };
   function names() {
-    return cards.map(function (c) { var h = c.querySelector(".city__name"); return h ? h.textContent : ""; });
+    return cards.map(function (el) { var h = el.querySelector(".city__name"); return h ? h.textContent : ""; });
   }
   var labels = names();
 
@@ -88,19 +103,22 @@
   function seg(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
   function eio(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
   function lerp(a, b, t) { return a + (b - a) * t; }
-  function lerpAng(a, b, t) { var dd = ((b - a + 540) % 360) - 180; return a + dd * t; }
+  function lerpAng(a, b, t) { var dg = ((b - a + 540) % 360) - 180; return a + dg * t; }
   function mix(a, b, t) { return { lat: lerp(a.lat, b.lat, t), lon: lerpAng(a.lon, b.lon, t) }; }
   var FONT = '-apple-system, BlinkMacSystemFont, "InterVariable", "Segoe UI", Roboto, sans-serif';
 
   /* ---------- dimensioni ---------- */
   var W = 0, H = 0, DPR = 1, cw = 0, ch = 0;
+  var dirtyG = true, dirtyO = true;
   function resize() {
-    var r = canvas.getBoundingClientRect();
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var r = viz.getBoundingClientRect();
+    /* senza WebGL si disegna a densità 1: meno pixel da riempire, scroll fluido */
+    DPR = gl ? Math.min(window.devicePixelRatio || 1, 2) : 1;
     cw = r.width; ch = r.height;
     W = Math.max(1, Math.round(cw * DPR)); H = Math.max(1, Math.round(ch * DPR));
     if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
-    dirty = true;
+    if (over.width !== W || over.height !== H) { over.width = W; over.height = H; }
+    dirtyG = dirtyO = true;
   }
 
   /* layout in px CSS → moltiplicati per DPR */
@@ -134,7 +152,7 @@
     var x = lerp(L.A.x, L.T.x, b), y = lerp(L.A.y, L.T.y, b);
 
     /* fuoco città */
-    var f = function (k) { return mix(ITALY, CITIES[k], 0.5); };
+    var f = function (q) { return mix(ITALY, CITIES[q], 0.5); };
     var z0 = eio(seg(p, 0.44, 0.52)), z1 = eio(seg(p, 0.63, 0.71)), z2 = eio(seg(p, 0.82, 0.9));
     if (p > 0.44) {
       var target = mix(ITALY, f(0), z0);
@@ -154,214 +172,411 @@
     return s;
   }
 
-  /* ---------- disegno ---------- */
-  var dirty = true, pulse = 0;
-  function project(sp, cp, sl, cl, S, out) {
+  /* vista corrente in px del canvas */
+  var S = { x: 0, y: 0, R: 1, sp0: 0, cp0: 1, sl0: 0, cl0: 1 };
+  function view(s) {
+    S.R = s.R * DPR; S.x = s.x * DPR; S.y = s.y * DPR;
+    S.sp0 = Math.sin(s.c.lat * D2R); S.cp0 = Math.cos(s.c.lat * D2R);
+    S.sl0 = Math.sin(s.c.lon * D2R); S.cl0 = Math.cos(s.c.lon * D2R);
+    return S;
+  }
+  function project(sp, cp, sl, cl, out) {
     var cosD = cl * S.cl0 + sl * S.sl0, sinD = sl * S.cl0 - cl * S.sl0;
-    var cosc = S.sp0 * sp + S.cp0 * cp * cosD;
     out[0] = S.x + S.R * cp * sinD;
     out[1] = S.y - S.R * (S.cp0 * sp - S.sp0 * cp * cosD);
-    out[2] = cosc;
+    out[2] = S.sp0 * sp + S.cp0 * cp * cosD;
   }
-  var tmp = [0, 0, 0];
-  var BUCKETS = 6;
-  var paths = [];
 
-  function draw(now) {
-    var s = state(P);
-    var R = s.R * DPR, cx = s.x * DPR, cy = s.y * DPR;
-    var S = { x: cx, y: cy, R: R,
-      sp0: Math.sin(s.c.lat * D2R), cp0: Math.cos(s.c.lat * D2R),
-      sl0: Math.sin(s.c.lon * D2R), cl0: Math.cos(s.c.lon * D2R) };
+  /* =====================================================================
+     Globo su GPU (WebGL): i punti stanno in memoria video e la proiezione
+     avviene nello shader; a ogni fotogramma si aggiornano pochi numeri.
+     ===================================================================== */
+  /* sfondo: si colora solo il quadrato che contiene globo e atmosfera,
+     il resto è già nero grazie a clear() (costo quasi nullo sulla GPU) */
+  var BG_VS = "attribute vec2 a_xy;uniform vec4 u_box;void main(){gl_Position=vec4(mix(u_box.xy,u_box.zw,a_xy),0.0,1.0);}";
+  var BG_FS = [
+    "#ifdef GL_FRAGMENT_PRECISION_HIGH",
+    "precision highp float;",
+    "#else",
+    "precision mediump float;",
+    "#endif",
+    "uniform vec2 u_res;uniform vec3 u_g;uniform float u_glow;",
+    "void main(){",
+    "  vec2 q=(vec2(gl_FragCoord.x,u_res.y-gl_FragCoord.y)-u_g.xy)/u_g.z;",
+    "  float d=length(q);",
+    /* atmosfera: 20% d'azzurro fino a 0.92R, sfuma a zero entro 1.22R */
+    "  vec3 col=vec3(0.1608,0.5922,1.0)*(u_glow*0.2*clamp((1.22-d)/0.3,0.0,1.0));",
+    "  float e=clamp((1.0-d)*u_g.z+0.5,0.0,1.0);",
+    "  if(e>0.0){",
+    /* gradiente radiale a due cerchi, come createRadialGradient del canvas 2D */
+    "    vec2 pd=q-vec2(-0.35,-0.45);",
+    "    float b=dot(pd,vec2(0.35,0.45))+0.0475;",
+    "    float c=dot(pd,pd)-0.0025;",
+    "    float w=clamp((sqrt(max(b*b+0.5775*c,0.0))-b)/0.5775,0.0,1.0);",
+    "    col=mix(col,mix(vec3(0.1059,0.1216,0.1529),vec3(0.0275,0.0314,0.0392),w),e);",
+    "  }",
+    /* rumore di un livello: niente bande nel gradiente scuro */
+    "  col+=(fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453)-0.5)/255.0;",
+    "  gl_FragColor=vec4(col,1.0);",
+    "}"
+  ].join("\n");
+  var PT_VS = [
+    "attribute vec4 a_p;attribute float a_k;",
+    "uniform vec4 u_c;uniform vec3 u_g;uniform vec2 u_res;uniform float u_r;uniform vec3 u_m;",
+    "varying vec4 v_col;varying float v_r;",
+    "void main(){",
+    "  float cosD=a_p.w*u_c.w+a_p.z*u_c.z;",
+    "  float sinD=a_p.z*u_c.w-a_p.w*u_c.z;",
+    "  float cosc=u_c.x*a_p.x+u_c.y*a_p.y*cosD;",
+    "  v_r=u_r;",
+    "  if(cosc<=u_m.z){v_col=vec4(0.0);gl_PointSize=1.0;gl_Position=vec4(2.0,2.0,2.0,1.0);return;}",
+    "  vec2 s=vec2(u_g.x+u_g.z*a_p.y*sinD,u_g.y-u_g.z*(u_c.y*a_p.x-u_c.x*a_p.y*cosD));",
+    "  gl_Position=vec4(s.x/u_res.x*2.0-1.0,1.0-s.y/u_res.y*2.0,0.0,1.0);",
+    "  gl_PointSize=2.0*u_r+2.0;",
+    "  float a;vec3 c;",
+    "  if(u_m.x<0.5){a=u_m.y*(0.16+0.64*cosc);c=vec3(0.8392,0.8549,0.8863);}",
+    "  else if(a_k>3.5){a=0.92*u_m.y;c=vec3(0.1608,0.5922,1.0);}",
+    "  else{a=0.0675*u_m.y*(a_k+1.0);c=vec3(0.7843,0.8039,0.8431);}",
+    "  v_col=vec4(c*a,a);",
+    "}"
+  ].join("\n");
+  var PT_FS = [
+    "precision mediump float;",
+    "varying vec4 v_col;varying float v_r;",
+    "void main(){",
+    "  vec2 d=gl_PointCoord*2.0-1.0;",
+    "  gl_FragColor=v_col*clamp(v_r+0.5-length(d)*(v_r+1.0),0.0,1.0);",
+    "}"
+  ].join("\n");
 
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, W, H);
+  var gl = null, ctx2 = null, glBg = null, glPt = null, bufQ = null, bufG = null, bufD = null, maxPt = 64;
 
-    var big = Math.max(W, H);
-    /* atmosfera e corpo del globo */
+  function program(vs, fs, attrs) {
+    function sh(type, src) {
+      var o = gl.createShader(type);
+      gl.shaderSource(o, src); gl.compileShader(o);
+      if (!gl.getShaderParameter(o, gl.COMPILE_STATUS) && !gl.isContextLost()) throw new Error(gl.getShaderInfoLog(o));
+      return o;
+    }
+    var pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+    attrs.forEach(function (a, q) { gl.bindAttribLocation(pr, q, a); });
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS) && !gl.isContextLost()) throw new Error(gl.getProgramInfoLog(pr));
+    var u = {}, cnt = gl.getProgramParameter(pr, gl.ACTIVE_UNIFORMS) || 0;
+    for (var q = 0; q < cnt; q++) { var inf = gl.getActiveUniform(pr, q); u[inf.name] = gl.getUniformLocation(pr, inf.name); }
+    return { p: pr, u: u };
+  }
+  function buffer(data) {
+    var b = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, b);
+    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+    return b;
+  }
+  function setupGL() {
+    glBg = program(BG_VS, BG_FS, ["a_xy"]);
+    glPt = program(PT_VS, PT_FS, ["a_p", "a_k"]);
+    bufQ = buffer(new Float32Array([0, 0, 1, 0, 0, 1, 1, 1]));
+    bufG = buffer(GP);
+    bufD = buffer(DP);
+    var rng = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE);
+    maxPt = rng && rng[1] ? rng[1] : 64;
+    gl.disable(gl.DEPTH_TEST);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);   /* colori premoltiplicati */
+  }
+  function drawGL(s) {
+    if (gl.isContextLost()) return;
+    var big = Math.max(W, H), u;
+    var glow = S.R < big * 2.2, flat = S.R >= big * 6;
+    gl.viewport(0, 0, W, H);
+    /* sfondo: nero (o grigio pieno quando il globo riempie lo schermo),
+       poi atmosfera e corpo del globo solo nel quadrato che li contiene */
+    if (flat) gl.clearColor(0.0431, 0.0471, 0.0588, 1); else gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    if (!flat) {
+      var ext = S.R * (glow ? 1.22 : 1) + 2;
+      var x0 = Math.max(0, S.x - ext), x1 = Math.min(W, S.x + ext);
+      var y0 = Math.max(0, S.y - ext), y1 = Math.min(H, S.y + ext);
+      if (x1 > x0 && y1 > y0) {
+        gl.disable(gl.BLEND);
+        gl.useProgram(glBg.p); u = glBg.u;
+        gl.bindBuffer(gl.ARRAY_BUFFER, bufQ);
+        gl.enableVertexAttribArray(0);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        gl.disableVertexAttribArray(1);
+        gl.uniform4f(u.u_box, x0 / W * 2 - 1, 1 - y0 / H * 2, x1 / W * 2 - 1, 1 - y1 / H * 2);
+        gl.uniform2f(u.u_res, W, H);
+        gl.uniform3f(u.u_g, S.x, S.y, S.R);
+        gl.uniform1f(u.u_glow, glow ? 1 : 0);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+    }
+    /* punti */
+    gl.enable(gl.BLEND);
+    gl.useProgram(glPt.p); u = glPt.u;
+    gl.uniform4f(u.u_c, S.sp0, S.cp0, S.sl0, S.cl0);
+    gl.uniform3f(u.u_g, S.x, S.y, S.R);
+    gl.uniform2f(u.u_res, W, H);
+    var lim = Math.max(0.5, (maxPt - 2) / 2);
+    /* i puntini più piccoli erano quadrati: stesso "peso" visivo con cerchi di area pari */
+    var dot = function (r) { return Math.min(lim, r < 1.6 ? r * 1.128 : r); };
+    var gA = 1 - 0.9 * s.t;
+    if (gA > 0.01) {
+      gl.uniform1f(u.u_r, dot(clamp(S.R * 0.0043, 0.75 * DPR, 2.3 * DPR)));
+      gl.uniform3f(u.u_m, 0, gA, 0.02);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bufG);
+      gl.vertexAttribPointer(0, 4, gl.FLOAT, false, 16, 0);
+      gl.disableVertexAttribArray(1);
+      gl.vertexAttrib1f(1, 0);
+      gl.drawArrays(gl.POINTS, 0, gN);
+    }
+    if (s.t > 0.01) {
+      gl.uniform1f(u.u_r, dot(clamp(S.R * 0.0024 * 0.34, 0.6 * DPR, 3.4 * DPR)));
+      gl.uniform3f(u.u_m, 1, s.t, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bufD);
+      gl.vertexAttribPointer(0, 4, gl.FLOAT, false, 20, 0);
+      gl.enableVertexAttribArray(1);
+      gl.vertexAttribPointer(1, 1, gl.FLOAT, false, 20, 16);
+      gl.drawArrays(gl.POINTS, 0, dN);
+    }
+  }
+
+  /* ---------- riserva: canvas 2D (dispositivi senza WebGL) ---------- */
+  var tmp = [0, 0, 0], BUCKETS = 6, paths = [];
+  function paint(arr, r, color) {
+    if (!arr.length) return;
+    ctx2.fillStyle = color;
+    var q;
+    if (r < 2.5) { var w = r * 2; for (q = 0; q < arr.length; q += 2) ctx2.fillRect(arr[q] - r, arr[q + 1] - r, w, w); return; }
+    ctx2.beginPath();
+    for (q = 0; q < arr.length; q += 2) { ctx2.moveTo(arr[q] + r, arr[q + 1]); ctx2.arc(arr[q], arr[q + 1], r, 0, 6.2832); }
+    ctx2.fill();
+  }
+  function draw2D(s) {
+    var R = S.R, cx = S.x, cy = S.y, big = Math.max(W, H), m = 8 * DPR, q, bI;
+    ctx2.setTransform(1, 0, 0, 1, 0, 0);
+    ctx2.fillStyle = "#000";
+    ctx2.fillRect(0, 0, W, H);
     if (R < big * 2.2) {
-      var glow = ctx.createRadialGradient(cx, cy, R * 0.92, cx, cy, R * 1.22);
+      var glow = ctx2.createRadialGradient(cx, cy, R * 0.92, cx, cy, R * 1.22);
       glow.addColorStop(0, "rgba(41,151,255,0.20)");
       glow.addColorStop(1, "rgba(41,151,255,0)");
-      ctx.fillStyle = glow;
-      ctx.beginPath(); ctx.arc(cx, cy, R * 1.22, 0, 6.2832); ctx.fill();
+      ctx2.fillStyle = glow;
+      ctx2.beginPath(); ctx2.arc(cx, cy, R * 1.22, 0, 6.2832); ctx2.fill();
     }
     if (R < big * 6) {
-      var body = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.45, R * 0.05, cx, cy, R);
+      var body = ctx2.createRadialGradient(cx - R * 0.35, cy - R * 0.45, R * 0.05, cx, cy, R);
       body.addColorStop(0, "#1b1f27");
       body.addColorStop(1, "#07080a");
-      ctx.fillStyle = body;
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.fill();
+      ctx2.fillStyle = body;
+      ctx2.beginPath(); ctx2.arc(cx, cy, R, 0, 6.2832); ctx2.fill();
     } else {
-      ctx.fillStyle = "#0b0c0f"; ctx.fillRect(0, 0, W, H);
+      ctx2.fillStyle = "#0b0c0f"; ctx2.fillRect(0, 0, W, H);
     }
-
-    var m = 8 * DPR, i, bI;
-    function paint(arr, r, color) {
-      if (!arr.length) return;
-      ctx.fillStyle = color;
-      var q;
-      if (r < 1.6) { var w = r * 2; for (q = 0; q < arr.length; q += 2) ctx.fillRect(arr[q] - r, arr[q + 1] - r, w, w); return; }
-      ctx.beginPath();
-      for (q = 0; q < arr.length; q += 2) { ctx.moveTo(arr[q] + r, arr[q + 1]); ctx.arc(arr[q], arr[q + 1], r, 0, 6.2832); }
-      ctx.fill();
-    }
-    /* punti globali */
     var gA = 1 - 0.9 * s.t;
     if (gA > 0.01) {
       var rg = clamp(R * 0.0043, 0.75 * DPR, 2.3 * DPR);
       for (bI = 0; bI < BUCKETS; bI++) { paths[bI] = paths[bI] || []; paths[bI].length = 0; }
-      for (i = 0; i < gSP.length; i++) {
-        project(gSP[i], gCP[i], gSL[i], gCL[i], S, tmp);
+      for (q = 0; q < gN; q++) {
+        project(GP[q * 4], GP[q * 4 + 1], GP[q * 4 + 2], GP[q * 4 + 3], tmp);
         if (tmp[2] <= 0.02) continue;
-        var px = tmp[0], py = tmp[1];
-        if (px < -m || py < -m || px > W + m || py > H + m) continue;
-        bI = Math.min(BUCKETS - 1, (tmp[2] * BUCKETS) | 0);
-        paths[bI].push(px, py);
+        if (tmp[0] < -m || tmp[1] < -m || tmp[0] > W + m || tmp[1] > H + m) continue;
+        paths[Math.min(BUCKETS - 1, (tmp[2] * BUCKETS) | 0)].push(tmp[0], tmp[1]);
       }
-      for (bI = 0; bI < BUCKETS; bI++) {
-        var al = gA * (0.16 + 0.7 * ((bI + 0.5) / BUCKETS));
-        paint(paths[bI], rg, "rgba(214,218,226," + al.toFixed(3) + ")");
-      }
+      for (bI = 0; bI < BUCKETS; bI++) paint(paths[bI], rg, "rgba(214,218,226," + (gA * (0.16 + 0.7 * ((bI + 0.5) / BUCKETS))).toFixed(3) + ")");
     }
-
-    /* punti di dettaglio (Italia evidenziata, bordi della regione sfumati) */
     if (s.t > 0.01) {
-      var rd = clamp(R * 0.0024 * 0.34, 0.6 * DPR, 3.4 * DPR);
-      var det = [[], [], [], [], []];
-      for (i = 0; i < dSP.length; i++) {
-        project(dSP[i], dCP[i], dSL[i], dCL[i], S, tmp);
+      var rd = clamp(R * 0.0024 * 0.34, 0.6 * DPR, 3.4 * DPR), det = [[], [], [], [], []];
+      for (q = 0; q < dN; q++) {
+        project(DP[q * 5], DP[q * 5 + 1], DP[q * 5 + 2], DP[q * 5 + 3], tmp);
         if (tmp[2] <= 0) continue;
         if (tmp[0] < -m || tmp[1] < -m || tmp[0] > W + m || tmp[1] > H + m) continue;
-        det[dIT[i]].push(tmp[0], tmp[1]);
+        det[DP[q * 5 + 4]].push(tmp[0], tmp[1]);
       }
       for (bI = 0; bI < 4; bI++) paint(det[bI], rd, "rgba(200,205,215," + (0.27 * s.t * (bI + 1) / 4).toFixed(3) + ")");
       paint(det[4], rd, "rgba(41,151,255," + (0.92 * s.t).toFixed(3) + ")");
     }
+  }
+
+  /* ---------- livello 2D sovrapposto: archi, città, etichette ----------
+     Si ridisegna solo quando la scena cambia. L'impulso sulla città attiva
+     è un elemento con animazione CSS: gira sul compositore, anche a
+     pagina ferma, senza lavoro per il processore. */
+  var cpt = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], overlayEmpty = false;
+  var pulseEl = document.createElement("span"), pulseO = -1, pulseXY = "";
+  pulseEl.className = "where__pulse";
+  viz.appendChild(pulseEl);
+  function placePulse(o, a) {
+    var op = o && live ? r3(a) : 0;
+    if (op !== pulseO) { pulseO = op; pulseEl.style.opacity = op; }
+    if (!op) return;
+    var xy = "translate3d(" + (o[0] / DPR).toFixed(1) + "px," + (o[1] / DPR).toFixed(1) + "px,0)";
+    if (xy !== pulseXY) { pulseXY = xy; pulseEl.style.transform = xy; }
+  }
+  function drawOverlay(s) {
+    var c = octx;
+    if (s.cityA <= 0) {
+      if (!overlayEmpty) { c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, W, H); overlayEmpty = true; }
+      placePulse(null, 0);
+      return;
+    }
+    overlayEmpty = false;
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.clearRect(0, 0, W, H);
+    for (var q = 0; q < CITIES.length; q++) project(CITIES[q].sp, CITIES[q].cp, CITIES[q].sl, CITIES[q].cl, cpt[q]);
 
     /* archi tra le città */
-    var pts = CITIES.map(function (c) {
-      var o = [0, 0, 0];
-      project(Math.sin(c.lat * D2R), Math.cos(c.lat * D2R), Math.sin(c.lon * D2R), Math.cos(c.lon * D2R), S, o);
-      return o;
-    });
-    ctx.lineCap = "round";
-    ARCS.forEach(function (ab, k) {
-      var pr = s.arcs[k]; if (pr <= 0 || s.cityA <= 0) return;
-      var A = pts[ab[0]], B = pts[ab[1]];
+    c.lineCap = "round";
+    c.lineWidth = 2.2 * DPR;
+    c.globalAlpha = s.cityA;
+    ARCS.forEach(function (ab, a) {
+      var pr = s.arcs[a]; if (pr <= 0) return;
+      var A = cpt[ab[0]], B = cpt[ab[1]];
       if (A[2] <= 0 || B[2] <= 0) return;
       var mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2;
       var dx = B[0] - A[0], dy = B[1] - A[1], len = Math.sqrt(dx * dx + dy * dy) || 1;
       var nx = -dy / len, ny = dx / len; if (ny > 0) { nx = -nx; ny = -ny; }
       var bx = mx + nx * len * 0.28, by = my + ny * len * 0.28;
       var steps = 48, end = Math.max(1, Math.round(steps * pr));
-      var grad = ctx.createLinearGradient(A[0], A[1], B[0], B[1]);
+      var grad = c.createLinearGradient(A[0], A[1], B[0], B[1]);
       grad.addColorStop(0, "rgba(41,151,255,0.95)");
       grad.addColorStop(1, "rgba(167,170,255,0.95)");
-      ctx.strokeStyle = grad; ctx.lineWidth = 2.2 * DPR;
-      ctx.beginPath();
+      c.strokeStyle = grad;
+      c.beginPath();
       for (var u = 0; u <= end; u++) {
         var tt = u / steps, it1 = 1 - tt;
         var qx = it1 * it1 * A[0] + 2 * it1 * tt * bx + tt * tt * B[0];
         var qy = it1 * it1 * A[1] + 2 * it1 * tt * by + tt * tt * B[1];
-        if (u === 0) ctx.moveTo(qx, qy); else ctx.lineTo(qx, qy);
+        if (u === 0) c.moveTo(qx, qy); else c.lineTo(qx, qy);
       }
-      ctx.globalAlpha = s.cityA;
-      ctx.stroke();
-      ctx.globalAlpha = 1;
+      c.stroke();
     });
+    c.globalAlpha = 1;
 
     /* città */
-    if (s.cityA > 0) {
-      ctx.font = "600 " + (13 * DPR) + "px " + FONT;
-      ctx.textBaseline = "middle";
-      pts.forEach(function (o, k) {
-        if (o[2] <= 0) return;
-        var on = s.active === -1 || s.active === k;
-        var a = s.cityA * (on ? 1 : 0.55);
-        var gr = (on ? 26 : 16) * DPR;
-        var g = ctx.createRadialGradient(o[0], o[1], 0, o[0], o[1], gr);
-        g.addColorStop(0, "rgba(41,151,255," + (0.55 * a).toFixed(3) + ")");
-        g.addColorStop(1, "rgba(41,151,255,0)");
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(o[0], o[1], gr, 0, 6.2832); ctx.fill();
-        if (live && s.active === k) {
-          var ph = (now % 2200) / 2200;
-          ctx.strokeStyle = "rgba(255,255,255," + (0.5 * (1 - ph) * a).toFixed(3) + ")";
-          ctx.lineWidth = 1.5 * DPR;
-          ctx.beginPath(); ctx.arc(o[0], o[1], (6 + 18 * ph) * DPR, 0, 6.2832); ctx.stroke();
-        }
-        ctx.fillStyle = "rgba(255,255,255," + a.toFixed(3) + ")";
-        ctx.beginPath(); ctx.arc(o[0], o[1], (on ? 4.5 : 3.5) * DPR, 0, 6.2832); ctx.fill();
-        ctx.fillStyle = "rgba(245,245,247," + a.toFixed(3) + ")";
-        var lx = o[0] + 12 * DPR, ly = o[1] - 12 * DPR;
-        if (k === 2) { lx = o[0] + 12 * DPR; ly = o[1] + 14 * DPR; }
-        ctx.fillText(labels[k] || "", lx, ly);
-      });
-    }
-    return s;
+    c.font = "600 " + (13 * DPR) + "px " + FONT;
+    c.textBaseline = "middle";
+    cpt.forEach(function (o, q) {
+      if (o[2] <= 0) return;
+      var on = s.active === -1 || s.active === q;
+      var a = s.cityA * (on ? 1 : 0.55);
+      var gr = (on ? 26 : 16) * DPR;
+      var g = c.createRadialGradient(o[0], o[1], 0, o[0], o[1], gr);
+      g.addColorStop(0, "rgba(41,151,255," + (0.55 * a).toFixed(3) + ")");
+      g.addColorStop(1, "rgba(41,151,255,0)");
+      c.fillStyle = g; c.beginPath(); c.arc(o[0], o[1], gr, 0, 6.2832); c.fill();
+      c.fillStyle = "rgba(255,255,255," + a.toFixed(3) + ")";
+      c.beginPath(); c.arc(o[0], o[1], (on ? 4.5 : 3.5) * DPR, 0, 6.2832); c.fill();
+      c.fillStyle = "rgba(245,245,247," + a.toFixed(3) + ")";
+      var lx = o[0] + 12 * DPR, ly = o[1] - 12 * DPR;
+      if (q === 2) { ly = o[1] + 14 * DPR; }
+      c.fillText(labels[q] || "", lx, ly);
+    });
+    var act = s.active >= 0 ? cpt[s.active] : null;
+    placePulse(act && act[2] > 0 ? act : null, s.cityA);
   }
 
-  /* ---------- UI collegata ---------- */
-  var lastActive = -2, lastUi = -1;
+  /* ---------- UI collegata: si scrive solo ciò che cambia ---------- */
+  var lastActive = -2, lastUi = null, lastHead = -1, lastUiO = -1, lastHint = -1;
+  function r3(v) { return Math.round(v * 1000) / 1000; }
   function syncUI(s) {
     if (!live) return;
-    sec.style.setProperty("--head-o", s.head.toFixed(3));
-    sec.style.setProperty("--ui-o", s.ui.toFixed(3));
-    sec.style.setProperty("--hint-o", s.hint.toFixed(3));
+    var h = r3(s.head), u = r3(s.ui), t = r3(s.hint);
+    if (headEl && h !== lastHead) { lastHead = h; headEl.style.setProperty("--head-o", h); }
+    if (uiEl && u !== lastUiO) { lastUiO = u; uiEl.style.setProperty("--ui-o", u); }
+    if (hintEl && t !== lastHint) { lastHint = t; hintEl.style.setProperty("--hint-o", t); }
     var uiOn = s.ui > 0.05;
     if (uiOn !== lastUi) { sec.classList.toggle("ui-on", uiOn); lastUi = uiOn; }
     if (s.active !== lastActive) {
       lastActive = s.active;
       var a = s.active < 0 ? 0 : s.active;
-      cards.forEach(function (c, k) { c.classList.toggle("is-active", k === a); });
-      chips.forEach(function (b, k) { b.setAttribute("aria-pressed", k === a && s.active >= 0 ? "true" : "false"); });
+      cards.forEach(function (el, q) { el.classList.toggle("is-active", q === a); });
+      chips.forEach(function (b, q) { b.setAttribute("aria-pressed", q === a && s.active >= 0 ? "true" : "false"); });
     }
   }
 
-  /* ---------- ciclo ---------- */
-  var visible = false, raf = 0, lastT = 0, lastP = -1;
-  function frame(now) {
-    raf = 0;
-    if (!visible) return;
-    var dt = lastT ? Math.min(64, now - lastT) : 16; lastT = now;
-    var drifting = live && P <= 0.001;
-    if (drifting) { drift = (drift + dt * 0.0035) % 360; dirty = true; }
-    var pulsing = live && P >= 0.4;
-    if (dirty || pulsing || P !== lastP) {
-      var s = draw(now);
-      syncUI(s);
-      dirty = false; lastP = P;
+  /* ---------- avvio del disegno ---------- */
+  var GLOPT = { alpha: false, antialias: false, depth: false, stencil: false, premultipliedAlpha: true, preserveDrawingBuffer: false };
+  try { gl = canvas.getContext("webgl", GLOPT) || canvas.getContext("experimental-webgl", GLOPT); } catch (e) { gl = null; }
+  if (gl) {
+    try { setupGL(); }
+    catch (e) {
+      gl = null;
+      /* un canvas con contesto WebGL non accetta il 2D: se ne usa uno nuovo */
+      var fresh = canvas.cloneNode(false);
+      canvas.parentNode.replaceChild(fresh, canvas);
+      canvas = fresh;
     }
-    if (live) raf = requestAnimationFrame(frame);
   }
-  function kick() { if (!raf && visible) raf = requestAnimationFrame(frame); }
+  if (!gl) ctx2 = canvas.getContext("2d");
+  if (!gl && !ctx2) return;
+  if (gl) {
+    canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); }, false);
+    canvas.addEventListener("webglcontextrestored", function () {
+      try { setupGL(); } catch (e) {}
+      dirtyG = dirtyO = true; schedule();
+    }, false);
+  }
+
+  /* ---------- ciclo: un solo fotogramma per scroll, sincronizzato col resto della pagina ---------- */
+  var visible = false, lastT = 0, lastP = -1, raf = 0;
+  function frame(now) {
+    if (!visible) { lastT = 0; return false; }
+    var dt = lastT ? now - lastT : 16;
+    if (!(dt > 0 && dt < 100)) dt = 16;
+    lastT = now;
+    var anim = false, s = null;
+    /* rotazione lenta prima dello scroll: solo su GPU, dove costa poco */
+    if (live && gl && P <= 0.001) { drift = (drift + dt * 0.0035) % 360; dirtyG = true; anim = true; }
+    if (P !== lastP) { lastP = P; dirtyG = true; }
+    if (dirtyG) {
+      s = state(P); view(s);
+      if (gl) drawGL(s); else draw2D(s);
+      dirtyG = false; dirtyO = true;
+    }
+    if (dirtyO) {
+      if (!s) { s = state(P); view(s); }
+      drawOverlay(s);
+      syncUI(s);
+      dirtyO = false;
+    }
+    if (!anim) lastT = 0;
+    return anim;
+  }
+  function schedule() {
+    if (AC && AC.kick) { AC.kick(); return; }
+    if (!raf) raf = requestAnimationFrame(function (now) { raf = 0; if (frame(now)) schedule(); });
+  }
+  if (AC && AC.loop) AC.loop(frame);
 
   resize();
-  if ("ResizeObserver" in window) new ResizeObserver(function () { resize(); kick(); }).observe(canvas);
-  else addEventListener("resize", function () { resize(); kick(); });
+  if ("ResizeObserver" in window) new ResizeObserver(function () { resize(); schedule(); }).observe(viz);
+  else addEventListener("resize", function () { resize(); schedule(); });
 
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (es) {
-      visible = es[0].isIntersecting;
-      if (visible) { lastT = 0; dirty = true; kick(); }
-    }, { rootMargin: "10% 0px" }).observe(live ? scroller : canvas);
-  } else { visible = true; kick(); }
+      visible = es[es.length - 1].isIntersecting;
+      sec.classList.toggle("is-vis", visible); /* animazioni CSS del capitolo solo quando si vede */
+      if (visible) { dirtyG = dirtyO = true; schedule(); }
+    }, { rootMargin: "10% 0px" }).observe(live ? scroller : viz);
+  } else { visible = true; schedule(); }
 
   if (live) {
-    AC.scene(scroller, "pin", function (p) { P = p; kick(); }, false);
+    /* il progresso arriva nel fotogramma comune, prima del disegno (AC.loop) */
+    AC.scene(scroller, "pin", function (p) { P = p; if (!AC.loop) schedule(); }, false);
     /* pulsanti città: portano lo scroll al capitolo giusto */
     var TARGET = [0.53, 0.73, 0.93];
-    function goTo(k) {
+    var goTo = function (q) {
       var top = scroller.getBoundingClientRect().top + window.scrollY;
       var span = scroller.offsetHeight - window.innerHeight;
-      window.scrollTo({ top: Math.round(top + TARGET[k] * span), behavior: "smooth" });
-    }
-    chips.forEach(function (b, k) { b.addEventListener("click", function () { goTo(k); }); });
-    sec.querySelector(".where__ui").addEventListener("focusin", function () { if (P < 0.44) goTo(0); });
+      window.scrollTo({ top: Math.round(top + TARGET[q] * span), behavior: "smooth" });
+    };
+    chips.forEach(function (b, q) { b.addEventListener("click", function () { goTo(q); }); });
+    uiEl.addEventListener("focusin", function () { if (P < 0.44) goTo(0); });
   } else {
     chips.forEach(function (b) { b.hidden = true; });
     var sg = sec.querySelector(".segmented"); if (sg) sg.hidden = true;
   }
-  if (AC) AC.on("lang", function () { labels = names(); dirty = true; kick(); });
+  if (AC) AC.on("lang", function () { labels = names(); dirtyO = true; schedule(); });
 })();

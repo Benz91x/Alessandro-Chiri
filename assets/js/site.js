@@ -18,6 +18,8 @@
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
   var mqReduce = matchMedia("(prefers-reduced-motion: reduce)");
   var reduced = mqReduce.matches;
+  /* animazioni guidate dallo scroll calcolate dal browser (vedi <head> e site.css) */
+  var sda = root.classList.contains("sda");
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   /* ---------- Testi inglesi (l'italiano è nell'HTML) ---------- */
@@ -179,11 +181,15 @@
   function splitWords() {
     $$("[data-words]").forEach(function (el) {
       var text = el.textContent.replace(/\s+/g, " ").trim();
-      var words = text.split(" ");
+      var words = text.split(" "), tot = words.length + 7;
       el.innerHTML = '<span class="sr-only"></span><span aria-hidden="true"></span>';
       el.firstChild.textContent = text;
       el.lastChild.innerHTML = words.map(function (w, i) {
-        return '<span class="w" style="--i:' + i + '">' + esc(w) + "</span>";
+        /* con le animazioni guidate dallo scroll ogni parola ha il suo tratto
+           (stessa curva della formula CSS usata con --p) */
+        var range = sda ? ";animation-range:contain " + ((i + 1.66) / tot * 100).toFixed(2) +
+          "% contain " + ((i + 2.5) / tot * 100).toFixed(2) + "%" : "";
+        return '<span class="w" style="--i:' + i + range + '">' + esc(w) + "</span>";
       }).join(" ");
       el.style.setProperty("--n", words.length);
     });
@@ -237,8 +243,17 @@
     if (document.startViewTransition && !reduced) document.startViewTransition(go); else go();
   }
 
-  /* ---------- Scene guidate dallo scroll ---------- */
-  var scenes = [], ticking = false;
+  /* ---------- Scene guidate dallo scroll ----------
+     Un solo requestAnimationFrame per fotogramma coordina tutto ciò che
+     segue lo scroll: barra di navigazione, scene e globo, nell'ordine
+     giusto e senza doppioni. Le posizioni delle sezioni si misurano solo
+     quando il layout cambia (dimensioni, font, lingua): durante lo scroll
+     si legge soltanto scrollY, quindi nessun ricalcolo di layout forzato,
+     e si scrive solo ciò che è cambiato. Dove il browser supporta le
+     animazioni guidate dallo scroll (classe "sda") ritratto, testo del
+     profilo e linea del percorso li calcola il CSS sul compositore. */
+  var scenes = [], loops = [], darks = [], navEl = null, stuck = null, navDark = null;
+  var vh = window.innerHeight, docH = 0, geoDirty = true, ticking = false;
   var sceneIO = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       for (var i = 0; i < scenes.length; i++) if (scenes[i].el === e.target) scenes[i].on = e.isIntersecting;
@@ -246,33 +261,62 @@
     requestTick();
   }, { rootMargin: "25% 0px 25% 0px" }) : null;
 
-  function measure(s) {
-    var r = s.el.getBoundingClientRect(), vh = window.innerHeight, p;
-    if (s.mode === "pin") p = -r.top / Math.max(1, r.height - vh);
-    else if (s.mode === "enter") p = (vh - r.top) / (vh * 0.85);
-    else if (s.mode === "center") p = (vh * 0.55 - r.top) / Math.max(1, r.height);
-    else p = (vh - r.top) / (vh + r.height);
-    p = clamp(p, 0, 1);
-    if (Math.abs(p - s.p) > 0.0004 || s.p < 0) {
-      s.p = p;
-      if (s.css) s.el.style.setProperty("--p", p.toFixed(4));
-      if (s.cb) s.cb(p);
-    }
+  function scrollTop() { return window.scrollY || window.pageYOffset || 0; }
+  function measureAll() {
+    var sy = scrollTop(), i, r, s;
+    vh = window.innerHeight;
+    for (i = 0; i < scenes.length; i++) { s = scenes[i]; r = s.el.getBoundingClientRect(); s.top = r.top + sy; s.h = r.height; }
+    for (i = 0; i < darks.length; i++) { s = darks[i]; r = s.el.getBoundingClientRect(); s.top = r.top + sy; s.bottom = r.bottom + sy; }
+    docH = root.scrollHeight;
+    geoDirty = false;
   }
-  function tick() {
+  function progress(s, y) {
+    var top = s.top - y, p;
+    if (s.mode === "pin") p = -top / Math.max(1, s.h - vh);
+    else if (s.mode === "enter") p = (vh - top) / (vh * 0.85);
+    else if (s.mode === "center") p = (vh * 0.55 - top) / Math.max(1, s.h);
+    else p = (vh - top) / (vh + s.h);
+    return clamp(p, 0, 1);
+  }
+  function tick(now) {
     ticking = false;
-    for (var i = 0; i < scenes.length; i++) if (scenes[i].on || !sceneIO) measure(scenes[i]);
+    if (geoDirty) measureAll();
+    var y = scrollTop(), i, s, p, again = false;
+    if (navEl) {
+      var st = y > 8;
+      if (st !== stuck) { stuck = st; navEl.classList.toggle("is-stuck", st); }
+      /* il vetro si adatta al contenuto sotto: scuro sopra i capitoli scuri */
+      var yy = y + 24, d = false;
+      for (i = 0; i < darks.length; i++) if (darks[i].top <= yy && darks[i].bottom >= yy) { d = true; break; }
+      if (d !== navDark) { navDark = d; navEl.classList.toggle("nav--dark", d); }
+    }
+    for (i = 0; i < scenes.length; i++) {
+      s = scenes[i];
+      if (sceneIO && !s.on) continue;
+      p = progress(s, y);
+      if (p !== s.p && (s.p < 0 || p === 0 || p === 1 || Math.abs(p - s.p) > 0.0002)) {
+        s.p = p;
+        if (s.css) s.el.style.setProperty("--p", p.toFixed(4));
+        if (s.cb) s.cb(p);
+      }
+    }
+    for (i = 0; i < loops.length; i++) if (loops[i](now)) again = true;
+    if (again) requestTick();
   }
   function requestTick() { if (!ticking) { ticking = true; requestAnimationFrame(tick); } }
+  function relayout() { geoDirty = true; requestTick(); }
   function addScene(el, mode, cb, css) {
-    var s = { el: el, mode: mode, cb: cb, css: css !== false, p: -1, on: true };
+    var s = { el: el, mode: mode, cb: cb, css: css !== false, p: -1, on: true, top: 0, h: 0 };
     scenes.push(s);
     if (sceneIO) sceneIO.observe(el);
-    measure(s);
+    relayout();
     return s;
   }
   addEventListener("scroll", requestTick, { passive: true });
-  addEventListener("resize", function () { scenes.forEach(function (s) { s.p = -1; }); requestTick(); }, { passive: true });
+  addEventListener("resize", relayout, { passive: true });
+  addEventListener("load", relayout);
+  if ("ResizeObserver" in window) new ResizeObserver(relayout).observe(document.body);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 
   /* ---------- Avvio ---------- */
   function init() {
@@ -286,14 +330,14 @@
     initNav();
     initMenu();
 
-    if (!reduced) {
+    /* senza animazioni guidate dallo scroll nel browser, le scene le muove il JS */
+    if (!reduced && !sda) {
       $$("[data-scene]").forEach(function (el) {
         if (el.classList.contains("where__scroller")) return; /* gestita dal globo */
         addScene(el, el.getAttribute("data-scene"));
       });
-    } else {
-      var jl = $(".journey__list"); if (jl) jl.style.setProperty("--p", 1);
     }
+    tick(performance.now()); /* valori iniziali prima del primo disegno */
 
     initReveal();
     initCounters();
@@ -307,19 +351,10 @@
 
   /* ---------- Nav: bordo quando incollata + sezione corrente ---------- */
   function initNav() {
-    var nav = $("#nav"), darks = $$(".section--dark"), dark = false;
-    var onScroll = function () {
-      nav.classList.toggle("is-stuck", window.scrollY > 8);
-      /* il vetro si adatta al contenuto sotto: scuro sopra i capitoli scuri */
-      var y = 24, d = false;
-      for (var i = 0; i < darks.length; i++) {
-        var r = darks[i].getBoundingClientRect();
-        if (r.top <= y && r.bottom >= y) { d = true; break; }
-      }
-      if (d !== dark) { dark = d; nav.classList.toggle("nav--dark", d); }
-    };
-    addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    /* bordo e vetro scuro si aggiornano nel fotogramma comune (tick) */
+    navEl = $("#nav");
+    darks = $$(".section--dark").map(function (el) { return { el: el, top: 0, bottom: 0 }; });
+    relayout();
 
     if (!("IntersectionObserver" in window)) return;
     var map = { top: null, profilo: "profilo", perche: "profilo", percorso: "percorso", progetti: "progetti",
@@ -386,10 +421,10 @@
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
-        var el = e.target, to = +el.getAttribute("data-count"), t0 = performance.now(), dur = 1400;
+        var el = e.target, to = +el.getAttribute("data-count"), t0 = performance.now(), dur = 1400, shown = 0;
         (function step(now) {
-          var k = clamp((now - t0) / dur, 0, 1), eased = 1 - Math.pow(1 - k, 3);
-          el.textContent = String(Math.round(to * eased));
+          var k = clamp((now - t0) / dur, 0, 1), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+          if (v !== shown) { shown = v; el.textContent = String(v); } /* testo toccato solo quando cambia la cifra */
           if (k < 1) requestAnimationFrame(step);
         })(t0);
       });
@@ -457,8 +492,8 @@
 
     var hit = {};
     addEventListener("scroll", function () {
-      var max = document.documentElement.scrollHeight - innerHeight; if (max <= 0) return;
-      var pct = scrollY / max * 100;
+      var max = docH - vh; if (max <= 0) return; /* misure già in cache: nessun layout forzato */
+      var pct = scrollTop() / max * 100;
       [25, 50, 75, 100].forEach(function (m) { if (!hit[m] && pct >= m - 0.5) { hit[m] = true; ev("scroll-" + m, "Scroll " + m + "%"); } });
     }, { passive: true });
     [[15, "15s"], [30, "30s"], [60, "1min"], [180, "3min"]].forEach(function (x) {
@@ -500,7 +535,10 @@
 
   /* ---------- API minima per il globo ---------- */
   window.AC = {
-    scene: addScene,
+    scene: addScene,                                   /* progresso di una sezione */
+    loop: function (f) { loops.push(f); requestTick(); }, /* disegno nel fotogramma comune; true = continua */
+    kick: requestTick,
+    sda: sda,
     reduced: function () { return reduced; },
     lang: function () { return lang; },
     on: function (n, f) { if (listeners[n]) listeners[n].push(f); }

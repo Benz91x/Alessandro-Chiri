@@ -51,8 +51,15 @@ conforme GDPR senza banner). Traccia già questi eventi:
 - `assets/css/site.css` — design system: colori, tipografia, layout, tema chiaro/scuro.
 - `assets/js/site.js` — lingua IT/EN (i **testi inglesi** sono nel dizionario `EN`
   in cima al file), tema, menu, animazioni allo scroll, galleria, analytics.
-- `assets/js/globe.js` — il globo di "Dove ho lavorato" (dati delle terre inclusi).
+- Animazioni allo scroll: dove il browser le supporta (Chrome, Edge, Safari 26+)
+  ritratto, testo del profilo e linea del percorso sono animazioni CSS guidate
+  dallo scroll, eseguite dal compositore (fluide a 60/120 Hz); negli altri
+  browser le muove `site.js`, senza ricalcoli di layout durante lo scroll.
+- `assets/js/globe.js` — il globo di "Dove ho lavorato" (dati delle terre inclusi),
+  disegnato dalla GPU con WebGL; senza WebGL usa il canvas 2D.
   Città e clienti visibili sono nelle schede in `index.html`, sezione `#dove`.
+- Dopo una modifica a CSS o JS, aggiorna il parametro `?v=` nei link di `index.html`
+  (es. `site.css?v=20260926`), così i browser scaricano subito la versione nuova.
 - `assets/img/` ritratti e immagine per le anteprime social · `assets/icons/` icone ·
   `assets/fonts/` Inter (licenza OFL), usato solo dove il font di sistema Apple non c'è.
 - **Per cambiare un testo**: modifica l'italiano in `index.html` e, se serve, la
